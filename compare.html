@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare | DaClaw.ai</title>
+    
+    <!-- Fonts: Outfit for Display, Inter for Body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            bg: '#FDFBF7',
+                            text: '#2D3748',
+                            primary: '#F26D5B',
+                            primaryHover: '#D95846',
+                            card: '#FFFFFF',
+                            accent: '#84A98C',
+                            muted: '#718096'
+                        }
+                    },
+                    boxShadow: {
+                        'pillowy': '0 10px 40px -10px rgba(0,0,0,0.08)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: theme('colors.brand.bg'); color: theme('colors.brand.text'); }
+        h1, h2, h3, h4, h5, h6 { font-family: theme('fontFamily.display'); }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-primary selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center">
+        <a href="/" class="flex items-center gap-2">
+            <div class="w-10 h-10 bg-brand-primary rounded-xl flex items-center justify-center text-white shadow-md transform -rotate-12">
+                <i data-lucide="bot" class="w-6 h-6"></i>
+            </div>
+            <span class="text-2xl font-display font-bold tracking-tight text-brand-text">DaClaw.ai</span>
+        </a>
+        <div class="hidden md:flex gap-8 items-center font-medium">
+            <a href="/use-cases.html" class="text-brand-muted hover:text-brand-primary transition-colors">Use Cases</a>
+            <a href="/compare.html" class="text-brand-primary transition-colors">Compare</a>
+            <a href="/#pricing" class="text-brand-muted hover:text-brand-primary transition-colors">Meet the Team</a>
+        </div>
+        <a href="/#pricing" class="hidden md:inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-white transition-all bg-brand-text rounded-full hover:bg-black hover:shadow-lg">
+            Hire Your AI
+        </a>
+    </nav>
+
+    <!-- Header -->
+    <section class="max-w-4xl mx-auto px-6 pt-16 pb-12 text-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 text-brand-text">
+            Three Ways to Run OpenClaw
+        </h1>
+        <p class="text-xl text-brand-muted leading-relaxed">
+            OpenClaw is open source — you can run it anywhere. The question is how much time you want to spend on infrastructure vs. actually getting things done.
+        </p>
+    </section>
+
+    <!-- Options -->
+    <section class="max-w-7xl mx-auto px-6 pb-20">
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white p-8 rounded-3xl shadow-pillowy border border-gray-100">
+                <div class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center text-gray-500 mb-6">
+                    <i data-lucide="laptop" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">Local Install</h3>
+                <p class="text-brand-muted mb-4">Great for trying things out. But your agent stops when your laptop sleeps, can't run scheduled tasks overnight, and you're on your own for updates.</p>
+            </div>
+            
+            <div class="bg-white p-8 rounded-3xl shadow-pillowy border border-gray-100">
+                <div class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center text-gray-500 mb-6">
+                    <i data-lucide="server" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">Self-host on a VPS</h3>
+                <p class="text-brand-muted mb-4">Full control, 24/7 uptime — but you need Linux experience, Docker knowledge, and ongoing time for security patches, SSL certs, and debugging.</p>
+            </div>
+
+            <div class="bg-white p-8 rounded-3xl shadow-pillowy border-2 border-brand-primary relative">
+                <div class="absolute -top-3 left-8 bg-brand-primary text-white px-3 py-1 rounded-full text-xs font-bold uppercase">The Easy Way</div>
+                <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center text-brand-primary mb-6">
+                    <i data-lucide="bot" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">DaClaw Managed</h3>
+                <p class="text-brand-muted mb-4">We handle the infrastructure and pre-train the personality. You get a private OpenClaw assistant that's always on, always updated, and ready to work in 60 seconds.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white py-12 border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2 opacity-50">
+                <i data-lucide="bot" class="w-5 h-5"></i>
+                <span class="font-display font-bold">DaClaw.ai</span>
+            </div>
+            <div class="text-sm text-brand-muted">
+                &copy; 2026 DaClaw.ai. Built with ❤️ and OpenClaw.
+            </div>
+        </div>
+    </footer>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

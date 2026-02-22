@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Use Cases | DaClaw.ai</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            bg: '#FDFBF7', text: '#2D3748', primary: '#F26D5B',
+                            primaryHover: '#D95846', card: '#FFFFFF', accent: '#84A98C',
+                            muted: '#718096'
+                        }
+                    },
+                    boxShadow: { 'pillowy': '0 10px 40px -10px rgba(0,0,0,0.08)' }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: theme('colors.brand.bg'); color: theme('colors.brand.text'); }
+        h1, h2, h3, h4, h5, h6 { font-family: theme('fontFamily.display'); }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-primary selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center">
+        <a href="/" class="flex items-center gap-2">
+            <div class="w-10 h-10 bg-brand-primary rounded-xl flex items-center justify-center text-white shadow-md transform -rotate-12">
+                <i data-lucide="bot" class="w-6 h-6"></i>
+            </div>
+            <span class="text-2xl font-display font-bold tracking-tight text-brand-text">DaClaw.ai</span>
+        </a>
+        <div class="hidden md:flex gap-8 items-center font-medium">
+            <a href="/use-cases.html" class="text-brand-primary transition-colors">Use Cases</a>
+            <a href="/compare.html" class="text-brand-muted hover:text-brand-primary transition-colors">Compare</a>
+            <a href="/#pricing" class="text-brand-muted hover:text-brand-primary transition-colors">Meet the Team</a>
+        </div>
+        <a href="/#pricing" class="hidden md:inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-white transition-all bg-brand-text rounded-full hover:bg-black hover:shadow-lg">
+            Hire Your AI
+        </a>
+    </nav>
+
+    <!-- Header -->
+    <section class="max-w-4xl mx-auto px-6 pt-16 pb-12 text-center">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-50 text-brand-primary shadow-sm border border-brand-primary/10 mb-8 font-medium">
+            <i data-lucide="sparkles" class="w-4 h-4"></i> What People Build
+        </div>
+        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 text-brand-text">
+            What Can DaClaw Do For You?
+        </h1>
+        <p class="text-xl text-brand-muted leading-relaxed">
+            Real use cases running on OpenClaw right now. When you hire DaClaw, these tools run 24/7 without you lifting a finger.
+        </p>
+    </section>
+
+    <!-- Use Cases Grid -->
+    <section class="max-w-7xl mx-auto px-6 pb-24">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Card 1 -->
+            <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                <div class="w-12 h-12 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mb-6">
+                    <i data-lucide="code" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Overnight Coding Agent</h3>
+                <p class="text-brand-muted text-sm leading-relaxed mb-4">
+                    Delegate tasks overnight. Your agent reviews PRs, writes tests, and commits fixes while you sleep.
+                </p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                <div class="w-12 h-12 bg-green-50 text-brand-accent rounded-xl flex items-center justify-center mb-6">
+                    <i data-lucide="mail" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Smart Email Triage</h3>
+                <p class="text-brand-muted text-sm leading-relaxed mb-4">
+                    Checks incoming mail, archives spam, sends polite "no thanks" replies, and flags urgent tasks for you automatically.
+                </p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                <div class="w-12 h-12 bg-purple-50 text-purple-500 rounded-xl flex items-center justify-center mb-6">
+                    <i data-lucide="calendar" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Morning Briefing Rollup</h3>
+                <p class="text-brand-muted text-sm leading-relaxed mb-4">
+                    Wakes you up with a daily summary: your calendar, key emails, weather, and a prioritized to-do list via Telegram.
+                </p>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                <div class="w-12 h-12 bg-orange-50 text-brand-primary rounded-xl flex items-center justify-center mb-6">
+                    <i data-lucide="megaphone" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Social Media Manager</h3>
+                <p class="text-brand-muted text-sm leading-relaxed mb-4">
+                    Drafts posts based on your notes, connects to the Late API, and handles cross-platform posting for you on autopilot.
+                </p>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                <div class="w-12 h-12 bg-yellow-50 text-yellow-600 rounded-xl flex items-center justify-center mb-6">
+                    <i data-lucide="search" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Deep Research Assistant</h3>
+                <p class="text-brand-muted text-sm leading-relaxed mb-4">
+                    Point it at a topic before you log off. Wake up to a formatted markdown document summarizing the web's best resources.
+                </p>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                <div class="w-12 h-12 bg-pink-50 text-pink-500 rounded-xl flex items-center justify-center mb-6">
+                    <i data-lucide="home" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Smart Home Controller</h3>
+                <p class="text-brand-muted text-sm leading-relaxed mb-4">
+                    Connects directly to Home Assistant. "Turn down the lights and lock the doors" works perfectly via text.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white py-12 border-t border-gray-100 mt-12">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2 opacity-50">
+                <i data-lucide="bot" class="w-5 h-5"></i>
+                <span class="font-display font-bold">DaClaw.ai</span>
+            </div>
+            <div class="text-sm text-brand-muted">
+                &copy; 2026 DaClaw.ai. Built with ❤️ and OpenClaw.
+            </div>
+        </div>
+    </footer>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

@@ -72,80 +72,758 @@
             What Can DaClaw Do For You?
         </h1>
         <p class="text-xl text-brand-muted leading-relaxed">
-            Real use cases running on OpenClaw right now. When you hire DaClaw, these tools run 24/7 without you lifting a finger.
+            Real use cases from the OpenClaw community. Every one of these runs on OpenClaw — and with DaClaw, they run 24/7 without you lifting a finger.
         </p>
     </section>
 
-    <!-- Use Cases Grid -->
-    <section class="max-w-7xl mx-auto px-6 pb-24">
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <!-- Card 1 -->
-            <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
-                <div class="w-12 h-12 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mb-6">
-                    <i data-lucide="code" class="w-6 h-6"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-3">Overnight Coding Agent</h3>
-                <p class="text-brand-muted text-sm leading-relaxed mb-4">
-                    Delegate tasks overnight. Your agent reviews PRs, writes tests, and commits fixes while you sleep.
-                </p>
-            </div>
+    <!-- Use Cases by Category -->
+    <section class="max-w-7xl mx-auto px-6 pb-24 space-y-20">
 
-            <!-- Card 2 -->
-            <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
-                <div class="w-12 h-12 bg-green-50 text-brand-accent rounded-xl flex items-center justify-center mb-6">
-                    <i data-lucide="mail" class="w-6 h-6"></i>
+        <!-- AUTOMATION -->
+        <div>
+            <div class="flex items-center gap-3 mb-8">
+                <div class="w-10 h-10 bg-orange-100 text-brand-primary rounded-xl flex items-center justify-center">
+                    <i data-lucide="zap" class="w-5 h-5"></i>
                 </div>
-                <h3 class="text-xl font-bold mb-3">Smart Email Triage</h3>
-                <p class="text-brand-muted text-sm leading-relaxed mb-4">
-                    Checks incoming mail, archives spam, sends polite "no thanks" replies, and flags urgent tasks for you automatically.
-                </p>
+                <h2 class="text-2xl font-bold text-brand-text">Automation</h2>
             </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-            <!-- Card 3 -->
-            <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
-                <div class="w-12 h-12 bg-purple-50 text-purple-500 rounded-xl flex items-center justify-center mb-6">
-                    <i data-lucide="calendar" class="w-6 h-6"></i>
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-orange-50 text-brand-primary rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="mail" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-brand-primary mb-2 block">Automation</span>
+                    <h3 class="text-lg font-bold mb-2">Smart Email Triage &amp; Task Routing</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Check incoming mail, remove spam, order things, send reminders, and create GitHub issues — all automatically.</p>
                 </div>
-                <h3 class="text-xl font-bold mb-3">Morning Briefing Rollup</h3>
-                <p class="text-brand-muted text-sm leading-relaxed mb-4">
-                    Wakes you up with a daily summary: your calendar, key emails, weather, and a prioritized to-do list via Telegram.
-                </p>
-            </div>
 
-            <!-- Card 4 -->
-            <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
-                <div class="w-12 h-12 bg-orange-50 text-brand-primary rounded-xl flex items-center justify-center mb-6">
-                    <i data-lucide="megaphone" class="w-6 h-6"></i>
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-orange-50 text-brand-primary rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="sun" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-brand-primary mb-2 block">Automation</span>
+                    <h3 class="text-lg font-bold mb-2">Morning Briefing Rollup</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Automated morning rollup skill that summarizes Gmail and Calendar accounts into a daily brief.</p>
                 </div>
-                <h3 class="text-xl font-bold mb-3">Social Media Manager</h3>
-                <p class="text-brand-muted text-sm leading-relaxed mb-4">
-                    Drafts posts based on your notes, connects to the Late API, and handles cross-platform posting for you on autopilot.
-                </p>
-            </div>
 
-            <!-- Card 5 -->
-            <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
-                <div class="w-12 h-12 bg-yellow-50 text-yellow-600 rounded-xl flex items-center justify-center mb-6">
-                    <i data-lucide="search" class="w-6 h-6"></i>
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-orange-50 text-brand-primary rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="plane" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-brand-primary mb-2 block">Automation</span>
+                    <h3 class="text-lg font-bold mb-2">Auto Flight Check-in</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Finds your next flight, runs check-in automatically, and locates a window seat — even while you're driving.</p>
                 </div>
-                <h3 class="text-xl font-bold mb-3">Deep Research Assistant</h3>
-                <p class="text-brand-muted text-sm leading-relaxed mb-4">
-                    Point it at a topic before you log off. Wake up to a formatted markdown document summarizing the web's best resources.
-                </p>
-            </div>
 
-            <!-- Card 6 -->
-            <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
-                <div class="w-12 h-12 bg-pink-50 text-pink-500 rounded-xl flex items-center justify-center mb-6">
-                    <i data-lucide="home" class="w-6 h-6"></i>
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-orange-50 text-brand-primary rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-brand-primary mb-2 block">Automation</span>
+                    <h3 class="text-lg font-bold mb-2">Automated Grocery Ordering</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Orders groceries using saved credentials and handles MFA bridges — hands-free shopping.</p>
                 </div>
-                <h3 class="text-xl font-bold mb-3">Smart Home Controller</h3>
-                <p class="text-brand-muted text-sm leading-relaxed mb-4">
-                    Connects directly to Home Assistant. "Turn down the lights and lock the doors" works perfectly via text.
-                </p>
-            </div>
 
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-orange-50 text-brand-primary rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="car" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-brand-primary mb-2 block">Automation</span>
+                    <h3 class="text-lg font-bold mb-2">AI Car Purchase Negotiation</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Saved $4,200 on a car purchase through automated negotiation via browser, email, and iMessage.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-orange-50 text-brand-primary rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="inbox" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-brand-primary mb-2 block">Automation</span>
+                    <h3 class="text-lg font-bold mb-2">Daily Email &amp; Slack Summaries</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Daily cron reads emails, sends Slack summaries, and creates todos in your database automatically.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-orange-50 text-brand-primary rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="file-text" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-brand-primary mb-2 block">Automation</span>
+                    <h3 class="text-lg font-bold mb-2">Insurance Claim Filing</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Filed an insurance claim and scheduled a repair appointment — all through natural language.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-orange-50 text-brand-primary rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="trending-up" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-brand-primary mb-2 block">Automation</span>
+                    <h3 class="text-lg font-bold mb-2">Automated Weekly SEO Analysis</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Runs weekly SEO analysis on autopilot, tracking rankings and generating reports.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-orange-50 text-brand-primary rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="rss" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-brand-primary mb-2 block">Automation</span>
+                    <h3 class="text-lg font-bold mb-2">Hacker News Article Curator</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Monitors Hacker News and sends personalized article recommendations based on your interests.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-orange-50 text-brand-primary rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="heart-pulse" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-brand-primary mb-2 block">Automation</span>
+                    <h3 class="text-lg font-bold mb-2">Lab Results Organizer</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Organized bloodwork lab results into a structured Notion database automatically.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-orange-50 text-brand-primary rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="search" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-brand-primary mb-2 block">Automation</span>
+                    <h3 class="text-lg font-bold mb-2">Reddit Content Crawler</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Set up a Reddit crawler that pulls relevant posts and delivers them via Telegram.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-orange-50 text-brand-primary rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="receipt" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-brand-primary mb-2 block">Automation</span>
+                    <h3 class="text-lg font-bold mb-2">Receipt to Parts List</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Forwards receipts and the agent converts them into structured parts lists automatically.</p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- DEVELOPER -->
+        <div>
+            <div class="flex items-center gap-3 mb-8">
+                <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center">
+                    <i data-lucide="code-2" class="w-5 h-5"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-brand-text">Developer</h2>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="code" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-blue-500 mb-2 block">Developer</span>
+                    <h3 class="text-lg font-bold mb-2">Code Automation</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Let your AI review code, generate tests, and refactor — around the clock.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="share-2" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-blue-500 mb-2 block">Developer</span>
+                    <h3 class="text-lg font-bold mb-2">Programmatic Diagram Generation</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Built programmatic Excalidraw diagram generation for agents — architecture docs on demand.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="database" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-blue-500 mb-2 block">Developer</span>
+                    <h3 class="text-lg font-bold mb-2">Large-Scale Data Scraping</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Turned an idea into a project pulling 4 million posts across 100 top X accounts.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="message-square" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-blue-500 mb-2 block">Developer</span>
+                    <h3 class="text-lg font-bold mb-2">Telegram-Connected Dev Assistant</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Configured an OpenClaw instance hooked to a Telegram group for on-the-go development help.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="layout" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-blue-500 mb-2 block">Developer</span>
+                    <h3 class="text-lg font-bold mb-2">Full Site Rebuild via Chat</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Rebuilt an entire site via Telegram: Notion to Astro migration with 18 posts — all through chat.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-blue-500 mb-2 block">Developer</span>
+                    <h3 class="text-lg font-bold mb-2">Google Analytics Skill Builder</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Built a GA4 analytics skill in ~20 minutes and published it to ClawHub.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="mic" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-blue-500 mb-2 block">Developer</span>
+                    <h3 class="text-lg font-bold mb-2">Voice-Controlled Debugging &amp; Deploy</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Agent debugged a failed deployment, reviewed logs, fixed configs, and redeployed — all via voice.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="kanban" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-blue-500 mb-2 block">Developer</span>
+                    <h3 class="text-lg font-bold mb-2">JIRA Integration Skill</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Connected to JIRA and built a custom skill autonomously — project management meets AI.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="monitor" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-blue-500 mb-2 block">Developer</span>
+                    <h3 class="text-lg font-bold mb-2">macOS Menu Bar Controller</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Built a Swift macOS menu bar app to manage OpenClaw status and controls natively.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="network" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-blue-500 mb-2 block">Developer</span>
+                    <h3 class="text-lg font-bold mb-2">Multi-Agent Orchestration</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">4 specialized agents with shared memory, different models, and scheduled tasks — working in concert.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="smartphone" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-blue-500 mb-2 block">Developer</span>
+                    <h3 class="text-lg font-bold mb-2">Build UI from WhatsApp</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Built a complete UI entirely from WhatsApp messages — sends back output screenshots for review.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="shield" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-blue-500 mb-2 block">Developer</span>
+                    <h3 class="text-lg font-bold mb-2">Remote Dev via Tailscale</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Set up an agent for app development via Tailscale private network — code from anywhere.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="terminal" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-blue-500 mb-2 block">Developer</span>
+                    <h3 class="text-lg font-bold mb-2">10K Email Cleanup &amp; CLI Tools</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Cleared 10K emails, reviewed 122 slides, built CLI tools, and published packages to npm — in one session.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="send" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-blue-500 mb-2 block">Developer</span>
+                    <h3 class="text-lg font-bold mb-2">App Store Submission via Chat</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Submitted first app to Apple via Telegram and automated the TestFlight process.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="moon" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-blue-500 mb-2 block">Developer</span>
+                    <h3 class="text-lg font-bold mb-2">Overnight Coding Agent Manager</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Delegated coding agent management overnight — better context awareness than running agents solo.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="book-open" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-blue-500 mb-2 block">Developer</span>
+                    <h3 class="text-lg font-bold mb-2">Article Curator App</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Built a Stumbleupon-style article curator from a phone while putting a baby to sleep.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="rocket" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-blue-500 mb-2 block">Developer</span>
+                    <h3 class="text-lg font-bold mb-2">341 Sessions in 7 Days</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Tightened proposals, researched markets, wired services — 341 agent sessions in just one week.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="home" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-blue-500 mb-2 block">Developer</span>
+                    <h3 class="text-lg font-bold mb-2">Real Estate API Skill</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Built an Idealista API CLI skill for automated property searches and valuations.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="git-branch" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-blue-500 mb-2 block">Developer</span>
+                    <h3 class="text-lg font-bold mb-2">Codex Agent Orchestration</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Takes notes on app improvements, builds lists, writes reports, and kicks off Codex agents.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="dumbbell" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-blue-500 mb-2 block">Developer</span>
+                    <h3 class="text-lg font-bold mb-2">Debug Between Gym Sets</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Debugged a fitness app mid-workout between sets — true mobile-first development.</p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- PRODUCTIVITY -->
+        <div>
+            <div class="flex items-center gap-3 mb-8">
+                <div class="w-10 h-10 bg-green-100 text-green-600 rounded-xl flex items-center justify-center">
+                    <i data-lucide="check-circle" class="w-5 h-5"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-brand-text">Productivity</h2>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-green-50 text-green-600 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="folder" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-green-600 mb-2 block">Productivity</span>
+                    <h3 class="text-lg font-bold mb-2">Smart File Management</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Batch rename, organize, convert — tell your AI what you want and it handles the rest.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-green-50 text-green-600 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="users" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-green-600 mb-2 block">Productivity</span>
+                    <h3 class="text-lg font-bold mb-2">Team AI Assistant</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Give every team member their own AI assistant — shared knowledge, isolated conversations.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-green-50 text-green-600 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="calendar" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-green-600 mb-2 block">Productivity</span>
+                    <h3 class="text-lg font-bold mb-2">Smart Calendar Timeblocking</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Timeblocks tasks in calendar, scores importance/urgency, leads weekly reviews, and gives morning briefs.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-green-50 text-green-600 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="check-square" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-green-600 mb-2 block">Productivity</span>
+                    <h3 class="text-lg font-bold mb-2">Cross-Platform Task Runner</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Cleaned Linear issues, wrote emails, opened PRs, and prospected signups — all from one chat.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-green-50 text-green-600 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="lightbulb" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-green-600 mb-2 block">Productivity</span>
+                    <h3 class="text-lg font-bold mb-2">Idea Capture &amp; Decision Pipeline</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Created a log skill that captures ideas through a decision pipeline with overnight experiments.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-green-50 text-green-600 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="layout-grid" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-green-600 mb-2 block">Productivity</span>
+                    <h3 class="text-lg font-bold mb-2">Calendar + Obsidian + GitHub Hub</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Manages calendar, contributes to Obsidian notes, commits to GitHub, and sends reminders.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-green-50 text-green-600 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-green-600 mb-2 block">Productivity</span>
+                    <h3 class="text-lg font-bold mb-2">Multi-Device Daily Agenda</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Running across NAS, PC, and Mac with auto-refreshing daily agenda synced everywhere.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-green-50 text-green-600 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="file-search" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-green-600 mb-2 block">Productivity</span>
+                    <h3 class="text-lg font-bold mb-2">WhatsApp to Notion Research</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Researches topics and builds documents synced to Notion — all controlled via WhatsApp.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-green-50 text-green-600 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="video" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-green-600 mb-2 block">Productivity</span>
+                    <h3 class="text-lg font-bold mb-2">YouTube Video Summarizer</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Daily cron summarizes YouTube videos with key takeaways — never miss important content.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-green-50 text-green-600 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="message-circle" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-green-600 mb-2 block">Productivity</span>
+                    <h3 class="text-lg font-bold mb-2">Chat-Based Calendar Management</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Chat-based management for work, personal, and family calendars — schedule via conversation.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-green-50 text-green-600 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="hash" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-green-600 mb-2 block">Productivity</span>
+                    <h3 class="text-lg font-bold mb-2">Discord as Digital Hub</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Primary interface to the digital world via Discord — eliminates tool friction across all apps.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-green-50 text-green-600 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="dollar-sign" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-green-600 mb-2 block">Productivity</span>
+                    <h3 class="text-lg font-bold mb-2">Spending Tracker &amp; Scrum Master</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Tracks spending, books children's lunches, and acts as scrum master for personal projects.</p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- SMART HOME -->
+        <div>
+            <div class="flex items-center gap-3 mb-8">
+                <div class="w-10 h-10 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center">
+                    <i data-lucide="home" class="w-5 h-5"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-brand-text">Smart Home</h2>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-purple-50 text-purple-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="cpu" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-purple-500 mb-2 block">Smart Home</span>
+                    <h3 class="text-lg font-bold mb-2">Dedicated Smart Home Agent</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Bought OpenClaw its first home — a dedicated machine for smart home automation.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-purple-50 text-purple-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="heart" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-purple-500 mb-2 block">Smart Home</span>
+                    <h3 class="text-lg font-bold mb-2">Raspberry Pi + Health Metrics</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Set up on Raspberry Pi with Cloudflare, connected WHOOP health metrics for daily insights.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-purple-50 text-purple-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="volume-2" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-purple-500 mb-2 block">Smart Home</span>
+                    <h3 class="text-lg font-bold mb-2">Alexa Natural Language Control</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Built an Alexa CLI to control smart home devices with natural language commands.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-purple-50 text-purple-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="zap" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-purple-500 mb-2 block">Smart Home</span>
+                    <h3 class="text-lg font-bold mb-2">IoT Device Calibration</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Helped recalibrate an iotawatt energy monitoring setup with remote access and guidance.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-purple-50 text-purple-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="music" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-purple-500 mb-2 block">Smart Home</span>
+                    <h3 class="text-lg font-bold mb-2">Auto-Discover &amp; Control HomePods</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Agent discovered HomePods on the network and autonomously built a control skill.</p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- CREATIVE -->
+        <div>
+            <div class="flex items-center gap-3 mb-8">
+                <div class="w-10 h-10 bg-pink-100 text-pink-600 rounded-xl flex items-center justify-center">
+                    <i data-lucide="palette" class="w-5 h-5"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-brand-text">Creative</h2>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-pink-50 text-pink-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="music-2" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-pink-500 mb-2 block">Creative</span>
+                    <h3 class="text-lg font-bold mb-2">Song Analysis &amp; Chord Sheets</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Extracts tracks, creates GIFs, and generates PDFs with chords from songs.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-pink-50 text-pink-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="film" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-pink-500 mb-2 block">Creative</span>
+                    <h3 class="text-lg font-bold mb-2">AI Media Studio</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Full media studio setup with Codex, TTS, transcription, browser use, and Twitter ops.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-pink-50 text-pink-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="camera" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-pink-500 mb-2 block">Creative</span>
+                    <h3 class="text-lg font-bold mb-2">UGC Influencer Video Generator</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Generates full UGC influencer-style videos with Sora 2 — content creation on autopilot.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-pink-50 text-pink-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="book" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-pink-500 mb-2 block">Creative</span>
+                    <h3 class="text-lg font-bold mb-2">Speed-Read Content Converter</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Repackaged resources into HTML/CSS with adjustable sizing and speed-read mode.</p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- HARDWARE -->
+        <div>
+            <div class="flex items-center gap-3 mb-8">
+                <div class="w-10 h-10 bg-yellow-100 text-yellow-600 rounded-xl flex items-center justify-center">
+                    <i data-lucide="cpu" class="w-5 h-5"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-brand-text">Hardware</h2>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-yellow-50 text-yellow-600 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="box" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-yellow-600 mb-2 block">Hardware</span>
+                    <h3 class="text-lg font-bold mb-2">Hologram Cube Display</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">A $35 hologram cube display for OpenClaw — like a Tamagotchi for your AI assistant.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-yellow-50 text-yellow-600 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="radio" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-yellow-600 mb-2 block">Hardware</span>
+                    <h3 class="text-lg font-bold mb-2">One-Tap Voice with Pebble Ring</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Pebble ring for one-tap voice control of OpenClaw — wearable AI access.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-yellow-50 text-yellow-600 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="monitor" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-yellow-600 mb-2 block">Hardware</span>
+                    <h3 class="text-lg font-bold mb-2">Dedicated Mac Mini Setup</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Mac mini with separate Apple account, Gmail, and GitHub — a dedicated machine for the agent.</p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- INTEGRATION -->
+        <div>
+            <div class="flex items-center gap-3 mb-8">
+                <div class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center">
+                    <i data-lucide="plug" class="w-5 h-5"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-brand-text">Integration</h2>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-indigo-50 text-indigo-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="link" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-indigo-500 mb-2 block">Integration</span>
+                    <h3 class="text-lg font-bold mb-2">Beeper + Homey + Fastmail</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Shipped support for Beeper messaging, Homey smart home, and Fastmail email — all connected.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-indigo-50 text-indigo-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="mic-2" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-indigo-500 mb-2 block">Integration</span>
+                    <h3 class="text-lg font-bold mb-2">Self-Installing Voice Model</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Agent independently installed and tested a voice model — took initiative without being asked.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-indigo-50 text-indigo-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="globe" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-indigo-500 mb-2 block">Integration</span>
+                    <h3 class="text-lg font-bold mb-2">7-Service Integration Hub</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Integrated Garmin, Obsidian, GitHub, VPS, Telegram, WhatsApp, and X for unified monitoring.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-indigo-50 text-indigo-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="send" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-indigo-500 mb-2 block">Integration</span>
+                    <h3 class="text-lg font-bold mb-2">Everything via Telegram</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Integrated emails, home assistant, homelab, and todo list — all controlled via a single Telegram chat.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-indigo-50 text-indigo-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="gamepad-2" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-indigo-500 mb-2 block">Integration</span>
+                    <h3 class="text-lg font-bold mb-2">Discord-Controlled Projects</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Integrated projects and runs them via a Discord server — team collaboration meets AI.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-indigo-50 text-indigo-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="brain" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-indigo-500 mb-2 block">Integration</span>
+                    <h3 class="text-lg font-bold mb-2">Connected OpenClaw Pair</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Two OpenClaws sharing an external memory layer — partner's agents collaborate with context.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-indigo-50 text-indigo-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="users-2" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-indigo-500 mb-2 block">Integration</span>
+                    <h3 class="text-lg font-bold mb-2">Dual OpenClaws in WhatsApp</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Two OpenClaw agents collaborating in the same WhatsApp group — AI teamwork.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-indigo-50 text-indigo-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="edit-3" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-indigo-500 mb-2 block">Integration</span>
+                    <h3 class="text-lg font-bold mb-2">Slack Writing Pipeline</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Integrated with Slack to trigger writing system execution pipelines on command.</p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- PERSONAL -->
+        <div>
+            <div class="flex items-center gap-3 mb-8">
+                <div class="w-10 h-10 bg-teal-100 text-teal-600 rounded-xl flex items-center justify-center">
+                    <i data-lucide="smile" class="w-5 h-5"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-brand-text">Personal</h2>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-teal-50 text-teal-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="users" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-teal-500 mb-2 block">Personal</span>
+                    <h3 class="text-lg font-bold mb-2">Family &amp; Friends AI Setup</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Set up for family, then non-techie friends, now building for work — AI for everyone.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-teal-50 text-teal-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="utensils" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-teal-500 mb-2 block">Personal</span>
+                    <h3 class="text-lg font-bold mb-2">Weekly Meal Planning System</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Built a weekly meal planning system in Notion with shopping lists and weather-based suggestions.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-teal-50 text-teal-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="briefcase" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-teal-500 mb-2 block">Personal</span>
+                    <h3 class="text-lg font-bold mb-2">Home Project Manager</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Agent functions as home PM — researches topics, manages tasks, sends weekly roundup to the family.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-teal-50 text-teal-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="smartphone" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-teal-500 mb-2 block">Personal</span>
+                    <h3 class="text-lg font-bold mb-2">All-in-One WhatsApp Bot</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Personal bot that replaced multiple apps — lives in WhatsApp alongside friends and family.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-teal-50 text-teal-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="dice-5" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-teal-500 mb-2 block">Personal</span>
+                    <h3 class="text-lg font-bold mb-2">Dynamic MadLibs for Kids</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Built dynamic MadLibs with images and history for the kids — fun meets AI creativity.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl shadow-pillowy border border-gray-100 hover:-translate-y-1 transition-transform">
+                    <div class="w-11 h-11 bg-teal-50 text-teal-500 rounded-xl flex items-center justify-center mb-5">
+                        <i data-lucide="map" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-teal-500 mb-2 block">Personal</span>
+                    <h3 class="text-lg font-bold mb-2">Exercise Heat Map from Garmin</h3>
+                    <p class="text-brand-muted text-sm leading-relaxed">Made a heat map of exercises from Garmin data with zoom and navigation — fitness visualization.</p>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="max-w-4xl mx-auto px-6 pb-24 text-center">
+        <div class="bg-brand-primary rounded-3xl p-12 shadow-pillowy">
+            <h2 class="text-3xl font-extrabold text-white mb-4">Ready to build yours?</h2>
+            <p class="text-white/80 text-lg mb-8">Get your own always-on OpenClaw instance. No setup, no server management — just results.</p>
+            <a href="/pricing.html" class="inline-flex items-center gap-2 bg-white text-brand-primary font-bold px-8 py-4 rounded-full hover:shadow-xl hover:-translate-y-0.5 transition-all">
+                <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                See Pricing
+            </a>
         </div>
     </section>
 

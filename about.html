@@ -49,7 +49,28 @@
         <a href="/pricing.html" class="hidden md:inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-white transition-all bg-brand-text rounded-full hover:bg-black hover:shadow-lg hover:-translate-y-0.5">
             Get DaClaw
         </a>
+        <!-- Mobile hamburger -->
+        <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="md:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-gray-100 transition-colors" aria-label="Menu">
+            <span class="w-6 h-0.5 bg-brand-text rounded-full"></span>
+            <span class="w-6 h-0.5 bg-brand-text rounded-full"></span>
+            <span class="w-6 h-0.5 bg-brand-text rounded-full"></span>
+        </button>
     </nav>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-100 shadow-sm px-6 pb-6 relative z-10">
+        <div class="flex flex-col gap-4 font-medium">
+            <a href="/" class="text-brand-muted hover:text-brand-primary transition-colors py-2">Home</a>
+            <a href="/use-cases.html" class="text-brand-muted hover:text-brand-primary transition-colors py-2">Use Cases</a>
+            <a href="/pricing.html" class="text-brand-muted hover:text-brand-primary transition-colors py-2">Pricing</a>
+            <a href="/compare.html" class="text-brand-muted hover:text-brand-primary transition-colors py-2">Compare</a>
+            <a href="/about.html" class="text-brand-muted hover:text-brand-primary transition-colors py-2">About</a>
+            <a href="/login.html" class="text-brand-muted hover:text-brand-primary transition-colors py-2">Log In</a>
+            <a href="/pricing.html" class="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-white transition-all bg-brand-primary rounded-full hover:bg-brand-primaryHover mt-2">
+                Get DaClaw 🦞
+            </a>
+        </div>
+    </div>
 
     <!-- Header Section -->
     <section class="max-w-4xl mx-auto px-6 pt-20 pb-16 text-center">

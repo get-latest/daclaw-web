@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | DaClaw.ai</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Outfit', 'sans-serif'] },
+                    colors: {
+                        brand: { bg: '#FDFBF7', text: '#2D3748', primary: '#F26D5B', primaryHover: '#D95846', accent: '#84A98C', muted: '#718096' }
+                    },
+                    boxShadow: { 'pillowy': '0 10px 40px -10px rgba(0,0,0,0.08)' }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: theme('colors.brand.bg'); color: theme('colors.brand.text'); }
+        h1, h2, h3, h4, h5, h6 { font-family: theme('fontFamily.display'); }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-primary selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center relative z-10">
+        <a href="/" class="flex items-center gap-2">
+            <div class="w-10 h-10 bg-brand-primary rounded-xl flex items-center justify-center text-white shadow-md transform -rotate-12">
+                <i data-lucide="bot" class="w-6 h-6"></i>
+            </div>
+            <span class="text-2xl font-display font-bold tracking-tight text-brand-text">DaClaw.ai</span>
+        </a>
+        <div class="hidden md:flex gap-8 items-center font-medium">
+            <a href="/about.html" class="text-brand-primary transition-colors">About</a>
+            <a href="/use-cases.html" class="text-brand-muted hover:text-brand-primary transition-colors">Use Cases</a>
+            <a href="/pricing.html" class="text-brand-muted hover:text-brand-primary transition-colors">Pricing</a>
+            <a href="/compare.html" class="text-brand-muted hover:text-brand-primary transition-colors">Compare</a>
+            <a href="#" class="text-brand-text hover:text-brand-primary transition-colors">Log In</a>
+        </div>
+        <a href="/pricing.html" class="hidden md:inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-white transition-all bg-brand-text rounded-full hover:bg-black hover:shadow-lg hover:-translate-y-0.5">
+            Hire Your AI
+        </a>
+    </nav>
+
+    <!-- Header Section -->
+    <section class="max-w-4xl mx-auto px-6 pt-20 pb-16 text-center">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-50 text-brand-primary shadow-sm border border-brand-primary/10 mb-8 font-medium">
+            <i data-lucide="heart" class="w-4 h-4"></i> Our Mission
+        </div>
+        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 text-brand-text">
+            AI That Works For You,<br>
+            <span class="text-brand-primary">Not On You.</span>
+        </h1>
+        <p class="text-xl text-brand-muted leading-relaxed max-w-2xl mx-auto">
+            We built DaClaw because we believe AI assistants should genuinely help people — not harvest their data, not lock them into platforms, and not require a PhD to set up.
+        </p>
+    </section>
+
+    <!-- Content Section -->
+    <section class="max-w-4xl mx-auto px-6 pb-24">
+        
+        <div class="bg-white p-10 rounded-3xl shadow-pillowy border border-gray-100 mb-12">
+            <h2 class="text-3xl font-bold mb-6">What is DaClaw?</h2>
+            <div class="space-y-4 text-lg text-brand-muted leading-relaxed">
+                <p>DaClaw is a managed cloud staffing agency for OpenClaw — the open-source AI assistant that's taking the developer world by storm (80k+ GitHub stars and counting).</p>
+                <p>Instead of just renting you a server, we provide a fully-trained employee. We handle the infrastructure, the updates, and the maintenance. You get a private, always-on AI assistant that you fully control — without touching a terminal.</p>
+                <p class="font-medium text-brand-text">Think of us as the easy button for hiring an AI Chief of Staff.</p>
+            </div>
+        </div>
+
+        <div class="mb-12">
+            <h2 class="text-3xl font-bold mb-8 text-center">Our Commitments</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="w-12 h-12 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="unlock" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Powered by Open Source</h3>
+                    <p class="text-sm text-brand-muted">We back the OpenClaw movement. Transparency builds trust. No hidden agendas, just pure capability.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="w-12 h-12 bg-green-50 text-brand-accent rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="shield-check" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Privacy by Design</h3>
+                    <p class="text-sm text-brand-muted">Isolated container, zero data sharing. We don't access your conversations or train models on your data.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="w-12 h-12 bg-orange-50 text-brand-primary rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="zap" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Radically Simple</h3>
+                    <p class="text-sm text-brand-muted">AI should amplify your capabilities, not demand new ones. Zero DevOps required. Just results.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-brand-text text-white p-10 rounded-3xl shadow-pillowy-lg mb-12">
+            <h2 class="text-3xl font-bold mb-6 text-white">Your Privacy, Non-Negotiable</h2>
+            <p class="text-gray-300 mb-8 text-lg">Every DaClaw instance runs in complete isolation. Your conversations, your files, your data — they never leave your private container.</p>
+            
+            <ul class="space-y-4">
+                <li class="flex items-start gap-4">
+                    <i data-lucide="check-circle" class="w-6 h-6 text-brand-primary flex-shrink-0 mt-0.5"></i>
+                    <div>
+                        <strong class="block text-white text-lg">Isolated infrastructure</strong>
+                        <span class="text-gray-400 text-sm">Your instance is physically separated from others.</span>
+                    </div>
+                </li>
+                <li class="flex items-start gap-4">
+                    <i data-lucide="check-circle" class="w-6 h-6 text-brand-primary flex-shrink-0 mt-0.5"></i>
+                    <div>
+                        <strong class="block text-white text-lg">Zero data access</strong>
+                        <span class="text-gray-400 text-sm">We can't read your conversations, even if we wanted to.</span>
+                    </div>
+                </li>
+                <li class="flex items-start gap-4">
+                    <i data-lucide="check-circle" class="w-6 h-6 text-brand-primary flex-shrink-0 mt-0.5"></i>
+                    <div>
+                        <strong class="block text-white text-lg">No AI training</strong>
+                        <span class="text-gray-400 text-sm">Your data is never used to train any model.</span>
+                    </div>
+                </li>
+                <li class="flex items-start gap-4">
+                    <i data-lucide="check-circle" class="w-6 h-6 text-brand-primary flex-shrink-0 mt-0.5"></i>
+                    <div>
+                        <strong class="block text-white text-lg">Encrypted connections</strong>
+                        <span class="text-gray-400 text-sm">End-to-end encryption for all access.</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="text-center">
+            <h3 class="text-xl font-bold mb-4">A Note on Independence</h3>
+            <p class="text-brand-muted text-sm max-w-2xl mx-auto mb-10">
+                DaClaw is an independent service. We are not affiliated with, endorsed by, or officially connected to the OpenClaw project or its maintainers. We're simply fans of open-source AI who wanted to make it accessible to everyone — without the DevOps headache.
+            </p>
+            <a href="/pricing.html" class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all bg-brand-primary rounded-full hover:bg-brand-primaryHover shadow-pillowy hover:-translate-y-1">
+                Hire Your Assistant Today
+            </a>
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white py-12 border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2 opacity-50">
+                <i data-lucide="bot" class="w-5 h-5"></i>
+                <span class="font-display font-bold">DaClaw.ai</span>
+            </div>
+            <div class="text-sm text-brand-muted">
+                &copy; 2026 DaClaw.ai. Built with ❤️ and OpenClaw.
+            </div>
+        </div>
+    </footer>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

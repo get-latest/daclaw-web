@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compare | DaClaw.ai</title>
+    <title>Compare — Local vs VPS vs DaClaw Managed Hosting | DaClaw.ai</title>
     
     <!-- Fonts: Outfit for Display, Inter for Body -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,6 +36,7 @@
                     },
                     boxShadow: {
                         'pillowy': '0 10px 40px -10px rgba(0,0,0,0.08)',
+                        'pillowy-lg': '0 20px 60px -15px rgba(0,0,0,0.12)',
                     }
                 }
             }
@@ -44,6 +45,8 @@
     <style>
         body { background-color: theme('colors.brand.bg'); color: theme('colors.brand.text'); }
         h1, h2, h3, h4, h5, h6 { font-family: theme('fontFamily.display'); }
+        .check { color: #84A98C; }
+        .cross { color: #CBD5E0; }
     </style>
 </head>
 <body class="antialiased selection:bg-brand-primary selection:text-white">
@@ -60,7 +63,7 @@
             <a href="/" class="text-brand-muted hover:text-brand-primary transition-colors">Home</a>
             <a href="/use-cases.html" class="text-brand-muted hover:text-brand-primary transition-colors">Use Cases</a>
             <a href="/pricing.html" class="text-brand-muted hover:text-brand-primary transition-colors">Pricing</a>
-            <a href="/compare.html" class="text-brand-muted hover:text-brand-primary transition-colors">Compare</a>
+            <a href="/compare.html" class="text-brand-primary font-semibold transition-colors">Compare</a>
             <a href="/about.html" class="text-brand-muted hover:text-brand-primary transition-colors">About</a>
             <a href="#" class="text-brand-text hover:text-brand-primary transition-colors">Log In</a>
         </div>
@@ -69,42 +72,304 @@
         </a>
     </nav>
 
-    <!-- Header -->
+    <!-- Hero -->
     <section class="max-w-4xl mx-auto px-6 pt-16 pb-12 text-center">
         <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 text-brand-text">
             Three Ways to Run OpenClaw
         </h1>
         <p class="text-xl text-brand-muted leading-relaxed">
-            OpenClaw is open source — you can run it anywhere. The question is how much time you want to spend on infrastructure vs. actually getting things done.
+            OpenClaw is open source — you can run it anywhere. The question is how much time you want to spend on infrastructure vs. actually using your AI assistant.
         </p>
     </section>
 
-    <!-- Options -->
+    <!-- Three Option Cards -->
     <section class="max-w-7xl mx-auto px-6 pb-20">
         <div class="grid md:grid-cols-3 gap-8">
+
+            <!-- Local Install -->
             <div class="bg-white p-8 rounded-3xl shadow-pillowy border border-gray-100">
-                <div class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center text-gray-500 mb-6">
+                <div class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center text-gray-400 mb-6">
                     <i data-lucide="laptop" class="w-6 h-6"></i>
                 </div>
-                <h3 class="text-2xl font-bold mb-4">Local Install</h3>
-                <p class="text-brand-muted mb-4">Great for trying things out. But your agent stops when your laptop sleeps, can't run scheduled tasks overnight, and you're on your own for updates.</p>
-            </div>
-            
-            <div class="bg-white p-8 rounded-3xl shadow-pillowy border border-gray-100">
-                <div class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center text-gray-500 mb-6">
-                    <i data-lucide="server" class="w-6 h-6"></i>
-                </div>
-                <h3 class="text-2xl font-bold mb-4">Self-host on a VPS</h3>
-                <p class="text-brand-muted mb-4">Full control, 24/7 uptime — but you need Linux experience, Docker knowledge, and ongoing time for security patches, SSL certs, and debugging.</p>
+                <h3 class="text-2xl font-bold mb-4 text-brand-text">Local Install</h3>
+                <p class="text-brand-muted leading-relaxed">
+                    Great for trying things out. But your agent stops when your laptop sleeps, can't run scheduled tasks overnight, and you're on your own for updates.
+                </p>
             </div>
 
+            <!-- Self-host VPS -->
+            <div class="bg-white p-8 rounded-3xl shadow-pillowy border border-gray-100">
+                <div class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center text-gray-400 mb-6">
+                    <i data-lucide="server" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 text-brand-text">Self-host on a VPS</h3>
+                <p class="text-brand-muted leading-relaxed">
+                    Full control, 24/7 uptime — but you need Linux experience, Docker knowledge, and ongoing time for security patches, SSL certs, and debugging.
+                </p>
+            </div>
+
+            <!-- DaClaw Managed -->
             <div class="bg-white p-8 rounded-3xl shadow-pillowy border-2 border-brand-primary relative">
-                <div class="absolute -top-3 left-8 bg-brand-primary text-white px-3 py-1 rounded-full text-xs font-bold uppercase">The Easy Way</div>
+                <div class="absolute -top-3 left-8 bg-brand-primary text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wide">
+                    The Easy Way
+                </div>
                 <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center text-brand-primary mb-6">
                     <i data-lucide="bot" class="w-6 h-6"></i>
                 </div>
-                <h3 class="text-2xl font-bold mb-4">DaClaw Managed</h3>
-                <p class="text-brand-muted mb-4">We handle the infrastructure and pre-train the personality. You get a private OpenClaw assistant that's always on, always updated, and ready to work in 60 seconds.</p>
+                <h3 class="text-2xl font-bold mb-4 text-brand-text">DaClaw Managed</h3>
+                <p class="text-brand-muted leading-relaxed">
+                    We handle the infrastructure. You get a private OpenClaw instance that's always on, always updated, and accessible from any device — in about 30 seconds.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Side-by-Side Comparison Table -->
+    <section class="max-w-7xl mx-auto px-6 pb-24">
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-center text-brand-text mb-4">
+            Side-by-Side Comparison
+        </h2>
+        <p class="text-center text-brand-muted mb-12 text-lg">
+            The full breakdown — so you can decide what's right for you.
+        </p>
+
+        <div class="bg-white rounded-3xl shadow-pillowy overflow-hidden border border-gray-100">
+            <!-- Table Header -->
+            <div class="grid grid-cols-4 bg-gray-50 border-b border-gray-100">
+                <div class="p-5 col-span-1"></div>
+                <div class="p-5 text-center">
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="w-9 h-9 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400">
+                            <i data-lucide="laptop" class="w-5 h-5"></i>
+                        </div>
+                        <span class="font-bold text-brand-text text-sm">🖥️ Local</span>
+                    </div>
+                </div>
+                <div class="p-5 text-center">
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="w-9 h-9 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400">
+                            <i data-lucide="server" class="w-5 h-5"></i>
+                        </div>
+                        <span class="font-bold text-brand-text text-sm">🌐 Self-host VPS</span>
+                    </div>
+                </div>
+                <div class="p-5 text-center bg-orange-50/60">
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="w-9 h-9 bg-orange-100 rounded-lg flex items-center justify-center text-brand-primary">
+                            <i data-lucide="bot" class="w-5 h-5"></i>
+                        </div>
+                        <span class="font-bold text-brand-primary text-sm">🦞 DaClaw</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rows -->
+            <!-- Setup Time -->
+            <div class="grid grid-cols-4 border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
+                <div class="p-5 font-semibold text-brand-text text-sm flex items-center gap-3">
+                    <i data-lucide="clock" class="w-4 h-4 text-brand-muted flex-shrink-0"></i>
+                    Setup time
+                </div>
+                <div class="p-5 text-center text-brand-muted text-sm flex items-center justify-center">4–6 hours</div>
+                <div class="p-5 text-center text-brand-muted text-sm flex items-center justify-center">5–6 hours</div>
+                <div class="p-5 text-center font-semibold text-brand-primary text-sm flex items-center justify-center bg-orange-50/40">30 seconds</div>
+            </div>
+
+            <!-- Technical skill -->
+            <div class="grid grid-cols-4 border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
+                <div class="p-5 font-semibold text-brand-text text-sm flex items-center gap-3">
+                    <i data-lucide="graduation-cap" class="w-4 h-4 text-brand-muted flex-shrink-0"></i>
+                    Technical skill required
+                </div>
+                <div class="p-5 text-center text-brand-muted text-sm flex items-center justify-center">Medium (CLI basics)</div>
+                <div class="p-5 text-center text-brand-muted text-sm flex items-center justify-center">High (Linux, Docker, networking)</div>
+                <div class="p-5 text-center font-semibold text-brand-primary text-sm flex items-center justify-center bg-orange-50/40">Just an email address</div>
+            </div>
+
+            <!-- 24/7 Uptime -->
+            <div class="grid grid-cols-4 border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
+                <div class="p-5 font-semibold text-brand-text text-sm flex items-center gap-3">
+                    <i data-lucide="activity" class="w-4 h-4 text-brand-muted flex-shrink-0"></i>
+                    24/7 uptime
+                </div>
+                <div class="p-5 text-center text-sm flex items-center justify-center">
+                    <span class="flex items-center gap-1 text-gray-300">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                        <span class="text-brand-muted text-xs">(computer must stay on)</span>
+                    </span>
+                </div>
+                <div class="p-5 text-center text-sm flex items-center justify-center">
+                    <span class="flex items-center gap-1 text-brand-accent">
+                        <i data-lucide="check" class="w-4 h-4"></i>
+                        <span class="text-brand-muted text-xs">(if you maintain it)</span>
+                    </span>
+                </div>
+                <div class="p-5 text-center text-sm flex items-center justify-center bg-orange-50/40">
+                    <span class="flex items-center gap-1 text-brand-primary font-semibold">
+                        <i data-lucide="check" class="w-4 h-4"></i>
+                        <span class="text-xs">(guaranteed)</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Automatic updates -->
+            <div class="grid grid-cols-4 border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
+                <div class="p-5 font-semibold text-brand-text text-sm flex items-center gap-3">
+                    <i data-lucide="refresh-cw" class="w-4 h-4 text-brand-muted flex-shrink-0"></i>
+                    Automatic updates
+                </div>
+                <div class="p-5 text-center text-brand-muted text-sm flex items-center justify-center">Manual pull + restart</div>
+                <div class="p-5 text-center text-brand-muted text-sm flex items-center justify-center">Manual SSH + restart</div>
+                <div class="p-5 text-center font-semibold text-brand-primary text-sm flex items-center justify-center bg-orange-50/40">Handled for you</div>
+            </div>
+
+            <!-- Security & patches -->
+            <div class="grid grid-cols-4 border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
+                <div class="p-5 font-semibold text-brand-text text-sm flex items-center gap-3">
+                    <i data-lucide="shield" class="w-4 h-4 text-brand-muted flex-shrink-0"></i>
+                    Security &amp; patches
+                </div>
+                <div class="p-5 text-center text-brand-muted text-sm flex items-center justify-center">On you</div>
+                <div class="p-5 text-center text-brand-muted text-sm flex items-center justify-center">On you (OS, firewall, SSL)</div>
+                <div class="p-5 text-center font-semibold text-brand-primary text-sm flex items-center justify-center bg-orange-50/40">Managed for you</div>
+            </div>
+
+            <!-- Maintenance effort -->
+            <div class="grid grid-cols-4 border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
+                <div class="p-5 font-semibold text-brand-text text-sm flex items-center gap-3">
+                    <i data-lucide="wrench" class="w-4 h-4 text-brand-muted flex-shrink-0"></i>
+                    Maintenance effort
+                </div>
+                <div class="p-5 text-center text-brand-muted text-sm flex items-center justify-center">Low (but no uptime)</div>
+                <div class="p-5 text-center text-brand-muted text-sm flex items-center justify-center">Ongoing (monitoring, backups)</div>
+                <div class="p-5 text-center font-semibold text-brand-primary text-sm flex items-center justify-center bg-orange-50/40">Zero</div>
+            </div>
+
+            <!-- Cost -->
+            <div class="grid grid-cols-4 border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
+                <div class="p-5 font-semibold text-brand-text text-sm flex items-center gap-3">
+                    <i data-lucide="dollar-sign" class="w-4 h-4 text-brand-muted flex-shrink-0"></i>
+                    Cost
+                </div>
+                <div class="p-5 text-center text-brand-muted text-sm flex items-center justify-center">Free (your electricity)</div>
+                <div class="p-5 text-center text-brand-muted text-sm flex items-center justify-center">$5–20/mo + your time</div>
+                <div class="p-5 text-center font-semibold text-brand-primary text-sm flex items-center justify-center bg-orange-50/40">From $19/mo</div>
+            </div>
+
+            <!-- Data privacy -->
+            <div class="grid grid-cols-4 border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
+                <div class="p-5 font-semibold text-brand-text text-sm flex items-center gap-3">
+                    <i data-lucide="lock" class="w-4 h-4 text-brand-muted flex-shrink-0"></i>
+                    Data privacy
+                </div>
+                <div class="p-5 text-center text-brand-muted text-sm flex items-center justify-center">Full control</div>
+                <div class="p-5 text-center text-brand-muted text-sm flex items-center justify-center">Depends on provider</div>
+                <div class="p-5 text-center font-semibold text-brand-primary text-sm flex items-center justify-center bg-orange-50/40">Isolated private instance</div>
+            </div>
+
+            <!-- Support -->
+            <div class="grid grid-cols-4 hover:bg-gray-50/50 transition-colors">
+                <div class="p-5 font-semibold text-brand-text text-sm flex items-center gap-3">
+                    <i data-lucide="life-buoy" class="w-4 h-4 text-brand-muted flex-shrink-0"></i>
+                    Support
+                </div>
+                <div class="p-5 text-center text-brand-muted text-sm flex items-center justify-center">Community forums</div>
+                <div class="p-5 text-center text-brand-muted text-sm flex items-center justify-center">Community forums</div>
+                <div class="p-5 text-center font-semibold text-brand-primary text-sm flex items-center justify-center bg-orange-50/40">Priority support (Pro+)</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Who is DaClaw for? -->
+    <section class="max-w-7xl mx-auto px-6 pb-24">
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-center text-brand-text mb-4">
+            Who is DaClaw for?
+        </h2>
+        <p class="text-center text-brand-muted mb-12 text-lg">
+            If any of these sound like you, DaClaw is the right choice.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+
+            <div class="bg-white p-7 rounded-3xl shadow-pillowy border border-gray-100 flex items-start gap-5">
+                <div class="w-12 h-12 bg-orange-100 rounded-2xl flex items-center justify-center text-brand-primary flex-shrink-0 mt-1">
+                    <i data-lucide="code-2" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-brand-text mb-2">Developers</h3>
+                    <p class="text-brand-muted leading-relaxed text-sm">
+                        Who want OpenClaw running 24/7 without babysitting a server. Focus on building, not babysitting.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white p-7 rounded-3xl shadow-pillowy border border-gray-100 flex items-start gap-5">
+                <div class="w-12 h-12 bg-orange-100 rounded-2xl flex items-center justify-center text-brand-primary flex-shrink-0 mt-1">
+                    <i data-lucide="hammer" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-brand-text mb-2">Makers &amp; Builders</h3>
+                    <p class="text-brand-muted leading-relaxed text-sm">
+                        Who'd rather spend time creating than configuring Docker and Nginx. Skip the yak-shaving.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white p-7 rounded-3xl shadow-pillowy border border-gray-100 flex items-start gap-5">
+                <div class="w-12 h-12 bg-orange-100 rounded-2xl flex items-center justify-center text-brand-primary flex-shrink-0 mt-1">
+                    <i data-lucide="users" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-brand-text mb-2">Families &amp; Non-technical Users</h3>
+                    <p class="text-brand-muted leading-relaxed text-sm">
+                        People who want to set up OpenClaw for family or non-technical friends — no CLI required.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white p-7 rounded-3xl shadow-pillowy border border-gray-100 flex items-start gap-5">
+                <div class="w-12 h-12 bg-orange-100 rounded-2xl flex items-center justify-center text-brand-primary flex-shrink-0 mt-1">
+                    <i data-lucide="building-2" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-brand-text mb-2">Teams</h3>
+                    <p class="text-brand-muted leading-relaxed text-sm">
+                        That need multiple isolated instances with shared knowledge — without the ops overhead.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="max-w-7xl mx-auto px-6 pb-28">
+        <div class="bg-brand-text rounded-3xl p-12 md:p-16 text-center shadow-pillowy-lg relative overflow-hidden">
+            <!-- Decorative blob -->
+            <div class="absolute -top-10 -right-10 w-64 h-64 bg-brand-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-10 -left-10 w-64 h-64 bg-brand-accent/10 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="relative">
+                <div class="inline-flex items-center gap-2 bg-white/10 text-white/80 px-4 py-2 rounded-full text-sm font-medium mb-6">
+                    <i data-lucide="zap" class="w-4 h-4 text-brand-primary"></i>
+                    Ready in minutes
+                </div>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4">
+                    Skip the setup. Start building.
+                </h2>
+                <p class="text-white/70 text-lg mb-10 max-w-xl mx-auto leading-relaxed">
+                    Your DaClaw instance is ready in minutes — always on, always updated, always private.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="/pricing.html" class="inline-flex items-center gap-2 px-8 py-4 bg-brand-primary text-white font-semibold rounded-full hover:bg-brand-primaryHover hover:shadow-lg hover:-translate-y-0.5 transition-all">
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        Get DaClaw
+                    </a>
+                    <a href="/about.html" class="inline-flex items-center gap-2 px-8 py-4 bg-white/10 text-white font-semibold rounded-full hover:bg-white/20 transition-all">
+                        Learn more
+                    </a>
+                </div>
             </div>
         </div>
     </section>

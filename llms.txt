@@ -1,0 +1,66 @@
+# SnappyClaw.ai
+
+> Your AI assistant that actually works. First try.
+
+SnappyClaw is a managed AI assistant platform that gives anyone — regardless of technical skill — a personalized AI buddy that works across Telegram, WhatsApp, and web chat. Powered by OpenClaw, deployed in seconds, zero configuration required.
+
+## What SnappyClaw Does
+
+- Provides a personal AI assistant with a real personality — not a blank chatbot
+- Connects to Telegram, WhatsApp, and web chat in under 60 seconds
+- Handles email, scheduling, reminders, writing, research, and more
+- Remembers context and learns your preferences over time
+- Runs on your own isolated, secure cloud instance
+- Supports BYO LLM (Bring Your Own Language Model) or managed AI included
+
+## Who It's For
+
+- Small business owners who want AI automation without the complexity
+- Non-technical professionals who want a personal AI assistant
+- Creators, freelancers, and entrepreneurs who need productivity help
+- Anyone who tried setting up an AI agent and gave up
+
+## Pricing
+
+- **Lil' Snap ($29/mo):** Personal AI assistant, 500 messages/month, web chat + 1 channel, 5 personality options
+- **Snappy Pro ($59/mo):** 2,000 messages/month, unlimited channels, custom personality, skills marketplace, priority speed
+- **Snappy Ultra ($119/mo):** 10,000 messages/month, voice messages, premium integrations, API access, dedicated resources
+- **BYO Brain discount:** $10/mo off any tier when you bring your own LLM API key
+
+## Key Differentiators
+
+- **Personalized from message one:** Onboarding generates a complete personality profile so your AI knows you before your first conversation
+- **Zero jargon, zero terminal:** No server specs, no error logs, no "gateway configuration." Just a friendly assistant that works
+- **60-second channel setup:** Connect Telegram or WhatsApp with one tap — we handle the technical setup
+- **Real personality:** Choose from 5 personality types (Fun & Friendly, Smart & Curious, All Business, Motivational Coach, Bold & Direct) — your AI feels like a real teammate
+- **BYO LLM:** Use Claude, GPT, Mistral, or let us handle it. Your choice, your control
+
+## How It Works
+
+1. Sign up and pick a plan
+2. Name your Snappy and choose a personality
+3. Pick an avatar and connect your favorite messaging app
+4. Tell Snappy about yourself and what you need help with
+5. Snappy says hi — personalized, ready to work, and already knows you
+
+## Tech Stack
+
+- Built on OpenClaw (open-source AI agent framework)
+- Each user gets an isolated Docker container
+- Supports Anthropic Claude, OpenAI GPT, and Mistral models
+- End-to-end encrypted, SOC 2 compliant infrastructure (planned)
+
+## Links
+
+- [Homepage](https://snappyclaw.ai)
+- [Pricing](https://snappyclaw.ai/pricing.html)
+- [Use Cases](https://snappyclaw.ai/use-cases.html)
+- [Compare](https://snappyclaw.ai/compare.html)
+- [About](https://snappyclaw.ai/about.html)
+
+## Company
+
+SnappyClaw is built by GetLatest AI, a Utah-based startup helping businesses leverage AI and automation for real, measurable results. Founded by Matt Merrill and Justin Henriksen.
+
+- Website: https://getlatest.ai
+- Contact: hello@getlatest.ai

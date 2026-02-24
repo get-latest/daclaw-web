@@ -1,0 +1,1799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Up Your Snappy | SnappyClaw.ai</title>
+    <meta name="description" content="Customize your AI buddy — name, personality, avatar, and more. Your Snappy will be ready in minutes.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    keyframes: {
+                        fadeInUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+                        fadeOutDown: { '0%': { opacity: '1', transform: 'translateY(0)' }, '100%': { opacity: '0', transform: 'translateY(-20px)' } },
+                        shimmer: { '0%': { backgroundPosition: '-200% 0' }, '100%': { backgroundPosition: '200% 0' } },
+                        pulseGlow: { '0%, 100%': { boxShadow: '0 0 8px rgba(242,109,91,0.3)' }, '50%': { boxShadow: '0 0 20px rgba(242,109,91,0.6)' } },
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Outfit', 'sans-serif'] },
+                    colors: {
+                        brand: { bg: '#FDFBF7', text: '#2D3748', primary: '#F26D5B', primaryHover: '#D95846', accent: '#84A98C', muted: '#718096' }
+                    },
+                    boxShadow: { 'pillowy': '0 10px 40px -10px rgba(0,0,0,0.08)', 'pillowy-lg': '0 20px 60px -15px rgba(0,0,0,0.12)' }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: theme('colors.brand.bg'); color: theme('colors.brand.text'); }
+        h1, h2, h3, h4, h5, h6 { font-family: theme('fontFamily.display'); }
+
+        /* VPS progress bar gradient */
+        .vps-bar-fill {
+            background: linear-gradient(90deg, #F26D5B 0%, #f7967a 40%, #84A98C 80%, #6ab07a 100%);
+            background-size: 200% 100%;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Step transitions */
+        .step-panel { display: none; }
+        .step-panel.active {
+            display: block;
+            animation: fadeInUp 0.4s ease-out forwards;
+        }
+
+        /* Selection cards */
+        .selectable-card {
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+        .selectable-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px -8px rgba(0,0,0,0.12);
+        }
+        .selectable-card.selected {
+            border-color: #F26D5B;
+            box-shadow: 0 0 0 3px rgba(242, 109, 91, 0.15);
+        }
+
+        /* Suggestion chips */
+        .chip {
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .chip:hover { background-color: #F26D5B; color: white; }
+        .chip.active { background-color: #F26D5B; color: white; }
+
+        /* Avatar grid */
+        .avatar-option {
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 3px solid transparent;
+            border-radius: 1rem;
+        }
+        .avatar-option:hover { transform: scale(1.05); }
+        .avatar-option.selected {
+            border-color: #F26D5B;
+            box-shadow: 0 0 0 3px rgba(242, 109, 91, 0.2);
+        }
+
+        /* Channel cards */
+        .channel-card {
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid #E2E8F0;
+        }
+        .channel-card:hover { border-color: #F26D5B; transform: translateY(-2px); }
+        .channel-card.selected { border-color: #F26D5B; background-color: rgba(242, 109, 91, 0.04); }
+        .channel-card.disabled { opacity: 0.5; cursor: not-allowed; }
+        .channel-card.disabled:hover { border-color: #E2E8F0; transform: none; }
+
+        /* Lobster animations */
+        @keyframes lobsterFloat {
+            0%, 100% { transform: translateY(0px); }
+            50%       { transform: translateY(-8px); }
+        }
+        .lobster-float { animation: lobsterFloat 3.4s ease-in-out infinite; display: inline-block; }
+
+        /* Goal pills (Step 6) */
+        .goal-pill {
+            display: inline-flex; align-items: center; gap: 0.25rem;
+            padding: 0.5rem 1rem; border-radius: 9999px;
+            font-size: 0.8rem; font-weight: 600;
+            background: white; color: #5a5a6e;
+            border: 2px solid #e5e7eb;
+            cursor: pointer; transition: all 0.15s ease;
+            white-space: nowrap;
+        }
+        .goal-pill:hover { border-color: #F26D5B; color: #F26D5B; transform: translateY(-1px); }
+        .goal-pill.active { background: #F26D5B; color: white; border-color: #F26D5B; box-shadow: 0 2px 8px rgba(242,109,91,0.3); }
+
+        /* Brain options (Step 7) */
+        .brain-option.selected { border-color: #F26D5B !important; box-shadow: 0 0 0 3px rgba(242,109,91,0.15); }
+
+        /* Step 8 — Snappy animations */
+        @keyframes snappyBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+        @keyframes snappyWaveLeft { 0%,100% { transform: rotate(0deg); } 25% { transform: rotate(-20deg); } 75% { transform: rotate(10deg); } }
+        @keyframes snappyWaveRight { 0%,100% { transform: rotate(0deg); } 25% { transform: rotate(15deg); } 75% { transform: rotate(-10deg); } }
+        @keyframes snappySparkle { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.6); } }
+        @keyframes snappyHat { 0% { transform: translateY(-20px); opacity: 0; } 30% { transform: translateY(2px); opacity: 1; } 40% { transform: translateY(-3px); } 50%,100% { transform: translateY(0); opacity: 1; } }
+        .snappy-bounce { animation: snappyBounce 1.8s ease-in-out infinite; }
+        .snappy-wave-left { transform-origin: 12px 50px; animation: snappyWaveLeft 1.2s ease-in-out infinite; }
+        .snappy-wave-right { transform-origin: 68px 50px; animation: snappyWaveRight 1.4s ease-in-out infinite 0.3s; }
+        .snappy-sparkle { animation: snappySparkle 1.5s ease-in-out infinite; }
+        .snappy-hat { animation: snappyHat 2s ease-out forwards; }
+        .snappy-antenna-left { animation: snappyWaveLeft 2s ease-in-out infinite; transform-origin: 30px 28px; }
+        .snappy-antenna-right { animation: snappyWaveRight 2s ease-in-out infinite 0.2s; transform-origin: 50px 28px; }
+        #ready-tip { transition: opacity 0.3s ease; }
+        #tip-content { transition: opacity 0.35s ease, transform 0.35s ease; }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-primary selection:text-white min-h-screen flex flex-col">
+
+    <!-- VPS Provisioning Bar — fixed at top -->
+    <div class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
+        <div class="max-w-3xl mx-auto px-6 py-3">
+            <div class="flex items-center justify-between mb-1.5">
+                <div class="flex items-center gap-2">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-primary opacity-75" id="vps-ping"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-primary" id="vps-dot"></span>
+                    </span>
+                    <span class="text-xs font-medium text-brand-muted" id="vps-status">🦞 Setting up your Snappy's home...</span>
+                </div>
+                <span class="text-xs font-bold text-brand-primary" id="vps-percent">0%</span>
+            </div>
+            <div class="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                <div class="vps-bar-fill h-full rounded-full" id="vps-bar" style="width: 0%"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Spacer for fixed bar -->
+    <div class="h-16"></div>
+
+    <!-- Step Progress Dots -->
+    <div class="max-w-3xl mx-auto px-6 pt-6 pb-2">
+        <div class="flex items-center justify-center gap-2" id="step-dots">
+            <div class="step-dot w-8 h-1.5 rounded-full bg-brand-primary transition-colors"></div>
+            <div class="step-dot w-8 h-1.5 rounded-full bg-gray-200 transition-colors"></div>
+            <div class="step-dot w-8 h-1.5 rounded-full bg-gray-200 transition-colors"></div>
+            <div class="step-dot w-8 h-1.5 rounded-full bg-gray-200 transition-colors"></div>
+            <div class="step-dot w-8 h-1.5 rounded-full bg-gray-200 transition-colors"></div>
+            <div class="step-dot w-8 h-1.5 rounded-full bg-gray-200 transition-colors"></div>
+            <div class="step-dot w-8 h-1.5 rounded-full bg-gray-200 transition-colors"></div>
+            <div class="step-dot w-8 h-1.5 rounded-full bg-gray-200 transition-colors"></div>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 flex items-start justify-center px-6 py-8">
+        <div class="w-full max-w-2xl">
+
+            <!-- ═══════════════════════════════════ -->
+            <!-- STEP 1: Name Your Assistant         -->
+            <!-- ═══════════════════════════════════ -->
+            <div class="step-panel active" id="step-1">
+                <div class="text-center mb-10">
+                    <!-- Snappy mascot -->
+                    <div class="lobster-float mb-6 inline-block">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 0 100 96" width="80" height="80" style="filter: drop-shadow(0 4px 12px rgba(242,109,91,0.3));"><line x1="30" y1="28" x2="20" y2="10" stroke="#d45a4a" stroke-width="2.5" stroke-linecap="round"/><line x1="50" y1="28" x2="60" y2="10" stroke="#d45a4a" stroke-width="2.5" stroke-linecap="round"/><circle cx="20" cy="9" r="3.5" fill="#F26D5B"/><circle cx="60" cy="9" r="3.5" fill="#F26D5B"/><circle cx="19" cy="7.5" r="1.2" fill="white" opacity="0.6"/><circle cx="59" cy="7.5" r="1.2" fill="white" opacity="0.6"/><ellipse cx="8" cy="52" rx="12" ry="9" fill="#F26D5B"/><ellipse cx="8" cy="52" rx="10" ry="7" fill="#e8604f"/><ellipse cx="3" cy="44" rx="7" ry="5" fill="#F26D5B" transform="rotate(-20, 3, 44)"/><ellipse cx="5" cy="50" rx="6" ry="4" fill="#F26D5B" transform="rotate(10, 5, 50)"/><ellipse cx="72" cy="52" rx="9" ry="7" fill="#F26D5B"/><ellipse cx="72" cy="52" rx="7" ry="5.5" fill="#e8604f"/><ellipse cx="40" cy="55" rx="25" ry="24" fill="#F26D5B"/><ellipse cx="35" cy="45" rx="12" ry="8" fill="white" opacity="0.1"/><ellipse cx="40" cy="62" rx="15" ry="12" fill="#f7867a" opacity="0.5"/><ellipse cx="32" cy="48" rx="7" ry="8" fill="white"/><ellipse cx="32" cy="49" rx="4.5" ry="5.5" fill="#1a1a2e"/><circle cx="34" cy="47" r="2" fill="white"/><ellipse cx="48" cy="48" rx="7" ry="8" fill="white"/><ellipse cx="48" cy="49" rx="4.5" ry="5.5" fill="#1a1a2e"/><circle cx="50" cy="47" r="2" fill="white"/><path d="M34 60 Q40 67 46 60" stroke="#c0453a" stroke-width="2.5" fill="none" stroke-linecap="round"/><ellipse cx="25" cy="58" rx="5" ry="3" fill="#ff9999" opacity="0.4"/><ellipse cx="55" cy="58" rx="5" ry="3" fill="#ff9999" opacity="0.4"/></svg>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-extrabold mb-3">What's Your Snappy's Name?</h1>
+                    <p class="text-brand-muted text-lg">Every great assistant needs a great name. What should I go by? 🦞</p>
+                </div>
+
+                <!-- Name input -->
+                <div class="max-w-md mx-auto mb-8">
+                    <input
+                        type="text"
+                        id="snappy-name"
+                        placeholder="e.g., Snappy, Jarvis, Luna, Buddy..."
+                        class="w-full text-center text-2xl font-bold py-4 px-6 border-2 border-gray-200 rounded-2xl focus:border-brand-primary focus:ring-4 focus:ring-brand-primary/10 outline-none transition-all bg-white"
+                        maxlength="20"
+                        autocomplete="off"
+                    />
+                    <p class="text-xs text-brand-muted text-center mt-2">2–20 characters</p>
+                </div>
+
+                <!-- Suggestion chips -->
+                <div class="flex flex-wrap justify-center gap-2 mb-12">
+                    <button class="chip px-4 py-2 rounded-full bg-white border border-gray-200 text-sm font-medium text-brand-text shadow-sm" onclick="pickName(this, 'Snappy')">Snappy</button>
+                    <button class="chip px-4 py-2 rounded-full bg-white border border-gray-200 text-sm font-medium text-brand-text shadow-sm" onclick="pickName(this, 'Bolt')">Bolt</button>
+                    <button class="chip px-4 py-2 rounded-full bg-white border border-gray-200 text-sm font-medium text-brand-text shadow-sm" onclick="pickName(this, 'Echo')">Echo</button>
+                    <button class="chip px-4 py-2 rounded-full bg-white border border-gray-200 text-sm font-medium text-brand-text shadow-sm" onclick="pickName(this, 'Nova')">Nova</button>
+                    <button class="chip px-4 py-2 rounded-full bg-white border border-gray-200 text-sm font-medium text-brand-text shadow-sm" onclick="pickName(this, 'Scout')">Scout</button>
+                    <button class="chip px-4 py-2 rounded-full bg-white border border-gray-200 text-sm font-medium text-brand-text shadow-sm" onclick="pickName(this, 'Pixel')">Pixel</button>
+                    <button class="chip px-4 py-2 rounded-full bg-white border border-gray-200 text-sm font-medium text-brand-text shadow-sm" onclick="pickName(this, 'Buddy')">Buddy</button>
+                    <button class="chip px-4 py-2 rounded-full bg-white border border-gray-200 text-sm font-medium text-brand-text shadow-sm" onclick="pickName(this, 'Luna')">Luna</button>
+                </div>
+
+                <!-- Next button -->
+                <div class="text-center">
+                    <button onclick="goToStep(2)" class="px-10 py-4 text-lg font-bold text-white bg-brand-primary rounded-full hover:bg-brand-primaryHover shadow-pillowy hover:shadow-pillowy-lg hover:-translate-y-0.5 transition-all">
+                        Next →
+                    </button>
+                </div>
+            </div>
+
+            <!-- ═══════════════════════════════════ -->
+            <!-- STEP 2: Pick a Personality           -->
+            <!-- ═══════════════════════════════════ -->
+            <div class="step-panel" id="step-2">
+                <div class="text-center mb-10">
+                    <h1 class="text-3xl md:text-4xl font-extrabold mb-3">What's Your Snappy's Vibe?</h1>
+                    <p class="text-brand-muted text-lg">Pick a personality and see how <span id="name-in-step2" class="font-bold text-brand-primary">Snappy</span> will talk to you 🎭</p>
+                </div>
+
+                <div class="grid gap-4 mb-12">
+                    <!-- Fun & Friendly -->
+                    <div class="selectable-card bg-white rounded-2xl p-5 shadow-sm" onclick="selectPersonality(this, 'fun')" data-personality="fun">
+                        <div class="flex items-start gap-4">
+                            <div class="w-16 h-16 flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="-15 -15 110 115" class="w-16 h-16" style="filter: drop-shadow(0 2px 6px rgba(242,109,91,0.3));">
+                                    <!-- Confetti dots -->
+                                    <circle cx="5" cy="10" r="2.5" fill="#FFD700" opacity="0.8"/>
+                                    <circle cx="75" cy="5" r="2" fill="#FF69B4" opacity="0.8"/>
+                                    <circle cx="85" cy="25" r="2.5" fill="#00CED1" opacity="0.7"/>
+                                    <circle cx="-5" cy="35" r="2" fill="#FF6347" opacity="0.7"/>
+                                    <circle cx="70" cy="85" r="2" fill="#FFD700" opacity="0.6"/>
+                                    <!-- Confetti rectangles -->
+                                    <rect x="10" y="0" width="3" height="6" rx="1" fill="#FF69B4" opacity="0.7" transform="rotate(25, 11, 3)"/>
+                                    <rect x="80" y="40" width="3" height="6" rx="1" fill="#00CED1" opacity="0.6" transform="rotate(-15, 81, 43)"/>
+
+                                    <!-- Party Hat -->
+                                    <polygon points="40,8 30,32 50,32" fill="#FFD700"/>
+                                    <polygon points="40,8 33,28 47,28" fill="#FF69B4" opacity="0.5"/>
+                                    <circle cx="40" cy="7" r="3.5" fill="#FF6347"/>
+                                    <ellipse cx="40" cy="32" rx="12" ry="3" fill="#FFD700"/>
+                                    <!-- Hat stripes -->
+                                    <line x1="36" y1="16" x2="38" y2="28" stroke="#FF69B4" stroke-width="1.5" opacity="0.4"/>
+                                    <line x1="44" y1="16" x2="42" y2="28" stroke="#00CED1" stroke-width="1.5" opacity="0.4"/>
+
+                                    <!-- Left claw — WAVING (raised up) -->
+                                    <g transform="rotate(-30, 15, 52)">
+                                        <ellipse cx="8" cy="52" rx="11" ry="8" fill="#F26D5B"/>
+                                        <ellipse cx="8" cy="52" rx="9" ry="6" fill="#e8604f"/>
+                                        <ellipse cx="3" cy="45" rx="6" ry="4.5" fill="#F26D5B" transform="rotate(-20, 3, 45)"/>
+                                        <ellipse cx="5" cy="50" rx="5.5" ry="3.5" fill="#F26D5B" transform="rotate(10, 5, 50)"/>
+                                    </g>
+
+                                    <!-- Right claw -->
+                                    <ellipse cx="72" cy="52" rx="9" ry="7" fill="#F26D5B"/>
+                                    <ellipse cx="72" cy="52" rx="7" ry="5.5" fill="#e8604f"/>
+
+                                    <!-- Body -->
+                                    <ellipse cx="40" cy="55" rx="25" ry="24" fill="#F26D5B"/>
+                                    <ellipse cx="35" cy="45" rx="12" ry="8" fill="white" opacity="0.1"/>
+                                    <ellipse cx="40" cy="62" rx="15" ry="12" fill="#f7867a" opacity="0.5"/>
+
+                                    <!-- BIG sparkle eyes -->
+                                    <ellipse cx="32" cy="48" rx="7.5" ry="8.5" fill="white"/>
+                                    <ellipse cx="32" cy="49" rx="5" ry="6" fill="#1a1a2e"/>
+                                    <circle cx="34" cy="46" r="2.5" fill="white"/>
+                                    <circle cx="30" cy="50" r="1.2" fill="white" opacity="0.6"/>
+
+                                    <ellipse cx="48" cy="48" rx="7.5" ry="8.5" fill="white"/>
+                                    <ellipse cx="48" cy="49" rx="5" ry="6" fill="#1a1a2e"/>
+                                    <circle cx="50" cy="46" r="2.5" fill="white"/>
+                                    <circle cx="46" cy="50" r="1.2" fill="white" opacity="0.6"/>
+
+                                    <!-- Big open smile -->
+                                    <path d="M32 60 Q40 72 48 60" stroke="#c0453a" stroke-width="2.5" fill="#c0453a" opacity="0.8" stroke-linecap="round"/>
+                                    <path d="M34 60 Q40 66 46 60" fill="white" opacity="0.4"/>
+
+                                    <!-- Cheek blush (bigger) -->
+                                    <ellipse cx="24" cy="58" rx="6" ry="3.5" fill="#ff9999" opacity="0.45"/>
+                                    <ellipse cx="56" cy="58" rx="6" ry="3.5" fill="#ff9999" opacity="0.45"/>
+
+                                    <!-- Little legs -->
+                                    <line x1="28" y1="72" x2="22" y2="80" stroke="#d45a4a" stroke-width="2.5" stroke-linecap="round"/>
+                                    <line x1="52" y1="72" x2="58" y2="80" stroke="#d45a4a" stroke-width="2.5" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-bold text-lg mb-1">Fun & Friendly</h3>
+                                <p class="text-sm text-brand-muted mb-2">Casual, upbeat, uses emoji, celebrates your wins</p>
+                                <div class="bg-brand-bg rounded-xl p-3 text-sm text-brand-text italic">
+                                    "Yooo let's GO! That presentation is gonna be 🔥 Want me to help you nail the opening?"
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Smart & Curious -->
+                    <div class="selectable-card bg-white rounded-2xl p-5 shadow-sm" onclick="selectPersonality(this, 'smart')" data-personality="smart">
+                        <div class="flex items-start gap-4">
+                            <div class="w-16 h-16 flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="-15 -10 110 110" class="w-16 h-16" style="filter: drop-shadow(0 2px 6px rgba(91,156,242,0.3));">
+                                    <!-- Antennae with question mark tips -->
+                                    <line x1="30" y1="28" x2="20" y2="10" stroke="#3a6ec0" stroke-width="2.5" stroke-linecap="round"/>
+                                    <line x1="50" y1="28" x2="60" y2="10" stroke="#3a6ec0" stroke-width="2.5" stroke-linecap="round"/>
+                                    <circle cx="20" cy="9" r="3.5" fill="#5B9CF2"/>
+                                    <circle cx="60" cy="9" r="3.5" fill="#5B9CF2"/>
+
+                                    <!-- Small book in left claw -->
+                                    <g transform="translate(-2, 0)">
+                                        <ellipse cx="10" cy="54" rx="10" ry="7" fill="#5B9CF2"/>
+                                        <ellipse cx="10" cy="54" rx="8" ry="5.5" fill="#4a8be0"/>
+                                        <!-- Book -->
+                                        <rect x="-2" y="46" width="10" height="14" rx="1.5" fill="#FFD700" transform="rotate(-15, 3, 53)"/>
+                                        <line x1="0" y1="47" x2="3" y2="59" stroke="#c0963a" stroke-width="1" transform="rotate(-15, 3, 53)"/>
+                                        <rect x="-1" y="47" width="8" height="12" rx="1" fill="white" opacity="0.3" transform="rotate(-15, 3, 53)"/>
+                                    </g>
+
+                                    <!-- Right claw (chin-scratch pose) -->
+                                    <ellipse cx="70" cy="56" rx="8" ry="6" fill="#5B9CF2"/>
+                                    <ellipse cx="70" cy="56" rx="6" ry="4.5" fill="#4a8be0"/>
+
+                                    <!-- Body (slightly tilted for curious look) -->
+                                    <g transform="rotate(-3, 40, 55)">
+                                        <ellipse cx="40" cy="55" rx="25" ry="24" fill="#5B9CF2"/>
+                                        <ellipse cx="35" cy="45" rx="12" ry="8" fill="white" opacity="0.1"/>
+                                        <ellipse cx="40" cy="62" rx="15" ry="12" fill="#6ba8f5" opacity="0.5"/>
+
+                                        <!-- Round glasses -->
+                                        <circle cx="32" cy="48" r="9.5" fill="none" stroke="#2D3748" stroke-width="2.2"/>
+                                        <circle cx="48" cy="48" r="9.5" fill="none" stroke="#2D3748" stroke-width="2.2"/>
+                                        <line x1="41.5" y1="48" x2="38.5" y2="48" stroke="#2D3748" stroke-width="2"/>
+                                        <!-- Earpiece lines -->
+                                        <line x1="22.5" y1="48" x2="18" y2="46" stroke="#2D3748" stroke-width="1.5" stroke-linecap="round"/>
+                                        <line x1="57.5" y1="48" x2="62" y2="46" stroke="#2D3748" stroke-width="1.5" stroke-linecap="round"/>
+
+                                        <!-- Eyes behind glasses (smaller, thoughtful) -->
+                                        <ellipse cx="32" cy="48" rx="5.5" ry="6.5" fill="white"/>
+                                        <ellipse cx="32" cy="49" rx="3.5" ry="4.5" fill="#1a1a2e"/>
+                                        <circle cx="33.5" cy="47" r="1.5" fill="white"/>
+                                        <!-- Looking up-right (curious) -->
+                                        <ellipse cx="48" cy="48" rx="5.5" ry="6.5" fill="white"/>
+                                        <ellipse cx="49" cy="48" rx="3.5" ry="4.5" fill="#1a1a2e"/>
+                                        <circle cx="50.5" cy="46" r="1.5" fill="white"/>
+
+                                        <!-- Thoughtful slight smile -->
+                                        <path d="M36 61 Q40 65 44 62" stroke="#3a6ec0" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+                                        <!-- One raised eyebrow -->
+                                        <path d="M44 38 Q48 35 53 37" stroke="#2D3748" stroke-width="2" fill="none" stroke-linecap="round"/>
+                                    </g>
+
+                                    <!-- Tiny lightbulb above head -->
+                                    <circle cx="62" cy="20" r="5" fill="#FFD700" opacity="0.6"/>
+                                    <circle cx="62" cy="20" r="3" fill="#FFE44D"/>
+                                    <line x1="62" y1="25" x2="62" y2="28" stroke="#c0963a" stroke-width="1.5" stroke-linecap="round"/>
+
+                                    <!-- Legs -->
+                                    <line x1="28" y1="72" x2="22" y2="80" stroke="#4a8be0" stroke-width="2.5" stroke-linecap="round"/>
+                                    <line x1="52" y1="72" x2="58" y2="80" stroke="#4a8be0" stroke-width="2.5" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-bold text-lg mb-1">Smart & Curious</h3>
+                                <p class="text-sm text-brand-muted mb-2">Thoughtful, loves research, asks great follow-up questions</p>
+                                <div class="bg-brand-bg rounded-xl p-3 text-sm text-brand-text italic">
+                                    "Interesting question. I found 3 angles we could explore — want the deep dive or the summary?"
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- All Business -->
+                    <div class="selectable-card bg-white rounded-2xl p-5 shadow-sm" onclick="selectPersonality(this, 'business')" data-personality="business">
+                        <div class="flex items-start gap-4">
+                            <div class="w-16 h-16 flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="-15 -10 110 110" class="w-16 h-16" style="filter: drop-shadow(0 2px 6px rgba(45,55,72,0.3));">
+                                    <!-- Antennae (neat, straight) -->
+                                    <line x1="30" y1="28" x2="24" y2="10" stroke="#5a6678" stroke-width="2.5" stroke-linecap="round"/>
+                                    <line x1="50" y1="28" x2="56" y2="10" stroke="#5a6678" stroke-width="2.5" stroke-linecap="round"/>
+                                    <circle cx="24" cy="9" r="3" fill="#4A5568"/>
+                                    <circle cx="56" cy="9" r="3" fill="#4A5568"/>
+
+                                    <!-- Left claw holding clipboard -->
+                                    <ellipse cx="10" cy="52" rx="10" ry="7" fill="#4A5568"/>
+                                    <ellipse cx="10" cy="52" rx="8" ry="5.5" fill="#3D4A5C"/>
+                                    <!-- Clipboard -->
+                                    <rect x="-4" y="40" width="13" height="18" rx="2" fill="#E2E8F0" transform="rotate(-10, 2, 49)"/>
+                                    <rect x="-1" y="39" width="7" height="3" rx="1.5" fill="#A0AEC0" transform="rotate(-10, 2, 40)"/>
+                                    <line x1="0" y1="47" x2="6" y2="46" stroke="#A0AEC0" stroke-width="1" transform="rotate(-10, 3, 47)"/>
+                                    <line x1="0" y1="50" x2="6" y2="49" stroke="#A0AEC0" stroke-width="1" transform="rotate(-10, 3, 50)"/>
+                                    <line x1="0" y1="53" x2="4" y2="52" stroke="#A0AEC0" stroke-width="1" transform="rotate(-10, 2, 53)"/>
+
+                                    <!-- Right claw (neutral) -->
+                                    <ellipse cx="72" cy="54" rx="8" ry="6" fill="#4A5568"/>
+                                    <ellipse cx="72" cy="54" rx="6" ry="4.5" fill="#3D4A5C"/>
+
+                                    <!-- Body (charcoal-slate) -->
+                                    <ellipse cx="40" cy="55" rx="25" ry="24" fill="#4A5568"/>
+                                    <ellipse cx="35" cy="45" rx="12" ry="8" fill="white" opacity="0.06"/>
+                                    <ellipse cx="40" cy="62" rx="15" ry="12" fill="#5a6678" opacity="0.5"/>
+
+                                    <!-- Tie -->
+                                    <polygon points="40,36 37,42 40,40 43,42" fill="#F26D5B"/>
+                                    <polygon points="37,42 40,40 43,42 40,52" fill="#D95846"/>
+
+                                    <!-- Eyes — focused, slightly narrowed -->
+                                    <ellipse cx="32" cy="48" rx="6.5" ry="7" fill="white"/>
+                                    <ellipse cx="32" cy="49" rx="4" ry="5" fill="#1a1a2e"/>
+                                    <circle cx="33.5" cy="47.5" r="1.8" fill="white"/>
+                                    <!-- Slight determined brow -->
+                                    <line x1="26" y1="40" x2="37" y2="39" stroke="#2D3748" stroke-width="2" stroke-linecap="round"/>
+
+                                    <ellipse cx="48" cy="48" rx="6.5" ry="7" fill="white"/>
+                                    <ellipse cx="48" cy="49" rx="4" ry="5" fill="#1a1a2e"/>
+                                    <circle cx="49.5" cy="47.5" r="1.8" fill="white"/>
+                                    <line x1="43" y1="39" x2="54" y2="40" stroke="#2D3748" stroke-width="2" stroke-linecap="round"/>
+
+                                    <!-- Straight confident mouth -->
+                                    <path d="M35 61 L45 61" stroke="#2D3748" stroke-width="2.5" stroke-linecap="round"/>
+
+                                    <!-- Legs -->
+                                    <line x1="28" y1="72" x2="22" y2="80" stroke="#3D4A5C" stroke-width="2.5" stroke-linecap="round"/>
+                                    <line x1="52" y1="72" x2="58" y2="80" stroke="#3D4A5C" stroke-width="2.5" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-bold text-lg mb-1">All Business</h3>
+                                <p class="text-sm text-brand-muted mb-2">Efficient, organized, straight to the point</p>
+                                <div class="bg-brand-bg rounded-xl p-3 text-sm text-brand-text italic">
+                                    "Done. Email drafted, calendar updated, and I flagged two conflicts for tomorrow. What's next?"
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Motivational Coach -->
+                    <div class="selectable-card bg-white rounded-2xl p-5 shadow-sm" onclick="selectPersonality(this, 'coach')" data-personality="coach">
+                        <div class="flex items-start gap-4">
+                            <div class="w-16 h-16 flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="-15 -15 110 115" class="w-16 h-16" style="filter: drop-shadow(0 2px 6px rgba(255,165,0,0.3));">
+                                    <!-- Sparkle stars -->
+                                    <polygon points="72,10 74,16 80,16 75,20 77,26 72,22 67,26 69,20 64,16 70,16" fill="#FFD700" opacity="0.7" transform="scale(0.6) translate(40, -5)"/>
+                                    <polygon points="10,15 12,21 18,21 13,25 15,31 10,27 5,31 7,25 2,21 8,21" fill="#FFD700" opacity="0.5" transform="scale(0.5) translate(-5, 0)"/>
+
+                                    <!-- Headband -->
+                                    <ellipse cx="40" cy="33" rx="26" ry="8" fill="none" stroke="#FF6B35" stroke-width="4"/>
+                                    <ellipse cx="40" cy="33" rx="26" ry="8" fill="none" stroke="#FFD700" stroke-width="2" opacity="0.5"/>
+
+                                    <!-- Left claw — FLEXING (raised, muscular pose) -->
+                                    <g transform="rotate(-45, 15, 52)">
+                                        <ellipse cx="8" cy="50" rx="12" ry="9" fill="#FF8C42"/>
+                                        <ellipse cx="8" cy="50" rx="10" ry="7" fill="#e87a35"/>
+                                        <ellipse cx="3" cy="43" rx="7" ry="5" fill="#FF8C42" transform="rotate(-20, 3, 43)"/>
+                                        <ellipse cx="6" cy="49" rx="6" ry="4" fill="#FF8C42" transform="rotate(10, 6, 49)"/>
+                                    </g>
+
+                                    <!-- Right claw (thumbs up style) -->
+                                    <ellipse cx="72" cy="50" rx="9" ry="7" fill="#FF8C42"/>
+                                    <ellipse cx="72" cy="50" rx="7" ry="5.5" fill="#e87a35"/>
+                                    <ellipse cx="76" cy="44" rx="4" ry="6" fill="#FF8C42" transform="rotate(15, 76, 44)"/>
+
+                                    <!-- Body (warm orange) -->
+                                    <ellipse cx="40" cy="55" rx="25" ry="24" fill="#FF8C42"/>
+                                    <ellipse cx="35" cy="45" rx="12" ry="8" fill="white" opacity="0.1"/>
+                                    <ellipse cx="40" cy="62" rx="15" ry="12" fill="#ffa060" opacity="0.5"/>
+
+                                    <!-- Big encouraging eyes -->
+                                    <ellipse cx="32" cy="48" rx="7.5" ry="8.5" fill="white"/>
+                                    <ellipse cx="32" cy="48" rx="5" ry="6" fill="#1a1a2e"/>
+                                    <circle cx="34" cy="46" r="2.5" fill="white"/>
+                                    <circle cx="30" cy="50" r="1" fill="white" opacity="0.5"/>
+
+                                    <ellipse cx="48" cy="48" rx="7.5" ry="8.5" fill="white"/>
+                                    <ellipse cx="48" cy="48" rx="5" ry="6" fill="#1a1a2e"/>
+                                    <circle cx="50" cy="46" r="2.5" fill="white"/>
+                                    <circle cx="46" cy="50" r="1" fill="white" opacity="0.5"/>
+
+                                    <!-- Big proud smile -->
+                                    <path d="M32 60 Q40 70 48 60" stroke="#c06030" stroke-width="2.5" fill="#c06030" opacity="0.7" stroke-linecap="round"/>
+                                    <path d="M34 60 Q40 65 46 60" fill="white" opacity="0.3"/>
+
+                                    <!-- Rosy cheeks -->
+                                    <ellipse cx="24" cy="58" rx="6" ry="3.5" fill="#FF6347" opacity="0.35"/>
+                                    <ellipse cx="56" cy="58" rx="6" ry="3.5" fill="#FF6347" opacity="0.35"/>
+
+                                    <!-- Little star on chest -->
+                                    <polygon points="40,65 41.5,69 45.5,69 42.5,71.5 43.5,75.5 40,73 36.5,75.5 37.5,71.5 34.5,69 38.5,69" fill="#FFD700" opacity="0.8"/>
+
+                                    <!-- Legs -->
+                                    <line x1="28" y1="72" x2="22" y2="80" stroke="#e87a35" stroke-width="2.5" stroke-linecap="round"/>
+                                    <line x1="52" y1="72" x2="58" y2="80" stroke="#e87a35" stroke-width="2.5" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-bold text-lg mb-1">Motivational Coach</h3>
+                                <p class="text-sm text-brand-muted mb-2">Encouraging, supportive, always sees the positive</p>
+                                <div class="bg-brand-bg rounded-xl p-3 text-sm text-brand-text italic">
+                                    "You've already crushed 3 tasks today — that's amazing! Ready to tackle the next one? You got this! 💪"
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bold & Direct -->
+                    <div class="selectable-card bg-white rounded-2xl p-5 shadow-sm" onclick="selectPersonality(this, 'bold')" data-personality="bold">
+                        <div class="flex items-start gap-4">
+                            <div class="w-16 h-16 flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="-15 -10 110 110" class="w-16 h-16" style="filter: drop-shadow(0 2px 6px rgba(220,50,50,0.3));">
+                                    <!-- Flame accents -->
+                                    <path d="M-5,55 Q-8,40 0,35 Q-2,45 5,42 Q2,50 -5,55Z" fill="#FF4500" opacity="0.5"/>
+                                    <path d="M85,50 Q88,38 80,33 Q82,43 76,40 Q79,48 85,50Z" fill="#FF4500" opacity="0.5"/>
+                                    <path d="M40,-5 Q36,-12 40,-18 Q44,-12 40,-5Z" fill="#FF4500" opacity="0.4"/>
+
+                                    <!-- Antennae (sharp, angled back) -->
+                                    <line x1="30" y1="28" x2="15" y2="12" stroke="#8B0000" stroke-width="3" stroke-linecap="round"/>
+                                    <line x1="50" y1="28" x2="65" y2="12" stroke="#8B0000" stroke-width="3" stroke-linecap="round"/>
+                                    <circle cx="15" cy="11" r="3.5" fill="#DC3232"/>
+                                    <circle cx="65" cy="11" r="3.5" fill="#DC3232"/>
+
+                                    <!-- Left claw (crossed, confident) -->
+                                    <g>
+                                        <ellipse cx="10" cy="50" rx="12" ry="9" fill="#DC3232"/>
+                                        <ellipse cx="10" cy="50" rx="10" ry="7" fill="#c02828"/>
+                                        <ellipse cx="4" cy="43" rx="7" ry="5" fill="#DC3232" transform="rotate(-20, 4, 43)"/>
+                                        <ellipse cx="6" cy="49" rx="6" ry="4" fill="#DC3232" transform="rotate(10, 6, 49)"/>
+                                    </g>
+
+                                    <!-- Right claw (crossed over) -->
+                                    <g>
+                                        <ellipse cx="70" cy="50" rx="10" ry="8" fill="#DC3232"/>
+                                        <ellipse cx="70" cy="50" rx="8" ry="6" fill="#c02828"/>
+                                        <ellipse cx="75" cy="44" rx="6" ry="4" fill="#DC3232" transform="rotate(15, 75, 44)"/>
+                                    </g>
+
+                                    <!-- Body (deep red) -->
+                                    <ellipse cx="40" cy="55" rx="25" ry="24" fill="#DC3232"/>
+                                    <ellipse cx="35" cy="45" rx="12" ry="8" fill="white" opacity="0.08"/>
+                                    <ellipse cx="40" cy="62" rx="15" ry="12" fill="#e04545" opacity="0.5"/>
+
+                                    <!-- SUNGLASSES -->
+                                    <rect x="22" y="42" width="16" height="12" rx="3" fill="#1a1a2e"/>
+                                    <rect x="42" y="42" width="16" height="12" rx="3" fill="#1a1a2e"/>
+                                    <line x1="38" y1="48" x2="42" y2="48" stroke="#1a1a2e" stroke-width="2.5"/>
+                                    <line x1="22" y1="47" x2="17" y2="45" stroke="#1a1a2e" stroke-width="2" stroke-linecap="round"/>
+                                    <line x1="58" y1="47" x2="63" y2="45" stroke="#1a1a2e" stroke-width="2" stroke-linecap="round"/>
+                                    <!-- Lens shine -->
+                                    <line x1="25" y1="44" x2="28" y2="44" stroke="white" stroke-width="1.5" opacity="0.3" stroke-linecap="round"/>
+                                    <line x1="45" y1="44" x2="48" y2="44" stroke="white" stroke-width="1.5" opacity="0.3" stroke-linecap="round"/>
+
+                                    <!-- Confident smirk -->
+                                    <path d="M34 62 Q38 64 46 61" stroke="#8B0000" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+                                    <!-- Legs (wide stance) -->
+                                    <line x1="26" y1="72" x2="18" y2="82" stroke="#c02828" stroke-width="2.5" stroke-linecap="round"/>
+                                    <line x1="54" y1="72" x2="62" y2="82" stroke="#c02828" stroke-width="2.5" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-bold text-lg mb-1">Bold & Direct</h3>
+                                <p class="text-sm text-brand-muted mb-2">No fluff, tells it like it is, confident</p>
+                                <div class="bg-brand-bg rounded-xl p-3 text-sm text-brand-text italic">
+                                    "That deadline isn't moving. Here's the plan: we knock out the report now, emails after lunch. Let's go."
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nav buttons -->
+                <div class="flex justify-between items-center">
+                    <button onclick="goToStep(1)" class="px-6 py-3 text-sm font-semibold text-brand-muted hover:text-brand-text transition-colors">
+                        ← Back
+                    </button>
+                    <button onclick="goToStep(3)" class="px-10 py-4 text-lg font-bold text-white bg-brand-primary rounded-full hover:bg-brand-primaryHover shadow-pillowy hover:shadow-pillowy-lg hover:-translate-y-0.5 transition-all">
+                        This is me! →
+                    </button>
+                </div>
+            </div>
+
+            <!-- ═══════════════════════════════════ -->
+            <!-- STEP 3: Choose an Avatar             -->
+            <!-- ═══════════════════════════════════ -->
+            <div class="step-panel" id="step-3">
+                <div class="text-center mb-10">
+                    <h1 class="text-3xl md:text-4xl font-extrabold mb-3">What Does <span id="name-in-step3" class="text-brand-primary">Snappy</span> Look Like?</h1>
+                    <p class="text-brand-muted text-lg">Pick a face — or upload your own if you're feeling creative 🎨</p>
+                </div>
+
+                <!-- Snappy Characters section -->
+                <p class="text-xs font-bold text-brand-muted uppercase tracking-wider mb-3">🦞 Snappy Characters</p>
+                <div class="grid grid-cols-5 sm:grid-cols-7 gap-3 mb-8">
+                    <!-- Upgraded lobsters with full detail -->
+                    <div class="avatar-option bg-white p-2 flex items-center justify-center aspect-square shadow-sm selected" onclick="selectAvatar(this, 'lobster-red')" data-avatar="lobster-red">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-15 -5 110 105" class="w-14 h-14"><line x1="30" y1="28" x2="20" y2="12" stroke="#d45a4a" stroke-width="2" stroke-linecap="round"/><line x1="50" y1="28" x2="60" y2="12" stroke="#d45a4a" stroke-width="2" stroke-linecap="round"/><circle cx="20" cy="11" r="3" fill="#F26D5B"/><circle cx="60" cy="11" r="3" fill="#F26D5B"/><ellipse cx="10" cy="52" rx="10" ry="7" fill="#F26D5B"/><ellipse cx="4" cy="46" rx="6" ry="4" fill="#F26D5B" transform="rotate(-15,4,46)"/><ellipse cx="70" cy="52" rx="8" ry="6" fill="#F26D5B"/><ellipse cx="40" cy="55" rx="25" ry="24" fill="#F26D5B"/><ellipse cx="35" cy="45" rx="10" ry="7" fill="white" opacity="0.1"/><ellipse cx="32" cy="48" rx="7" ry="8" fill="white"/><ellipse cx="32" cy="49" rx="4.5" ry="5.5" fill="#1a1a2e"/><circle cx="34" cy="47" r="2" fill="white"/><ellipse cx="48" cy="48" rx="7" ry="8" fill="white"/><ellipse cx="48" cy="49" rx="4.5" ry="5.5" fill="#1a1a2e"/><circle cx="50" cy="47" r="2" fill="white"/><path d="M34 60 Q40 67 46 60" stroke="#c0453a" stroke-width="2.5" fill="none" stroke-linecap="round"/><ellipse cx="25" cy="58" rx="5" ry="3" fill="#ff9999" opacity="0.4"/><ellipse cx="55" cy="58" rx="5" ry="3" fill="#ff9999" opacity="0.4"/><line x1="28" y1="72" x2="22" y2="80" stroke="#d45a4a" stroke-width="2" stroke-linecap="round"/><line x1="52" y1="72" x2="58" y2="80" stroke="#d45a4a" stroke-width="2" stroke-linecap="round"/></svg>
+                    </div>
+                    <div class="avatar-option bg-white p-2 flex items-center justify-center aspect-square shadow-sm" onclick="selectAvatar(this, 'lobster-blue')" data-avatar="lobster-blue">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-15 -5 110 105" class="w-14 h-14"><line x1="30" y1="28" x2="20" y2="12" stroke="#3a6ec0" stroke-width="2" stroke-linecap="round"/><line x1="50" y1="28" x2="60" y2="12" stroke="#3a6ec0" stroke-width="2" stroke-linecap="round"/><circle cx="20" cy="11" r="3" fill="#5B9CF2"/><circle cx="60" cy="11" r="3" fill="#5B9CF2"/><ellipse cx="10" cy="52" rx="10" ry="7" fill="#5B9CF2"/><ellipse cx="4" cy="46" rx="6" ry="4" fill="#5B9CF2" transform="rotate(-15,4,46)"/><ellipse cx="70" cy="52" rx="8" ry="6" fill="#5B9CF2"/><ellipse cx="40" cy="55" rx="25" ry="24" fill="#5B9CF2"/><ellipse cx="35" cy="45" rx="10" ry="7" fill="white" opacity="0.1"/><ellipse cx="32" cy="48" rx="7" ry="8" fill="white"/><ellipse cx="32" cy="49" rx="4.5" ry="5.5" fill="#1a1a2e"/><circle cx="34" cy="47" r="2" fill="white"/><ellipse cx="48" cy="48" rx="7" ry="8" fill="white"/><ellipse cx="48" cy="49" rx="4.5" ry="5.5" fill="#1a1a2e"/><circle cx="50" cy="47" r="2" fill="white"/><path d="M34 60 Q40 67 46 60" stroke="#3a6ec0" stroke-width="2.5" fill="none" stroke-linecap="round"/><ellipse cx="25" cy="58" rx="5" ry="3" fill="#99bbff" opacity="0.4"/><ellipse cx="55" cy="58" rx="5" ry="3" fill="#99bbff" opacity="0.4"/><line x1="28" y1="72" x2="22" y2="80" stroke="#3a6ec0" stroke-width="2" stroke-linecap="round"/><line x1="52" y1="72" x2="58" y2="80" stroke="#3a6ec0" stroke-width="2" stroke-linecap="round"/></svg>
+                    </div>
+                    <div class="avatar-option bg-white p-2 flex items-center justify-center aspect-square shadow-sm" onclick="selectAvatar(this, 'lobster-gold')" data-avatar="lobster-gold">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-15 -5 110 105" class="w-14 h-14"><line x1="30" y1="28" x2="20" y2="12" stroke="#c09a3a" stroke-width="2" stroke-linecap="round"/><line x1="50" y1="28" x2="60" y2="12" stroke="#c09a3a" stroke-width="2" stroke-linecap="round"/><circle cx="20" cy="11" r="3" fill="#F2C85B"/><circle cx="60" cy="11" r="3" fill="#F2C85B"/><ellipse cx="10" cy="52" rx="10" ry="7" fill="#F2C85B"/><ellipse cx="4" cy="46" rx="6" ry="4" fill="#F2C85B" transform="rotate(-15,4,46)"/><ellipse cx="70" cy="52" rx="8" ry="6" fill="#F2C85B"/><ellipse cx="40" cy="55" rx="25" ry="24" fill="#F2C85B"/><ellipse cx="35" cy="45" rx="10" ry="7" fill="white" opacity="0.1"/><ellipse cx="32" cy="48" rx="7" ry="8" fill="white"/><ellipse cx="32" cy="49" rx="4.5" ry="5.5" fill="#1a1a2e"/><circle cx="34" cy="47" r="2" fill="white"/><ellipse cx="48" cy="48" rx="7" ry="8" fill="white"/><ellipse cx="48" cy="49" rx="4.5" ry="5.5" fill="#1a1a2e"/><circle cx="50" cy="47" r="2" fill="white"/><path d="M34 60 Q40 67 46 60" stroke="#c09a3a" stroke-width="2.5" fill="none" stroke-linecap="round"/><ellipse cx="25" cy="58" rx="5" ry="3" fill="#ffe599" opacity="0.4"/><ellipse cx="55" cy="58" rx="5" ry="3" fill="#ffe599" opacity="0.4"/><line x1="28" y1="72" x2="22" y2="80" stroke="#c09a3a" stroke-width="2" stroke-linecap="round"/><line x1="52" y1="72" x2="58" y2="80" stroke="#c09a3a" stroke-width="2" stroke-linecap="round"/></svg>
+                    </div>
+                    <div class="avatar-option bg-white p-2 flex items-center justify-center aspect-square shadow-sm" onclick="selectAvatar(this, 'lobster-purple')" data-avatar="lobster-purple">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-15 -5 110 105" class="w-14 h-14"><line x1="30" y1="28" x2="20" y2="12" stroke="#6b3ac0" stroke-width="2" stroke-linecap="round"/><line x1="50" y1="28" x2="60" y2="12" stroke="#6b3ac0" stroke-width="2" stroke-linecap="round"/><circle cx="20" cy="11" r="3" fill="#9B5BF2"/><circle cx="60" cy="11" r="3" fill="#9B5BF2"/><ellipse cx="10" cy="52" rx="10" ry="7" fill="#9B5BF2"/><ellipse cx="4" cy="46" rx="6" ry="4" fill="#9B5BF2" transform="rotate(-15,4,46)"/><ellipse cx="70" cy="52" rx="8" ry="6" fill="#9B5BF2"/><ellipse cx="40" cy="55" rx="25" ry="24" fill="#9B5BF2"/><ellipse cx="35" cy="45" rx="10" ry="7" fill="white" opacity="0.1"/><ellipse cx="32" cy="48" rx="7" ry="8" fill="white"/><ellipse cx="32" cy="49" rx="4.5" ry="5.5" fill="#1a1a2e"/><circle cx="34" cy="47" r="2" fill="white"/><ellipse cx="48" cy="48" rx="7" ry="8" fill="white"/><ellipse cx="48" cy="49" rx="4.5" ry="5.5" fill="#1a1a2e"/><circle cx="50" cy="47" r="2" fill="white"/><path d="M34 60 Q40 67 46 60" stroke="#6b3ac0" stroke-width="2.5" fill="none" stroke-linecap="round"/><ellipse cx="25" cy="58" rx="5" ry="3" fill="#cc99ff" opacity="0.4"/><ellipse cx="55" cy="58" rx="5" ry="3" fill="#cc99ff" opacity="0.4"/><line x1="28" y1="72" x2="22" y2="80" stroke="#6b3ac0" stroke-width="2" stroke-linecap="round"/><line x1="52" y1="72" x2="58" y2="80" stroke="#6b3ac0" stroke-width="2" stroke-linecap="round"/></svg>
+                    </div>
+                    <div class="avatar-option bg-white p-2 flex items-center justify-center aspect-square shadow-sm" onclick="selectAvatar(this, 'lobster-green')" data-avatar="lobster-green">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-15 -5 110 105" class="w-14 h-14"><line x1="30" y1="28" x2="20" y2="12" stroke="#5a7a62" stroke-width="2" stroke-linecap="round"/><line x1="50" y1="28" x2="60" y2="12" stroke="#5a7a62" stroke-width="2" stroke-linecap="round"/><circle cx="20" cy="11" r="3" fill="#84A98C"/><circle cx="60" cy="11" r="3" fill="#84A98C"/><ellipse cx="10" cy="52" rx="10" ry="7" fill="#84A98C"/><ellipse cx="4" cy="46" rx="6" ry="4" fill="#84A98C" transform="rotate(-15,4,46)"/><ellipse cx="70" cy="52" rx="8" ry="6" fill="#84A98C"/><ellipse cx="40" cy="55" rx="25" ry="24" fill="#84A98C"/><ellipse cx="35" cy="45" rx="10" ry="7" fill="white" opacity="0.1"/><ellipse cx="32" cy="48" rx="7" ry="8" fill="white"/><ellipse cx="32" cy="49" rx="4.5" ry="5.5" fill="#1a1a2e"/><circle cx="34" cy="47" r="2" fill="white"/><ellipse cx="48" cy="48" rx="7" ry="8" fill="white"/><ellipse cx="48" cy="49" rx="4.5" ry="5.5" fill="#1a1a2e"/><circle cx="50" cy="47" r="2" fill="white"/><path d="M34 60 Q40 67 46 60" stroke="#5a7a62" stroke-width="2.5" fill="none" stroke-linecap="round"/><ellipse cx="25" cy="58" rx="5" ry="3" fill="#b3d9b8" opacity="0.4"/><ellipse cx="55" cy="58" rx="5" ry="3" fill="#b3d9b8" opacity="0.4"/><line x1="28" y1="72" x2="22" y2="80" stroke="#5a7a62" stroke-width="2" stroke-linecap="round"/><line x1="52" y1="72" x2="58" y2="80" stroke="#5a7a62" stroke-width="2" stroke-linecap="round"/></svg>
+                    </div>
+
+                    <!-- Girl Snappy 🎀 -->
+                    <div class="avatar-option bg-white p-2 flex items-center justify-center aspect-square shadow-sm" onclick="selectAvatar(this, 'lobster-girl')" data-avatar="lobster-girl">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-15 -15 110 115" class="w-14 h-14" style="filter: drop-shadow(0 2px 6px rgba(255,105,180,0.3));">
+                            <!-- Antennae with heart tips -->
+                            <line x1="30" y1="28" x2="18" y2="8" stroke="#e0508a" stroke-width="2" stroke-linecap="round"/>
+                            <line x1="50" y1="28" x2="62" y2="8" stroke="#e0508a" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M16,8 Q16,4 18,4 Q20,4 20,7 Q20,4 22,4 Q24,4 24,8 Q24,11 20,14 Q16,11 16,8Z" fill="#FF69B4" transform="scale(0.7) translate(10,-2)"/>
+                            <path d="M76,8 Q76,4 78,4 Q80,4 80,7 Q80,4 82,4 Q84,4 84,8 Q84,11 80,14 Q76,11 76,8Z" fill="#FF69B4" transform="scale(0.7) translate(28,-2)"/>
+
+                            <!-- Cute bow on head -->
+                            <ellipse cx="52" cy="28" rx="8" ry="5" fill="#FF69B4" transform="rotate(15,52,28)"/>
+                            <ellipse cx="42" cy="26" rx="8" ry="5" fill="#FF69B4" transform="rotate(-15,42,26)"/>
+                            <circle cx="47" cy="28" r="3.5" fill="#e0508a"/>
+                            <circle cx="47" cy="28" r="2" fill="#FF69B4"/>
+                            <!-- Bow tails -->
+                            <path d="M47 31 Q44 40 40 42" stroke="#FF69B4" stroke-width="2" fill="none" stroke-linecap="round"/>
+                            <path d="M47 31 Q50 40 54 41" stroke="#FF69B4" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+                            <!-- Left claw -->
+                            <ellipse cx="10" cy="52" rx="10" ry="7" fill="#FF8FAB"/>
+                            <ellipse cx="4" cy="46" rx="6" ry="4" fill="#FF8FAB" transform="rotate(-15,4,46)"/>
+
+                            <!-- Right claw -->
+                            <ellipse cx="70" cy="52" rx="8" ry="6" fill="#FF8FAB"/>
+
+                            <!-- Body (soft pink) -->
+                            <ellipse cx="40" cy="55" rx="25" ry="24" fill="#FF8FAB"/>
+                            <ellipse cx="35" cy="45" rx="10" ry="7" fill="white" opacity="0.15"/>
+                            <ellipse cx="40" cy="62" rx="15" ry="12" fill="#ffadc4" opacity="0.5"/>
+
+                            <!-- Big sparkly eyes with eyelashes -->
+                            <ellipse cx="32" cy="48" rx="7.5" ry="8.5" fill="white"/>
+                            <ellipse cx="32" cy="49" rx="5" ry="6" fill="#1a1a2e"/>
+                            <circle cx="34" cy="46" r="2.5" fill="white"/>
+                            <circle cx="30" cy="50" r="1.2" fill="white" opacity="0.5"/>
+                            <!-- Eyelashes left -->
+                            <line x1="26" y1="42" x2="28" y2="44" stroke="#1a1a2e" stroke-width="1.5" stroke-linecap="round"/>
+                            <line x1="28" y1="40" x2="30" y2="43" stroke="#1a1a2e" stroke-width="1.5" stroke-linecap="round"/>
+                            <line x1="31" y1="39" x2="32" y2="42" stroke="#1a1a2e" stroke-width="1.5" stroke-linecap="round"/>
+
+                            <ellipse cx="48" cy="48" rx="7.5" ry="8.5" fill="white"/>
+                            <ellipse cx="48" cy="49" rx="5" ry="6" fill="#1a1a2e"/>
+                            <circle cx="50" cy="46" r="2.5" fill="white"/>
+                            <circle cx="46" cy="50" r="1.2" fill="white" opacity="0.5"/>
+                            <!-- Eyelashes right -->
+                            <line x1="49" y1="39" x2="48" y2="42" stroke="#1a1a2e" stroke-width="1.5" stroke-linecap="round"/>
+                            <line x1="52" y1="40" x2="50" y2="43" stroke="#1a1a2e" stroke-width="1.5" stroke-linecap="round"/>
+                            <line x1="54" y1="42" x2="52" y2="44" stroke="#1a1a2e" stroke-width="1.5" stroke-linecap="round"/>
+
+                            <!-- Sweet smile -->
+                            <path d="M34 60 Q40 67 46 60" stroke="#c0456a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+                            <!-- Extra rosy cheeks -->
+                            <ellipse cx="24" cy="58" rx="6" ry="3.5" fill="#FF69B4" opacity="0.35"/>
+                            <ellipse cx="56" cy="58" rx="6" ry="3.5" fill="#FF69B4" opacity="0.35"/>
+
+                            <!-- Legs -->
+                            <line x1="28" y1="72" x2="22" y2="80" stroke="#e0508a" stroke-width="2" stroke-linecap="round"/>
+                            <line x1="52" y1="72" x2="58" y2="80" stroke="#e0508a" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+
+                    <!-- Boy Snappy 🧢 -->
+                    <div class="avatar-option bg-white p-2 flex items-center justify-center aspect-square shadow-sm" onclick="selectAvatar(this, 'lobster-boy')" data-avatar="lobster-boy">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-15 -15 110 115" class="w-14 h-14" style="filter: drop-shadow(0 2px 6px rgba(59,130,246,0.3));">
+                            <!-- Antennae poking through cap -->
+                            <line x1="32" y1="24" x2="25" y2="8" stroke="#1a6dc0" stroke-width="2" stroke-linecap="round"/>
+                            <line x1="52" y1="22" x2="58" y2="6" stroke="#1a6dc0" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="25" cy="7" r="3" fill="#3B82F6"/>
+                            <circle cx="58" cy="5" r="3" fill="#3B82F6"/>
+
+                            <!-- Baseball cap -->
+                            <ellipse cx="40" cy="32" rx="27" ry="8" fill="#3B82F6"/>
+                            <path d="M13 32 Q13 18 40 18 Q67 18 67 32" fill="#3B82F6"/>
+                            <path d="M17 22 Q40 14 63 22" fill="#2563EB"/>
+                            <!-- Cap brim -->
+                            <ellipse cx="25" cy="34" rx="18" ry="5" fill="#2563EB" transform="rotate(-8,25,34)"/>
+                            <!-- Cap button -->
+                            <circle cx="40" cy="17" r="2.5" fill="#1d4ed8"/>
+                            <!-- Cap stripe -->
+                            <path d="M20 26 Q40 20 60 26" stroke="white" stroke-width="1.5" fill="none" opacity="0.3"/>
+
+                            <!-- Left claw (fist bump pose) -->
+                            <ellipse cx="10" cy="50" rx="11" ry="8" fill="#4A90D9"/>
+                            <ellipse cx="5" cy="44" rx="7" ry="5" fill="#4A90D9" transform="rotate(-15,5,44)"/>
+                            <ellipse cx="7" cy="49" rx="6" ry="4" fill="#4A90D9" transform="rotate(10,7,49)"/>
+
+                            <!-- Right claw -->
+                            <ellipse cx="70" cy="52" rx="9" ry="6.5" fill="#4A90D9"/>
+
+                            <!-- Body (cool blue) -->
+                            <ellipse cx="40" cy="55" rx="25" ry="24" fill="#4A90D9"/>
+                            <ellipse cx="35" cy="45" rx="10" ry="7" fill="white" opacity="0.1"/>
+                            <ellipse cx="40" cy="62" rx="15" ry="12" fill="#5a9fe0" opacity="0.5"/>
+
+                            <!-- Confident eyes -->
+                            <ellipse cx="32" cy="48" rx="7" ry="8" fill="white"/>
+                            <ellipse cx="32" cy="49" rx="4.5" ry="5.5" fill="#1a1a2e"/>
+                            <circle cx="34" cy="47" r="2" fill="white"/>
+                            <!-- Thick brow -->
+                            <path d="M25 40 Q32 37 38 40" stroke="#1a1a2e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+                            <ellipse cx="48" cy="48" rx="7" ry="8" fill="white"/>
+                            <ellipse cx="48" cy="49" rx="4.5" ry="5.5" fill="#1a1a2e"/>
+                            <circle cx="50" cy="47" r="2" fill="white"/>
+                            <!-- Thick brow -->
+                            <path d="M42 40 Q48 37 55 40" stroke="#1a1a2e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+                            <!-- Cool grin -->
+                            <path d="M33 60 Q40 68 47 60" stroke="#1a6dc0" stroke-width="2.5" fill="#1a6dc0" opacity="0.6" stroke-linecap="round"/>
+                            <path d="M35 60 Q40 64 45 60" fill="white" opacity="0.4"/>
+
+                            <!-- Cheeks -->
+                            <ellipse cx="24" cy="57" rx="5" ry="3" fill="#6ab4ff" opacity="0.35"/>
+                            <ellipse cx="56" cy="57" rx="5" ry="3" fill="#6ab4ff" opacity="0.35"/>
+
+                            <!-- Legs -->
+                            <line x1="28" y1="72" x2="22" y2="80" stroke="#1a6dc0" stroke-width="2" stroke-linecap="round"/>
+                            <line x1="52" y1="72" x2="58" y2="80" stroke="#1a6dc0" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- PREMIUM SNAPPY CHARACTERS -->
+                <p class="text-xs font-bold text-brand-muted uppercase tracking-wider mb-1">🦞 Premium Snappy Collection</p>
+                <p class="text-[10px] text-brand-muted mb-3 opacity-70">Studio-quality Snappy characters — powered by Imagen 4</p>
+                <div class="grid grid-cols-4 sm:grid-cols-7 gap-3 mb-8">
+                    <div class="avatar-option bg-white p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'snappy-premium-hero')" data-avatar="snappy-premium-hero">
+                        <img src="/avatars/snappy-premium-hero.webp" alt="Hero Snappy" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-white p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'snappy-premium-genius')" data-avatar="snappy-premium-genius">
+                        <img src="/avatars/snappy-premium-genius.webp" alt="Genius Snappy" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-white p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'snappy-premium-chef')" data-avatar="snappy-premium-chef">
+                        <img src="/avatars/snappy-premium-chef.webp" alt="Chef Snappy" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-white p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'snappy-premium-rockstar')" data-avatar="snappy-premium-rockstar">
+                        <img src="/avatars/snappy-premium-rockstar.webp" alt="Rockstar Snappy" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-white p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'snappy-premium-zen')" data-avatar="snappy-premium-zen">
+                        <img src="/avatars/snappy-premium-zen.webp" alt="Zen Snappy" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-white p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'snappy-premium-explorer')" data-avatar="snappy-premium-explorer">
+                        <img src="/avatars/snappy-premium-explorer.webp" alt="Explorer Snappy" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-white p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'snappy-premium-artist')" data-avatar="snappy-premium-artist">
+                        <img src="/avatars/snappy-premium-artist.webp" alt="Artist Snappy" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                </div>
+
+                <!-- VIBRANT PORTRAITS -->
+                <p class="text-xs font-bold text-brand-muted uppercase tracking-wider mb-1">⚡ Vibrant Portraits</p>
+                <p class="text-[10px] text-brand-muted mb-3 opacity-70">Bold neon colors & dynamic energy — powered by Imagen 4</p>
+                <div class="grid grid-cols-4 gap-3 mb-3">
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'vibrant-female-confident')" data-avatar="vibrant-female-confident">
+                        <img src="/avatars/vibrant-female-confident.webp" alt="Confident" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'vibrant-female-creative')" data-avatar="vibrant-female-creative">
+                        <img src="/avatars/vibrant-female-creative.webp" alt="Creative" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'vibrant-female-leader')" data-avatar="vibrant-female-leader">
+                        <img src="/avatars/vibrant-female-leader.webp" alt="Leader" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'vibrant-female-friendly')" data-avatar="vibrant-female-friendly">
+                        <img src="/avatars/vibrant-female-friendly.webp" alt="Friendly" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                </div>
+                <div class="grid grid-cols-4 gap-3 mb-3">
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'vibrant-female-tech')" data-avatar="vibrant-female-tech">
+                        <img src="/avatars/vibrant-female-tech.webp" alt="Tech" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'vibrant-female-bold')" data-avatar="vibrant-female-bold">
+                        <img src="/avatars/vibrant-female-bold.webp" alt="Bold" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'vibrant-female-zen')" data-avatar="vibrant-female-zen">
+                        <img src="/avatars/vibrant-female-zen.webp" alt="Zen" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'vibrant-female-spark')" data-avatar="vibrant-female-spark">
+                        <img src="/avatars/vibrant-female-spark.webp" alt="Spark" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                </div>
+                <div class="grid grid-cols-4 gap-3 mb-3">
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'vibrant-male-leader')" data-avatar="vibrant-male-leader">
+                        <img src="/avatars/vibrant-male-leader.webp" alt="Leader" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'vibrant-male-creative')" data-avatar="vibrant-male-creative">
+                        <img src="/avatars/vibrant-male-creative.webp" alt="Creative" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'vibrant-male-tech')" data-avatar="vibrant-male-tech">
+                        <img src="/avatars/vibrant-male-tech.webp" alt="Tech" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'vibrant-male-chill')" data-avatar="vibrant-male-chill">
+                        <img src="/avatars/vibrant-male-chill.webp" alt="Chill" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                </div>
+                <div class="grid grid-cols-4 gap-3 mb-8">
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'vibrant-male-bold')" data-avatar="vibrant-male-bold">
+                        <img src="/avatars/vibrant-male-bold.webp" alt="Bold" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'vibrant-male-friendly')" data-avatar="vibrant-male-friendly">
+                        <img src="/avatars/vibrant-male-friendly.webp" alt="Friendly" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'vibrant-male-spark')" data-avatar="vibrant-male-spark">
+                        <img src="/avatars/vibrant-male-spark.webp" alt="Spark" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'vibrant-male-zen')" data-avatar="vibrant-male-zen">
+                        <img src="/avatars/vibrant-male-zen.webp" alt="Zen" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                </div>
+
+                <!-- CHARCOAL SKETCHES — Professional -->
+                <p class="text-xs font-bold text-brand-muted uppercase tracking-wider mb-1">✏️ Charcoal Sketches — Professional</p>
+                <p class="text-[10px] text-brand-muted mb-3 opacity-70">Hand-drawn warmth with copper & lavender highlights</p>
+                <div class="grid grid-cols-4 gap-3 mb-3">
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'pro-female-warm')" data-avatar="pro-female-warm">
+                        <img src="/avatars/pro-female-warm.webp" alt="Warm & Approachable" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'pro-female-creative')" data-avatar="pro-female-creative">
+                        <img src="/avatars/pro-female-creative.webp" alt="Creative Director" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'pro-female-mentor')" data-avatar="pro-female-mentor">
+                        <img src="/avatars/pro-female-mentor.webp" alt="Friendly Mentor" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'pro-female-executive')" data-avatar="pro-female-executive">
+                        <img src="/avatars/pro-female-executive.webp" alt="Sophisticated Executive" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                </div>
+                <div class="grid grid-cols-4 gap-3 mb-8">
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'pro-male-leader')" data-avatar="pro-male-leader">
+                        <img src="/avatars/pro-male-leader.webp" alt="Approachable Leader" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'pro-male-visionary')" data-avatar="pro-male-visionary">
+                        <img src="/avatars/pro-male-visionary.webp" alt="Visionary Founder" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'pro-male-startup')" data-avatar="pro-male-startup">
+                        <img src="/avatars/pro-male-startup.webp" alt="Creative Startup" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'pro-male-mentor')" data-avatar="pro-male-mentor">
+                        <img src="/avatars/pro-male-mentor.webp" alt="Friendly Mentor" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                </div>
+
+                <!-- CHARCOAL SKETCHES — Fun -->
+                <p class="text-xs font-bold text-brand-muted uppercase tracking-wider mb-1">✏️ Charcoal Sketches — Fun</p>
+                <p class="text-[10px] text-brand-muted mb-3 opacity-70">Expressive & playful with a hand-drawn edge</p>
+                <div class="grid grid-cols-4 gap-3 mb-3">
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'fun-female-adventurer')" data-avatar="fun-female-adventurer">
+                        <img src="/avatars/fun-female-adventurer.webp" alt="Adventurer" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'fun-female-artsy')" data-avatar="fun-female-artsy">
+                        <img src="/avatars/fun-female-artsy.webp" alt="Artsy Creative" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'fun-female-gamer')" data-avatar="fun-female-gamer">
+                        <img src="/avatars/fun-female-gamer.webp" alt="Gamer Girl" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'fun-female-rebel')" data-avatar="fun-female-rebel">
+                        <img src="/avatars/fun-female-rebel.webp" alt="Rebel" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                </div>
+                <div class="grid grid-cols-4 gap-3 mb-8">
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'fun-male-chill')" data-avatar="fun-male-chill">
+                        <img src="/avatars/fun-male-chill.webp" alt="Chill Dude" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'fun-male-explorer')" data-avatar="fun-male-explorer">
+                        <img src="/avatars/fun-male-explorer.webp" alt="Explorer" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'fun-male-nerd')" data-avatar="fun-male-nerd">
+                        <img src="/avatars/fun-male-nerd.webp" alt="Clever Inventor" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                    <div class="avatar-option bg-gray-900 p-1 flex items-center justify-center aspect-square shadow-sm overflow-hidden" onclick="selectAvatar(this, 'fun-male-musician')" data-avatar="fun-male-musician">
+                        <img src="/avatars/fun-male-musician.webp" alt="Musician" class="w-full h-full object-cover rounded-[0.8rem]" loading="lazy">
+                    </div>
+                </div>
+
+                <!-- Upload your own -->
+                <p class="text-xs font-bold text-brand-muted uppercase tracking-wider mb-3">🎨 Custom</p>
+                <div class="grid grid-cols-5 gap-3 mb-8">
+                    <div class="avatar-option bg-white p-3 flex flex-col items-center justify-center aspect-square shadow-sm border-2 border-dashed border-gray-300 hover:border-brand-primary" onclick="document.getElementById('avatar-upload').click()">
+                        <i data-lucide="upload" class="w-6 h-6 text-brand-muted mb-1"></i>
+                        <span class="text-[10px] text-brand-muted font-medium">Upload Your Own</span>
+                        <input type="file" id="avatar-upload" class="hidden" accept="image/png,image/jpeg,image/webp">
+                    </div>
+                </div>
+
+                <!-- Nav buttons -->
+                <div class="flex justify-between items-center">
+                    <button onclick="goToStep(2)" class="px-6 py-3 text-sm font-semibold text-brand-muted hover:text-brand-text transition-colors">
+                        ← Back
+                    </button>
+                    <button onclick="goToStep(4)" class="px-10 py-4 text-lg font-bold text-white bg-brand-primary rounded-full hover:bg-brand-primaryHover shadow-pillowy hover:shadow-pillowy-lg hover:-translate-y-0.5 transition-all">
+                        That's the one! →
+                    </button>
+                </div>
+            </div>
+
+            <!-- ═══════════════════════════════════ -->
+            <!-- STEP 4: Where Should Snappy Live?   -->
+            <!-- ═══════════════════════════════════ -->
+            <div class="step-panel" id="step-4">
+                <div class="text-center mb-10">
+                    <h1 class="text-3xl md:text-4xl font-extrabold mb-3">Where Do You Want to Chat?</h1>
+                    <p class="text-brand-muted text-lg">I can live anywhere you want! Pick your favorite messaging app 🦞</p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-4 mb-6">
+                    <!-- Telegram -->
+                    <div class="channel-card bg-white rounded-2xl p-6 shadow-sm" onclick="toggleChannel(this, 'telegram')">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
+                                <svg class="w-7 h-7" viewBox="0 0 24 24" fill="#2AABEE"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.2-.04-.28-.02-.12.03-2.02 1.28-5.69 3.77-.54.37-1.03.55-1.47.54-.48-.01-1.4-.27-2.09-.49-.84-.27-1.51-.42-1.45-.88.03-.24.37-.49 1.02-.74 4.01-1.75 6.69-2.9 8.04-3.47 3.83-1.6 4.62-1.88 5.14-1.89.11 0 .37.03.54.17.14.12.18.28.2.47-.01.06.01.24 0 .38z"/></svg>
+                            </div>
+                            <div>
+                                <h3 class="font-bold">Telegram</h3>
+                                <p class="text-xs text-brand-muted">Fast, private, any device</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-xs font-bold text-blue-500 bg-blue-50 px-2 py-0.5 rounded-full">Recommended</span>
+                        </div>
+                        <div class="mt-3 flex items-center justify-end">
+                            <div class="w-5 h-5 rounded border-2 border-gray-300 flex items-center justify-center transition-colors channel-check">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- WhatsApp -->
+                    <div class="channel-card bg-white rounded-2xl p-6 shadow-sm" onclick="toggleChannel(this, 'whatsapp')">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center">
+                                <svg class="w-7 h-7" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                            </div>
+                            <div>
+                                <h3 class="font-bold">WhatsApp</h3>
+                                <p class="text-xs text-brand-muted">Chat like texting a friend</p>
+                            </div>
+                        </div>
+                        <div class="mt-3 flex items-center justify-end">
+                            <div class="w-5 h-5 rounded border-2 border-gray-300 flex items-center justify-center transition-colors channel-check">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Web Chat (always included) -->
+                    <div class="channel-card bg-white rounded-2xl p-6 shadow-sm selected" style="cursor: default; border-color: #84A98C;">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-12 h-12 bg-brand-accent/10 rounded-xl flex items-center justify-center text-brand-accent">
+                                <i data-lucide="globe" class="w-7 h-7"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold">Web Chat</h3>
+                                <p class="text-xs text-brand-muted">Chat right in your browser</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-xs font-bold text-brand-accent bg-brand-accent/10 px-2 py-0.5 rounded-full">Always included ✓</span>
+                        </div>
+                        <div class="mt-3 flex items-center justify-end">
+                            <div class="w-5 h-5 rounded border-2 border-brand-accent bg-brand-accent flex items-center justify-center">
+                                <i data-lucide="check" class="w-3 h-3 text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SMS (Coming Soon) -->
+                    <div class="channel-card bg-white rounded-2xl p-6 shadow-sm disabled" style="pointer-events: auto;" onclick="return false;">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-gray-400">
+                                <i data-lucide="smartphone" class="w-7 h-7"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-400">SMS</h3>
+                                <p class="text-xs text-gray-400">Text Snappy from any phone</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-xs font-bold text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">Coming Soon</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nav buttons -->
+                <div class="flex justify-between items-center mt-8">
+                    <button onclick="goToStep(3)" class="px-6 py-3 text-sm font-semibold text-brand-muted hover:text-brand-text transition-colors">
+                        ← Back
+                    </button>
+                    <button onclick="goToStep(5)" class="px-10 py-4 text-lg font-bold text-white bg-brand-primary rounded-full hover:bg-brand-primaryHover shadow-pillowy hover:shadow-pillowy-lg hover:-translate-y-0.5 transition-all">
+                        Set it up! →
+                    </button>
+                </div>
+            </div>
+
+            <!-- ═══════════════════════════════════ -->
+            <!-- STEPS 5-8: Coming soon placeholder  -->
+            <!-- ═══════════════════════════════════ -->
+            <!-- ═══════════════════════════════════════════════════ -->
+            <!-- STEP 5 — Tell Snappy About Yourself              -->
+            <!-- ═══════════════════════════════════════════════════ -->
+            <div class="step-panel" id="step-5">
+                <div class="text-center mb-8">
+                    <div class="lobster-float mb-4 inline-block">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 0 100 96" width="64" height="64" style="filter: drop-shadow(0 4px 12px rgba(242,109,91,0.3));"><ellipse cx="40" cy="55" rx="25" ry="24" fill="#F26D5B"/><ellipse cx="32" cy="48" rx="7" ry="8" fill="white"/><ellipse cx="32" cy="49" rx="4.5" ry="5.5" fill="#1a1a2e"/><circle cx="34" cy="47" r="2" fill="white"/><ellipse cx="48" cy="48" rx="7" ry="8" fill="white"/><ellipse cx="48" cy="49" rx="4.5" ry="5.5" fill="#1a1a2e"/><circle cx="50" cy="47" r="2" fill="white"/><path d="M34 60 Q40 67 46 60" stroke="#c0453a" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+                    </div>
+                    <h2 class="text-2xl font-extrabold mb-2">Let's Get Acquainted</h2>
+                    <p class="text-brand-muted text-sm max-w-md mx-auto"><span id="name-in-step5">Snappy</span> says: <em>"I want to get to know you! The more you share, the more I can help. Don't be shy 🦞"</em></p>
+                </div>
+
+                <!-- Context callout -->
+                <div class="max-w-lg mx-auto mb-6">
+                    <div class="bg-gradient-to-r from-brand-primary/5 to-pink-50 rounded-2xl p-4 border border-brand-primary/10">
+                        <div class="flex items-start gap-3">
+                            <span class="text-2xl flex-shrink-0 mt-0.5">✨</span>
+                            <div>
+                                <p class="text-sm font-bold text-brand-text mb-1">This is where the magic happens</p>
+                                <p class="text-xs text-brand-muted leading-relaxed">You're building a personalized AI agent right now — one that's uniquely yours. Take your time here. The more context you give <span id="name-in-step5x">Snappy</span>, the smarter and more helpful it becomes from day one. Think of it like briefing a new team member on their first day.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="max-w-lg mx-auto space-y-5">
+                    <!-- What to call you -->
+                    <div>
+                        <label class="block text-sm font-bold text-brand-text mb-1.5">What should <span id="name-in-step5b">Snappy</span> call you?</label>
+                        <input type="text" id="user-nickname" placeholder="First name or nickname" class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all text-brand-text bg-white">
+                    </div>
+
+                    <!-- What do you do -->
+                    <div>
+                        <label class="block text-sm font-bold text-brand-text mb-1.5">What do you do?</label>
+                        <input type="text" id="user-role" placeholder="e.g., Real estate agent, freelance designer, small business owner..." class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all text-brand-text bg-white">
+                    </div>
+
+                    <!-- Tell Snappy about yourself -->
+                    <div>
+                        <label class="block text-sm font-bold text-brand-text mb-1.5">Tell <span id="name-in-step5c">Snappy</span> about yourself</label>
+                        <textarea id="user-about" rows="8" placeholder="The more you share, the better your agent becomes! Here are some ideas:&#10;&#10;• What's your business or role? What does a typical day look like?&#10;• What tasks eat up most of your time?&#10;• Do you have a team? Clients? Customers?&#10;• Any tools or apps you already use?&#10;• What's your communication style — casual, professional, somewhere in between?&#10;• Anything else a great assistant should know about you..." class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all text-brand-text bg-white resize-y min-h-[180px]"></textarea>
+                        <div class="flex items-center justify-between mt-1.5">
+                            <p class="text-xs text-brand-muted opacity-70">Don't rush this — it's the foundation of your personalized AI. You can always update it later!</p>
+                            <p class="text-xs font-medium" id="about-length"><span class="text-brand-muted">0</span> <span class="text-brand-muted opacity-50">chars</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Timezone -->
+                    <div>
+                        <label class="block text-sm font-bold text-brand-text mb-1.5">Your timezone</label>
+                        <div class="relative">
+                            <select id="user-timezone" class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all text-brand-text bg-white appearance-none cursor-pointer">
+                                <option value="">Detecting...</option>
+                            </select>
+                            <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                                <i data-lucide="chevron-down" class="w-5 h-5 text-brand-muted"></i>
+                            </div>
+                        </div>
+                        <p class="text-xs text-brand-muted mt-1 opacity-70" id="tz-detected"></p>
+                    </div>
+                </div>
+
+                <!-- Nav -->
+                <div class="flex justify-between items-center mt-8">
+                    <button onclick="goToStep(4)" class="px-6 py-3 text-sm font-semibold text-brand-muted hover:text-brand-text transition-colors">
+                        ← Back
+                    </button>
+                    <button onclick="goToStep(6)" class="px-10 py-4 text-lg font-bold text-white bg-brand-primary rounded-full hover:bg-brand-primaryHover shadow-pillowy hover:shadow-pillowy-lg hover:-translate-y-0.5 transition-all">
+                        Next →
+                    </button>
+                </div>
+            </div>
+
+            <!-- ═══════════════════════════════════════════════════ -->
+            <!-- STEP 6 — What Can Snappy Help With?               -->
+            <!-- ═══════════════════════════════════════════════════ -->
+            <div class="step-panel" id="step-6">
+                <div class="text-center mb-8">
+                    <div class="lobster-float mb-4 inline-block">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 0 100 96" width="64" height="64" style="filter: drop-shadow(0 4px 12px rgba(242,109,91,0.3));"><ellipse cx="40" cy="55" rx="25" ry="24" fill="#F26D5B"/><ellipse cx="32" cy="48" rx="7" ry="8" fill="white"/><ellipse cx="32" cy="49" rx="4.5" ry="5.5" fill="#1a1a2e"/><circle cx="34" cy="47" r="2" fill="white"/><ellipse cx="48" cy="48" rx="7" ry="8" fill="white"/><ellipse cx="48" cy="49" rx="4.5" ry="5.5" fill="#1a1a2e"/><circle cx="50" cy="47" r="2" fill="white"/><path d="M34 60 Q40 67 46 60" stroke="#c0453a" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+                    </div>
+                    <h2 class="text-2xl font-extrabold mb-2">What Are We Tackling Together?</h2>
+                    <p class="text-brand-muted text-sm max-w-md mx-auto"><span id="name-in-step6">Snappy</span> says: <em>"Pick a few and I'll come prepared! 🎯"</em></p>
+                    <p class="text-xs text-brand-muted mt-2 opacity-60">Pick 3–5 that matter most <span id="goals-count" class="font-bold text-brand-primary">(0 selected)</span></p>
+                </div>
+
+                <div class="max-w-lg mx-auto space-y-5">
+                    <!-- Productivity -->
+                    <div>
+                        <p class="text-xs font-bold text-brand-muted uppercase tracking-wider mb-2">📋 Productivity</p>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="goal-pill" onclick="toggleGoal(this)">📧 Email management</button>
+                            <button class="goal-pill" onclick="toggleGoal(this)">📅 Calendar & scheduling</button>
+                            <button class="goal-pill" onclick="toggleGoal(this)">✅ Task management</button>
+                            <button class="goal-pill" onclick="toggleGoal(this)">📝 Note taking</button>
+                        </div>
+                    </div>
+
+                    <!-- Business -->
+                    <div>
+                        <p class="text-xs font-bold text-brand-muted uppercase tracking-wider mb-2">💼 Business</p>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="goal-pill" onclick="toggleGoal(this)">💼 Customer follow-ups</button>
+                            <button class="goal-pill" onclick="toggleGoal(this)">📊 Research & analysis</button>
+                            <button class="goal-pill" onclick="toggleGoal(this)">📄 Writing & content</button>
+                            <button class="goal-pill" onclick="toggleGoal(this)">💰 Invoicing & quotes</button>
+                        </div>
+                    </div>
+
+                    <!-- Personal -->
+                    <div>
+                        <p class="text-xs font-bold text-brand-muted uppercase tracking-wider mb-2">🏠 Personal</p>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="goal-pill" onclick="toggleGoal(this)">🏋️ Health & fitness</button>
+                            <button class="goal-pill" onclick="toggleGoal(this)">🍳 Meal planning</button>
+                            <button class="goal-pill" onclick="toggleGoal(this)">📚 Learning & education</button>
+                            <button class="goal-pill" onclick="toggleGoal(this)">🏠 Home management</button>
+                        </div>
+                    </div>
+
+                    <!-- Creative -->
+                    <div>
+                        <p class="text-xs font-bold text-brand-muted uppercase tracking-wider mb-2">🎨 Creative</p>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="goal-pill" onclick="toggleGoal(this)">🎨 Design ideas</button>
+                            <button class="goal-pill" onclick="toggleGoal(this)">✍️ Writing & storytelling</button>
+                            <button class="goal-pill" onclick="toggleGoal(this)">📸 Social media</button>
+                            <button class="goal-pill" onclick="toggleGoal(this)">🎵 Music & entertainment</button>
+                        </div>
+                    </div>
+
+                    <!-- Technical -->
+                    <div>
+                        <p class="text-xs font-bold text-brand-muted uppercase tracking-wider mb-2">💻 Technical</p>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="goal-pill" onclick="toggleGoal(this)">💻 Coding help</button>
+                            <button class="goal-pill" onclick="toggleGoal(this)">🔧 Troubleshooting</button>
+                            <button class="goal-pill" onclick="toggleGoal(this)">📈 Data analysis</button>
+                            <button class="goal-pill" onclick="toggleGoal(this)">🤖 Automation</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nav -->
+                <div class="flex justify-between items-center mt-8">
+                    <button onclick="goToStep(5)" class="px-6 py-3 text-sm font-semibold text-brand-muted hover:text-brand-text transition-colors">
+                        ← Back
+                    </button>
+                    <button onclick="goToStep(7)" class="px-10 py-4 text-lg font-bold text-white bg-brand-primary rounded-full hover:bg-brand-primaryHover shadow-pillowy hover:shadow-pillowy-lg hover:-translate-y-0.5 transition-all">
+                        Almost done! →
+                    </button>
+                </div>
+            </div>
+
+            <!-- ═══════════════════════════════════════════════════ -->
+            <!-- STEP 7 — Choose Snappy's Brain                    -->
+            <!-- ═══════════════════════════════════════════════════ -->
+            <div class="step-panel" id="step-7">
+                <div class="text-center mb-8">
+                    <div class="lobster-float mb-4 inline-block">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 0 100 96" width="64" height="64" style="filter: drop-shadow(0 4px 12px rgba(242,109,91,0.3));"><ellipse cx="40" cy="55" rx="25" ry="24" fill="#F26D5B"/><ellipse cx="32" cy="48" rx="7" ry="8" fill="white"/><ellipse cx="32" cy="49" rx="4.5" ry="5.5" fill="#1a1a2e"/><circle cx="34" cy="47" r="2" fill="white"/><ellipse cx="48" cy="48" rx="7" ry="8" fill="white"/><ellipse cx="48" cy="49" rx="4.5" ry="5.5" fill="#1a1a2e"/><circle cx="50" cy="47" r="2" fill="white"/><path d="M34 60 Q40 67 46 60" stroke="#c0453a" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+                    </div>
+                    <h2 class="text-2xl font-extrabold mb-2">Choose <span id="name-in-step7">Snappy</span>'s Brain</h2>
+                    <p class="text-brand-muted text-sm max-w-md mx-auto"><em>"Pick how my brain works! Most people let us handle it — but power users can bring their own 🧠"</em></p>
+                </div>
+
+                <div class="max-w-lg mx-auto space-y-4">
+                    <!-- Managed (Default) -->
+                    <div class="brain-option selected cursor-pointer rounded-2xl border-2 border-brand-primary bg-white p-5 shadow-sm transition-all hover:shadow-md" onclick="selectBrain('managed')">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-brand-primary to-pink-400 flex items-center justify-center">
+                                <span class="text-2xl">🧠</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <h3 class="font-extrabold text-brand-text"><span id="name-in-brain">Snappy</span> Managed</h3>
+                                    <span class="text-[10px] font-bold uppercase tracking-wider bg-brand-primary/10 text-brand-primary px-2 py-0.5 rounded-full">Recommended</span>
+                                </div>
+                                <p class="text-sm text-brand-muted mb-2">We handle everything — just chat!</p>
+                                <div class="space-y-1">
+                                    <div class="flex items-center gap-2 text-xs text-brand-muted">
+                                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-green-500"></i>
+                                        No API keys needed — just chat
+                                    </div>
+                                    <div class="flex items-center gap-2 text-xs text-brand-muted">
+                                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-green-500"></i>
+                                        Always the latest AI models
+                                    </div>
+                                    <div class="flex items-center gap-2 text-xs text-brand-muted">
+                                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-green-500"></i>
+                                        AI messages included with your plan
+                                    </div>
+                                    <div class="flex items-center gap-2 text-xs text-brand-muted">
+                                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-green-500"></i>
+                                        Need more? Top up anytime — your agent never stops
+                                    </div>
+                                </div>
+                                <div class="mt-3 bg-green-50 rounded-lg px-3 py-2">
+                                    <p class="text-[11px] text-green-700">💡 <strong>Your agent never runs out.</strong> If you use all your included messages, you can add more credits instantly from your dashboard. No interruptions, no downtime — your Snappy keeps working.</p>
+                                </div>
+                            </div>
+                            <div class="brain-check flex-shrink-0 w-6 h-6 rounded-full border-2 border-brand-primary bg-brand-primary flex items-center justify-center">
+                                <svg class="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BYO Brain (Advanced) -->
+                    <div class="brain-option cursor-pointer rounded-2xl border-2 border-gray-200 bg-white p-5 shadow-sm transition-all hover:shadow-md hover:border-gray-300" onclick="selectBrain('byo')" id="byo-brain-card">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center">
+                                <span class="text-2xl">🔧</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <h3 class="font-extrabold text-brand-text">Bring Your Own Brain</h3>
+                                    <span class="text-[10px] font-bold uppercase tracking-wider bg-green-50 text-green-600 px-2 py-0.5 rounded-full">Save 10%</span>
+                                </div>
+                                <p class="text-sm text-brand-muted mb-2">Use your own AI provider for maximum control</p>
+                                <div class="space-y-1">
+                                    <div class="flex items-center gap-2 text-xs text-brand-muted">
+                                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-gray-400"></i>
+                                        Choose your preferred AI model
+                                    </div>
+                                    <div class="flex items-center gap-2 text-xs text-brand-muted">
+                                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-gray-400"></i>
+                                        Full control over usage & billing
+                                    </div>
+                                    <div class="flex items-center gap-2 text-xs text-brand-muted">
+                                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-gray-400"></i>
+                                        10% off your monthly plan
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="brain-check flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center">
+                            </div>
+                        </div>
+
+                        <!-- BYO Config (collapsed by default) -->
+                        <div id="byo-config" class="hidden mt-5 pt-5 border-t border-gray-100 space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold text-brand-text mb-1.5">AI Provider</label>
+                                <select id="byo-provider" class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-brand-primary outline-none transition-all text-sm bg-white">
+                                    <optgroup label="Most Popular">
+                                        <option value="anthropic">Anthropic (Claude)</option>
+                                        <option value="openai">OpenAI (GPT)</option>
+                                        <option value="google">Google (Gemini)</option>
+                                    </optgroup>
+                                    <optgroup label="More Providers">
+                                        <option value="mistral">Mistral</option>
+                                        <option value="xai">xAI (Grok)</option>
+                                        <option value="groq">Groq</option>
+                                        <option value="openrouter">OpenRouter</option>
+                                        <option value="deepseek">DeepSeek</option>
+                                        <option value="cerebras">Cerebras</option>
+                                        <option value="huggingface">Hugging Face</option>
+                                    </optgroup>
+                                    <optgroup label="Gateways & Proxies">
+                                        <option value="vercel-ai-gateway">Vercel AI Gateway</option>
+                                        <option value="kilocode">Kilo Gateway</option>
+                                        <option value="github-copilot">GitHub Copilot</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-brand-text mb-1.5">API Key</label>
+                                <div class="relative">
+                                    <input type="password" id="byo-apikey" placeholder="sk-..." class="w-full px-4 py-2.5 pr-20 rounded-xl border-2 border-gray-200 focus:border-brand-primary outline-none transition-all text-sm bg-white font-mono">
+                                    <button onclick="toggleApiKeyVisibility(event)" class="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-brand-muted hover:text-brand-text px-2 py-1 transition-colors">
+                                        Show
+                                    </button>
+                                    <div id="byo-key-status" class="absolute right-16 top-1/2 -translate-y-1/2 hidden">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500"></i>
+                                    </div>
+                                </div>
+                                <a href="#" class="text-xs text-brand-primary hover:underline mt-1 inline-block" onclick="event.preventDefault(); showApiKeyHelp()">How to get an API key →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nav -->
+                <div class="flex justify-between items-center mt-8">
+                    <button onclick="goToStep(6)" class="px-6 py-3 text-sm font-semibold text-brand-muted hover:text-brand-text transition-colors">
+                        ← Back
+                    </button>
+                    <button onclick="goToStep(8)" class="px-10 py-4 text-lg font-bold text-white bg-brand-primary rounded-full hover:bg-brand-primaryHover shadow-pillowy hover:shadow-pillowy-lg hover:-translate-y-0.5 transition-all">
+                        Let's go! 🦞
+                    </button>
+                </div>
+            </div>
+
+            <!-- ═══════════════════════════════════════════════════ -->
+            <!-- STEP 8 — Snappy is Getting Ready!                 -->
+            <!-- ═══════════════════════════════════════════════════ -->
+            <div class="step-panel" id="step-8">
+                <div class="text-center py-8">
+                    <!-- Large animated Snappy -->
+                    <div class="mb-6 inline-block" id="snappy-getting-ready">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-20 -20 120 130" width="160" height="160" class="snappy-bounce" style="filter: drop-shadow(0 8px 24px rgba(242,109,91,0.4));">
+                            <!-- Antennae -->
+                            <line x1="30" y1="28" x2="20" y2="8" stroke="#d45a4a" stroke-width="2.5" stroke-linecap="round" class="snappy-antenna-left"/>
+                            <line x1="50" y1="28" x2="60" y2="8" stroke="#d45a4a" stroke-width="2.5" stroke-linecap="round" class="snappy-antenna-right"/>
+                            <circle cx="20" cy="8" r="4" fill="#F26D5B"/>
+                            <circle cx="60" cy="8" r="4" fill="#F26D5B"/>
+                            <!-- Sparkle on antenna -->
+                            <text x="14" y="5" font-size="10" class="snappy-sparkle">✨</text>
+                            <!-- Claws (waving!) -->
+                            <g class="snappy-wave-left">
+                                <ellipse cx="6" cy="50" rx="12" ry="8" fill="#F26D5B"/>
+                                <ellipse cx="0" cy="44" rx="7" ry="5" fill="#F26D5B" transform="rotate(-15,0,44)"/>
+                            </g>
+                            <g class="snappy-wave-right">
+                                <ellipse cx="74" cy="50" rx="10" ry="7" fill="#F26D5B"/>
+                            </g>
+                            <!-- Body -->
+                            <ellipse cx="40" cy="55" rx="28" ry="27" fill="#F26D5B"/>
+                            <ellipse cx="35" cy="45" rx="12" ry="8" fill="white" opacity="0.12"/>
+                            <!-- Happy eyes (crescents for joy) -->
+                            <path d="M26 46 Q32 40 38 46" stroke="#1a1a2e" stroke-width="3" fill="none" stroke-linecap="round"/>
+                            <path d="M42 46 Q48 40 54 46" stroke="#1a1a2e" stroke-width="3" fill="none" stroke-linecap="round"/>
+                            <!-- Big happy smile -->
+                            <path d="M30 58 Q40 70 50 58" stroke="#c0453a" stroke-width="3" fill="#c0453a" opacity="0.6" stroke-linecap="round"/>
+                            <path d="M33 58 Q40 65 47 58" fill="white" opacity="0.4"/>
+                            <!-- Rosy cheeks -->
+                            <ellipse cx="22" cy="56" rx="6" ry="3.5" fill="#ff9999" opacity="0.5"/>
+                            <ellipse cx="58" cy="56" rx="6" ry="3.5" fill="#ff9999" opacity="0.5"/>
+                            <!-- Legs -->
+                            <line x1="28" y1="75" x2="22" y2="86" stroke="#d45a4a" stroke-width="2.5" stroke-linecap="round"/>
+                            <line x1="52" y1="75" x2="58" y2="86" stroke="#d45a4a" stroke-width="2.5" stroke-linecap="round"/>
+                            <!-- Tiny hat being put on -->
+                            <g class="snappy-hat">
+                                <rect x="30" y="22" width="20" height="3" rx="1.5" fill="#FFD700"/>
+                                <rect x="33" y="12" width="14" height="12" rx="3" fill="#FFD700"/>
+                                <rect x="36" y="8" width="8" height="6" rx="2" fill="#FFEB3B"/>
+                            </g>
+                        </svg>
+                    </div>
+
+                    <h1 class="text-3xl font-extrabold mb-3"><span id="name-in-step8">Snappy</span> is Getting Ready!</h1>
+                    <p class="text-brand-muted text-base mb-8"><span id="name-in-step8b">Snappy</span> is getting dressed and ready to meet you! 🦞</p>
+
+                    <!-- Ready progress bar -->
+                    <div class="max-w-sm mx-auto mb-6">
+                        <div class="h-3 bg-gray-100 rounded-full overflow-hidden shadow-inner">
+                            <div id="ready-bar" class="h-full bg-gradient-to-r from-brand-primary to-pink-400 rounded-full transition-all duration-700 ease-out" style="width: 0%"></div>
+                        </div>
+                        <p class="text-sm font-bold mt-2" id="ready-percent-text"><span id="ready-percent" class="text-brand-primary">0%</span></p>
+                        <p class="text-xs text-brand-muted mt-1" id="ready-status">Warming up...</p>
+                    </div>
+
+                    <!-- Tips & Tricks Section -->
+                    <div class="max-w-lg mx-auto">
+                        <p class="text-xs font-bold text-brand-muted uppercase tracking-wider mb-3">💡 Tips & Tricks — Getting the Most Out of Your <span id="name-in-tiplabel">Snappy</span></p>
+                        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden" id="tips-carousel">
+                            <!-- Active tip (animated) -->
+                            <div class="p-6" id="tip-content">
+                                <div class="flex items-start gap-4">
+                                    <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-brand-primary/10 flex items-center justify-center" id="tip-icon">
+                                        <span class="text-xl">🧠</span>
+                                    </div>
+                                    <div class="text-left flex-1">
+                                        <h4 class="font-bold text-brand-text text-sm mb-1" id="tip-title">Give Context, Get Magic</h4>
+                                        <p class="text-sm text-brand-muted leading-relaxed" id="tip-body"><span id="name-in-tip">Snappy</span> remembers everything you tell it. The more context you share about your work, preferences, and goals — the smarter and more personalized every response becomes.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Tip progress dots -->
+                            <div class="px-6 pb-4 flex items-center justify-center gap-1.5">
+                                <div class="tip-dot w-6 h-1 rounded-full bg-brand-primary transition-colors"></div>
+                                <div class="tip-dot w-6 h-1 rounded-full bg-gray-200 transition-colors"></div>
+                                <div class="tip-dot w-6 h-1 rounded-full bg-gray-200 transition-colors"></div>
+                                <div class="tip-dot w-6 h-1 rounded-full bg-gray-200 transition-colors"></div>
+                                <div class="tip-dot w-6 h-1 rounded-full bg-gray-200 transition-colors"></div>
+                                <div class="tip-dot w-6 h-1 rounded-full bg-gray-200 transition-colors"></div>
+                                <div class="tip-dot w-6 h-1 rounded-full bg-gray-200 transition-colors"></div>
+                                <div class="tip-dot w-6 h-1 rounded-full bg-gray-200 transition-colors"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fallback CTA (appears after delay) -->
+                    <div id="ready-cta" class="mt-8 hidden">
+                        <button onclick="enterPortal()" class="px-10 py-4 text-lg font-bold text-white bg-green-500 rounded-full hover:bg-green-600 shadow-pillowy hover:shadow-pillowy-lg hover:-translate-y-0.5 transition-all animate-pulse">
+                            Enter Your Portal →
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        // ── State ──
+        let currentStep = 1;
+        let selectedPersonality = null;
+        let selectedAvatar = 'lobster-red';
+        let selectedChannels = ['webchat'];
+
+        // ── VPS Provisioning Simulation ──
+        let vpsProgress = 0;
+        const vpsStatuses = [
+            { at: 0,  text: '🦞 Setting up your Snappy\'s home...' },
+            { at: 15, text: '⚡ Spinning up your private instance...' },
+            { at: 30, text: '🧠 Installing Snappy\'s brain...' },
+            { at: 50, text: '🎨 Personalizing your experience...' },
+            { at: 70, text: '🔧 Configuring integrations...' },
+            { at: 85, text: '✨ Almost ready...' },
+            { at: 100, text: '🎉 Your Snappy is ready!' },
+        ];
+
+        function updateVpsBar() {
+            const bar = document.getElementById('vps-bar');
+            const percent = document.getElementById('vps-percent');
+            const status = document.getElementById('vps-status');
+            const dot = document.getElementById('vps-dot');
+            const ping = document.getElementById('vps-ping');
+
+            bar.style.width = vpsProgress + '%';
+            percent.textContent = Math.round(vpsProgress) + '%';
+
+            // Update status text
+            let currentStatus = vpsStatuses[0].text;
+            for (const s of vpsStatuses) {
+                if (vpsProgress >= s.at) currentStatus = s.text;
+            }
+            status.textContent = currentStatus;
+
+            // Green when complete + confetti!
+            if (vpsProgress >= 100 && !window._confettiFired) {
+                window._confettiFired = true;
+                dot.classList.remove('bg-brand-primary');
+                dot.classList.add('bg-green-500');
+                ping.classList.remove('bg-brand-primary');
+                ping.classList.add('bg-green-500');
+                percent.classList.remove('text-brand-primary');
+                percent.classList.add('text-green-600');
+                launchConfetti();
+            }
+        }
+
+        // Simulate VPS provisioning over ~3 minutes
+        function simulateVps() {
+            const interval = setInterval(() => {
+                if (vpsProgress >= 100) {
+                    clearInterval(interval);
+                    return;
+                }
+                // Random increments, slower near the end
+                const remaining = 100 - vpsProgress;
+                const increment = Math.random() * Math.min(4, remaining * 0.15) + 0.3;
+                vpsProgress = Math.min(100, vpsProgress + increment);
+                updateVpsBar();
+            }, 2000);
+        }
+
+        // Confetti explosion 🎉
+        function launchConfetti() {
+            const colors = ['#F26D5B', '#FFD700', '#FF69B4', '#00CED1', '#84A98C', '#9B5BF2', '#FF6347', '#4ECDC4'];
+            const container = document.createElement('div');
+            container.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;overflow:hidden;';
+            document.body.appendChild(container);
+
+            for (let i = 0; i < 150; i++) {
+                const piece = document.createElement('div');
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const left = Math.random() * 100;
+                const delay = Math.random() * 0.8;
+                const duration = 2 + Math.random() * 2;
+                const size = 4 + Math.random() * 8;
+                const isCircle = Math.random() > 0.5;
+                const rotation = Math.random() * 360;
+                const drift = (Math.random() - 0.5) * 200;
+
+                piece.style.cssText = `
+                    position:absolute;
+                    top:-${size + 10}px;
+                    left:${left}%;
+                    width:${size}px;
+                    height:${isCircle ? size : size * 0.4}px;
+                    background:${color};
+                    border-radius:${isCircle ? '50%' : '2px'};
+                    opacity:0.9;
+                    transform:rotate(${rotation}deg);
+                    animation:confetti-fall ${duration}s ease-in ${delay}s forwards;
+                `;
+                container.appendChild(piece);
+            }
+
+            // Clean up after animation
+            setTimeout(() => container.remove(), 5000);
+        }
+
+        // Add confetti keyframes
+        const confettiStyle = document.createElement('style');
+        confettiStyle.textContent = `
+            @keyframes confetti-fall {
+                0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+                25% { opacity: 1; }
+                100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(confettiStyle);
+
+        // Start VPS simulation on page load
+        simulateVps();
+
+        // ── Step Navigation ──
+        function goToStep(step) {
+            // Hide current
+            document.getElementById('step-' + currentStep).classList.remove('active');
+            // Show new
+            currentStep = step;
+            document.getElementById('step-' + step).classList.add('active');
+
+            // Update dots
+            const dots = document.querySelectorAll('.step-dot');
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('bg-brand-primary', i < step);
+                dot.classList.toggle('bg-gray-200', i >= step);
+            });
+
+            // Update dynamic name references
+            const name = document.getElementById('snappy-name').value || 'Snappy';
+            const nameEls = document.querySelectorAll('[id^="name-in-"]');
+            nameEls.forEach(el => el.textContent = name);
+
+            // Re-init lucide icons for new step
+            setTimeout(() => lucide.createIcons(), 50);
+
+            // Start step 8 sequence
+            if (step === 8) startReadySequence();
+
+            // Set first tip with name
+            if (step === 8) {
+                const tip = readyTips[0];
+                document.getElementById('tip-body').textContent = tip.body.replace(/{name}/g, name);
+            }
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ── Step 1: Name ──
+        function pickName(chip, name) {
+            document.getElementById('snappy-name').value = name;
+            document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+        }
+
+        // ── Step 2: Personality ──
+        function selectPersonality(card, type) {
+            document.querySelectorAll('.selectable-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            selectedPersonality = type;
+        }
+
+        // ── Step 3: Avatar ──
+        function selectAvatar(el, id) {
+            document.querySelectorAll('.avatar-option').forEach(a => a.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedAvatar = id;
+        }
+
+        // ── Step 5: About Yourself ──
+        // Character counter for about textarea
+        document.getElementById('user-about')?.addEventListener('input', function() {
+            const len = this.value.length;
+            const el = document.getElementById('about-length');
+            const color = len > 200 ? 'text-green-600' : len > 50 ? 'text-brand-primary' : 'text-brand-muted';
+            el.innerHTML = `<span class="${color}">${len}</span> <span class="text-brand-muted opacity-50">chars</span>`;
+        });
+        // Auto-detect timezone
+        (function() {
+            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const sel = document.getElementById('user-timezone');
+            const commonTzs = [
+                'America/New_York', 'America/Chicago', 'America/Denver', 'America/Los_Angeles',
+                'America/Phoenix', 'America/Anchorage', 'Pacific/Honolulu',
+                'Europe/London', 'Europe/Paris', 'Europe/Berlin', 'Europe/Moscow',
+                'Asia/Tokyo', 'Asia/Shanghai', 'Asia/Kolkata', 'Asia/Dubai',
+                'Australia/Sydney', 'Australia/Perth', 'Pacific/Auckland',
+                'America/Toronto', 'America/Vancouver', 'America/Sao_Paulo',
+                'Africa/Johannesburg', 'Africa/Cairo', 'Asia/Singapore'
+            ];
+            if (!commonTzs.includes(tz)) commonTzs.unshift(tz);
+            sel.innerHTML = commonTzs.map(t => {
+                const label = t.replace(/_/g, ' ').replace('America/', '🇺🇸 ').replace('Europe/', '🇪🇺 ').replace('Asia/', '🌏 ').replace('Australia/', '🇦🇺 ').replace('Pacific/', '🌊 ').replace('Africa/', '🌍 ');
+                return `<option value="${t}" ${t === tz ? 'selected' : ''}>${label}</option>`;
+            }).join('');
+            document.getElementById('tz-detected').textContent = `Auto-detected: ${tz.replace(/_/g, ' ')}`;
+        })();
+
+        // ── Step 6: Goals ──
+        let selectedGoals = [];
+        function toggleGoal(el) {
+            el.classList.toggle('active');
+            selectedGoals = Array.from(document.querySelectorAll('.goal-pill.active')).map(p => p.textContent.trim());
+            document.getElementById('goals-count').textContent = `(${selectedGoals.length} selected)`;
+            // Visual feedback on count
+            const countEl = document.getElementById('goals-count');
+            if (selectedGoals.length >= 3 && selectedGoals.length <= 5) {
+                countEl.classList.add('text-green-600'); countEl.classList.remove('text-brand-primary', 'text-amber-500');
+            } else if (selectedGoals.length > 7) {
+                countEl.classList.add('text-amber-500'); countEl.classList.remove('text-brand-primary', 'text-green-600');
+            } else {
+                countEl.classList.add('text-brand-primary'); countEl.classList.remove('text-green-600', 'text-amber-500');
+            }
+        }
+
+        // ── Step 7: Brain ──
+        let selectedBrain = 'managed';
+        function selectBrain(type) {
+            selectedBrain = type;
+            document.querySelectorAll('.brain-option').forEach(card => {
+                const isSelected = (type === 'managed' && card !== document.getElementById('byo-brain-card')) ||
+                                   (type === 'byo' && card === document.getElementById('byo-brain-card'));
+                card.classList.toggle('selected', isSelected);
+                const check = card.querySelector('.brain-check');
+                if (isSelected) {
+                    check.classList.add('bg-brand-primary', 'border-brand-primary');
+                    check.innerHTML = '<svg class="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                } else {
+                    check.classList.remove('bg-brand-primary', 'border-brand-primary');
+                    check.innerHTML = '';
+                }
+            });
+            // Show/hide BYO config
+            document.getElementById('byo-config').classList.toggle('hidden', type !== 'byo');
+            if (type === 'byo') {
+                setTimeout(() => { lucide.createIcons(); }, 50);
+            }
+        }
+
+        function toggleApiKeyVisibility(e) {
+            e.stopPropagation();
+            const input = document.getElementById('byo-apikey');
+            const btn = e.target;
+            if (input.type === 'password') { input.type = 'text'; btn.textContent = 'Hide'; }
+            else { input.type = 'password'; btn.textContent = 'Show'; }
+        }
+
+        function showApiKeyHelp() {
+            const provider = document.getElementById('byo-provider').value;
+            const urls = {
+                anthropic: 'https://console.anthropic.com/settings/keys',
+                openai: 'https://platform.openai.com/api-keys',
+                mistral: 'https://console.mistral.ai/api-keys',
+                google: 'https://aistudio.google.com/apikey'
+            };
+            window.open(urls[provider] || urls.anthropic, '_blank');
+        }
+
+        // ── Step 8: Getting Ready ──
+        let readyProgress = 0;
+        const readyTips = [
+            { icon: "🧠", title: "Give Context, Get Magic", body: "{name} remembers everything you tell it. The more context you share about your work, preferences, and goals — the smarter and more personalized every response becomes." },
+            { icon: "📧", title: "Draft Emails in Seconds", body: "Try saying \"Draft a follow-up email to Sarah about the proposal.\" {name} learns your tone and style over time, so emails sound like you — not a robot." },
+            { icon: "🔄", title: "Your Agent Learns & Adapts", body: "The more you chat with {name}, the better it gets. It picks up on your preferences, communication style, and priorities. Day 30 is dramatically better than day 1." },
+            { icon: "📱", title: "Chat From Anywhere", body: "Connect {name} to Telegram, WhatsApp, or SMS and chat on the go. Ask it to check your schedule, send a message, or research something — right from your phone." },
+            { icon: "⚙️", title: "Customize Anytime", body: "You can change {name}'s personality, avatar, name, and connected channels anytime from your dashboard. Your agent evolves as your needs do." },
+            { icon: "📅", title: "Calendar & Task Management", body: "{name} can manage your calendar, set reminders, create task lists, and even send you a daily briefing every morning. Just ask!" },
+            { icon: "🔒", title: "Your Data, Your Control", body: "Everything {name} learns stays private to you. Your data is encrypted, never shared, and you can export or delete it anytime. Your agent, your rules." },
+            { icon: "🚀", title: "Pro Tip: Be Specific", body: "Instead of \"help me with marketing,\" try \"Write 3 Instagram captions for my new product launch targeting small business owners.\" Specific prompts = better results." },
+        ];
+        let tipIndex = 0;
+
+        function startReadySequence() {
+            const name = document.getElementById('snappy-name').value || 'Snappy';
+            readyProgress = 0;
+
+            // Rotate tips (rich format)
+            const tipInterval = setInterval(() => {
+                tipIndex = (tipIndex + 1) % readyTips.length;
+                const tipContent = document.getElementById('tip-content');
+                tipContent.style.opacity = '0';
+                tipContent.style.transform = 'translateY(8px)';
+                setTimeout(() => {
+                    const tip = readyTips[tipIndex];
+                    document.getElementById('tip-icon').innerHTML = `<span class="text-xl">${tip.icon}</span>`;
+                    document.getElementById('tip-title').textContent = tip.title;
+                    document.getElementById('tip-body').textContent = tip.body.replace(/{name}/g, name);
+                    // Update dots
+                    document.querySelectorAll('.tip-dot').forEach((dot, i) => {
+                        dot.classList.toggle('bg-brand-primary', i === tipIndex);
+                        dot.classList.toggle('bg-gray-200', i !== tipIndex);
+                    });
+                    tipContent.style.opacity = '1';
+                    tipContent.style.transform = 'translateY(0)';
+                }, 350);
+            }, 5000);
+
+            // Progress bar
+            const statuses = [
+                { at: 0,  text: '🦞 Warming up...' },
+                { at: 15, text: '🧠 Loading personality...' },
+                { at: 35, text: '⚡ Connecting channels...' },
+                { at: 55, text: '📚 Learning about you...' },
+                { at: 75, text: '🎨 Final touches...' },
+                { at: 90, text: '✨ Almost there...' },
+                { at: 100, text: '🎉 ' + name + ' is ready to meet you!' },
+            ];
+
+            const progressInterval = setInterval(() => {
+                if (readyProgress >= 100) {
+                    clearInterval(progressInterval);
+                    clearInterval(tipInterval);
+                    // Show CTA + confetti
+                    document.getElementById('ready-cta').classList.remove('hidden');
+                    document.getElementById('ready-percent').classList.remove('text-brand-primary');
+                    document.getElementById('ready-percent').classList.add('text-green-600');
+                    launchConfetti();
+                    return;
+                }
+                const remaining = 100 - readyProgress;
+                const increment = Math.random() * Math.min(5, remaining * 0.2) + 0.5;
+                readyProgress = Math.min(100, readyProgress + increment);
+
+                document.getElementById('ready-bar').style.width = readyProgress + '%';
+                document.getElementById('ready-percent').textContent = Math.round(readyProgress) + '%';
+
+                let currentStatus = statuses[0].text;
+                for (const s of statuses) { if (readyProgress >= s.at) currentStatus = s.text; }
+                document.getElementById('ready-status').textContent = currentStatus;
+            }, 800);
+
+            // Show fallback CTA after 20s regardless
+            setTimeout(() => {
+                document.getElementById('ready-cta').classList.remove('hidden');
+            }, 20000);
+        }
+
+        function enterPortal() {
+            // Save all onboarding data to localStorage for portal
+            const snappyName = document.getElementById('snappy-name').value || 'Snappy';
+            const personalityNames = {
+                'fun': 'Fun & Friendly', 'smart': 'Smart & Curious',
+                'business': 'All Business', 'coach': 'Coach', 'bold': 'Bold & Direct'
+            };
+
+            const onboardingData = {
+                snappyName: snappyName,
+                personality: selectedPersonality || 'fun',
+                personalityLabel: personalityNames[selectedPersonality] || 'Fun & Friendly',
+                avatar: selectedAvatar || 'lobster-red',
+                channels: selectedChannels || ['webchat'],
+                nickname: document.getElementById('user-nickname')?.value || 'there',
+                role: document.getElementById('user-role')?.value || '',
+                about: document.getElementById('user-about')?.value || '',
+                timezone: document.getElementById('user-timezone')?.value || '',
+                goals: selectedGoals || [],
+                brain: selectedBrain || 'managed',
+                byoProvider: document.getElementById('byo-provider')?.value || '',
+                createdAt: new Date().toISOString()
+            };
+
+            localStorage.setItem('snappyclaw_onboarding', JSON.stringify(onboardingData));
+            window.location.href = '/portal.html';
+        }
+
+        // ── Step 4: Channels ──
+        function toggleChannel(card, channel) {
+            card.classList.toggle('selected');
+            const check = card.querySelector('.channel-check');
+            const isSelected = card.classList.contains('selected');
+
+            if (isSelected) {
+                check.classList.add('bg-brand-primary', 'border-brand-primary');
+                check.innerHTML = '<svg class="w-3 h-3 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                if (!selectedChannels.includes(channel)) selectedChannels.push(channel);
+            } else {
+                check.classList.remove('bg-brand-primary', 'border-brand-primary');
+                check.innerHTML = '';
+                selectedChannels = selectedChannels.filter(c => c !== channel);
+            }
+        }
+    </script>
+</body>
+</html>

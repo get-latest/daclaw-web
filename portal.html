@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnappyClaw — Your Portal</title>
+    <meta name="description" content="Your personal AI assistant portal — chat, manage, and customize your Snappy.">
+    <meta name="robots" content="noindex">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            bg: '#FDFBF7',
+                            text: '#2D2D3F',
+                            muted: '#5a5a6e',
+                            primary: '#F26D5B',
+                            primaryHover: '#e55c4a',
+                        },
+                        sidebar: {
+                            bg: '#1a1a2e',
+                            hover: '#252542',
+                            active: '#2d2d4a',
+                            text: '#a0a0b8',
+                            textActive: '#ffffff',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+        
+        /* Sidebar nav items */
+        .nav-item {
+            display: flex; align-items: center; gap: 0.75rem;
+            padding: 0.625rem 1rem; border-radius: 0.75rem;
+            color: #a0a0b8; font-size: 0.875rem; font-weight: 500;
+            cursor: pointer; transition: all 0.15s ease;
+            margin: 0 0.5rem;
+        }
+        .nav-item:hover { background: #252542; color: #d0d0e8; }
+        .nav-item.active { background: #2d2d4a; color: #ffffff; font-weight: 600; }
+        .nav-item .nav-icon { width: 20px; height: 20px; flex-shrink: 0; }
+
+        /* Chat messages */
+        .chat-msg { animation: msgIn 0.3s ease-out; }
+        @keyframes msgIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Typing indicator */
+        .typing-dot { width: 6px; height: 6px; border-radius: 50%; background: #a0a0b8; animation: typingBounce 1.4s infinite; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typingBounce { 0%,60%,100% { transform: translateY(0); } 30% { transform: translateY(-6px); } }
+
+        /* Panel transitions */
+        .portal-panel { display: none; }
+        .portal-panel.active { display: flex; flex-direction: column; height: 100%; }
+
+        /* Status dot pulse */
+        .status-online { animation: statusPulse 2s infinite; }
+        @keyframes statusPulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        /* Settings toggle */
+        .toggle-track { width: 44px; height: 24px; border-radius: 12px; background: #d1d5db; transition: background 0.2s; cursor: pointer; position: relative; }
+        .toggle-track.on { background: #F26D5B; }
+        .toggle-knob { width: 20px; height: 20px; border-radius: 50%; background: white; position: absolute; top: 2px; left: 2px; transition: transform 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+        .toggle-track.on .toggle-knob { transform: translateX(20px); }
+
+        /* Usage bar */
+        .usage-bar-fill { transition: width 0.8s ease; }
+
+        /* Scrollbar styling */
+        .chat-scroll::-webkit-scrollbar { width: 6px; }
+        .chat-scroll::-webkit-scrollbar-track { background: transparent; }
+        .chat-scroll::-webkit-scrollbar-thumb { background: #e0e0e0; border-radius: 3px; }
+        .chat-scroll::-webkit-scrollbar-thumb:hover { background: #ccc; }
+
+        /* Channel card */
+        .channel-card { transition: all 0.15s ease; }
+        .channel-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px -4px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="bg-brand-bg h-screen overflow-hidden">
+    <div class="flex h-full">
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- SIDEBAR                                     -->
+        <!-- ═══════════════════════════════════════════ -->
+        <aside class="w-64 bg-sidebar-bg flex flex-col flex-shrink-0">
+            <!-- Logo -->
+            <div class="p-5 pb-3">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-brand-bg/10 flex items-center justify-center overflow-hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 0 100 96" class="w-7 h-7" style="filter: drop-shadow(0 2px 4px rgba(242,109,91,0.4));"><ellipse cx="40" cy="55" rx="25" ry="24" fill="#F26D5B"/><ellipse cx="10" cy="52" rx="10" ry="7" fill="#F26D5B"/><ellipse cx="4" cy="46" rx="6" ry="4" fill="#F26D5B" transform="rotate(-15,4,46)"/><ellipse cx="70" cy="52" rx="8" ry="6" fill="#F26D5B"/><line x1="30" y1="28" x2="20" y2="12" stroke="#d45a4a" stroke-width="2" stroke-linecap="round"/><line x1="50" y1="28" x2="60" y2="12" stroke="#d45a4a" stroke-width="2" stroke-linecap="round"/><circle cx="20" cy="11" r="3" fill="#F26D5B"/><circle cx="60" cy="11" r="3" fill="#F26D5B"/><ellipse cx="32" cy="48" rx="7" ry="8" fill="white"/><ellipse cx="32" cy="49" rx="4.5" ry="5.5" fill="#1a1a2e"/><circle cx="34" cy="47" r="2" fill="white"/><ellipse cx="48" cy="48" rx="7" ry="8" fill="white"/><ellipse cx="48" cy="49" rx="4.5" ry="5.5" fill="#1a1a2e"/><circle cx="50" cy="47" r="2" fill="white"/><path d="M34 60 Q40 67 46 60" stroke="#c0453a" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+                    </div>
+                    <div>
+                        <h1 class="text-white font-extrabold text-base leading-tight">Snappy<span class="text-brand-primary">Claw</span></h1>
+                        <p class="text-sidebar-text text-[10px] font-medium">Your AI Portal</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Snappy Status -->
+            <div class="mx-3 mb-4 px-3 py-2.5 rounded-xl bg-sidebar-hover">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-green-400/30">
+                        <img src="/avatars/snappy-premium-hero.webp" alt="Buddy" data-avatar-slot class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-white text-xs font-bold truncate" id="sidebar-snappy-name" data-snappy-name>Buddy</p>
+                        <div class="flex items-center gap-1.5">
+                            <div class="w-1.5 h-1.5 rounded-full bg-green-400 status-online"></div>
+                            <span class="text-green-400 text-[10px] font-medium">Online & ready</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="flex-1 py-1 space-y-0.5">
+                <div class="nav-item active" onclick="switchPanel('chat')" data-panel="chat">
+                    <i data-lucide="message-circle" class="nav-icon"></i>
+                    <span>Chat</span>
+                </div>
+                <div class="nav-item" onclick="switchPanel('dashboard')" data-panel="dashboard">
+                    <i data-lucide="bar-chart-3" class="nav-icon"></i>
+                    <span>Dashboard</span>
+                </div>
+                <div class="nav-item" onclick="switchPanel('settings')" data-panel="settings">
+                    <i data-lucide="settings" class="nav-icon"></i>
+                    <span>Snappy Settings</span>
+                </div>
+                <div class="nav-item" onclick="switchPanel('account')" data-panel="account">
+                    <i data-lucide="user" class="nav-icon"></i>
+                    <span>My Account</span>
+                </div>
+                <div class="nav-item" onclick="switchPanel('billing')" data-panel="billing">
+                    <i data-lucide="credit-card" class="nav-icon"></i>
+                    <span>Billing</span>
+                </div>
+                <div class="nav-item" onclick="switchPanel('channels')" data-panel="channels">
+                    <i data-lucide="smartphone" class="nav-icon"></i>
+                    <span>Channels</span>
+                </div>
+                <div class="nav-item" onclick="switchPanel('help')" data-panel="help">
+                    <i data-lucide="help-circle" class="nav-icon"></i>
+                    <span>Help & Support</span>
+                </div>
+            </nav>
+
+            <!-- User -->
+            <div class="p-4 border-t border-sidebar-hover">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-gradient-to-br from-brand-primary to-pink-400 flex items-center justify-center text-white font-bold text-sm">M</div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-white text-sm font-semibold truncate" data-user-name>Matt</p>
+                        <p class="text-sidebar-text text-[10px]">Snappy Pro Plan</p>
+                    </div>
+                    <button class="text-sidebar-text hover:text-white transition-colors">
+                        <i data-lucide="log-out" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ═══════════════════════════════════════════ -->
+        <!-- MAIN CONTENT AREA                           -->
+        <!-- ═══════════════════════════════════════════ -->
+        <main class="flex-1 flex flex-col min-w-0">
+
+            <!-- ═══════════════════════════════════════ -->
+            <!-- PANEL: CHAT (Default)                   -->
+            <!-- ═══════════════════════════════════════ -->
+            <div class="portal-panel active" id="panel-chat">
+                <!-- Chat header -->
+                <div class="px-6 py-4 border-b border-gray-100 bg-white flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-full overflow-hidden ring-2 ring-brand-primary/20 shadow-md">
+                            <img src="/avatars/snappy-premium-hero.webp" alt="Buddy" data-avatar-slot class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h2 class="font-bold text-brand-text text-base" data-snappy-name>Buddy</h2>
+                            <div class="flex items-center gap-1.5">
+                                <div class="w-1.5 h-1.5 rounded-full bg-green-400"></div>
+                                <span class="text-xs text-green-600 font-medium">Online</span>
+                                <span class="text-xs text-brand-muted ml-1">· <span data-personality>Fun & Friendly</span> personality</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button class="p-2 rounded-lg hover:bg-gray-100 text-brand-muted transition-colors" title="Search messages">
+                            <i data-lucide="search" class="w-4 h-4"></i>
+                        </button>
+                        <button class="p-2 rounded-lg hover:bg-gray-100 text-brand-muted transition-colors" title="Chat settings">
+                            <i data-lucide="more-vertical" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Chat messages -->
+                <div class="flex-1 overflow-y-auto chat-scroll px-6 py-6 space-y-4" id="chat-messages">
+                    <!-- Welcome banner -->
+                    <div class="chat-msg flex justify-center mb-2">
+                        <div class="bg-brand-primary/5 rounded-full px-4 py-1.5 border border-brand-primary/10">
+                            <p class="text-[11px] text-brand-muted text-center">🎉 Welcome to your personal AI portal, <span data-user-name>Matt</span>! This is the beginning of something great.</p>
+                        </div>
+                    </div>
+
+                    <!-- Snappy's first message (pre-generated, waiting) -->
+                    <div class="chat-msg flex gap-3 max-w-2xl">
+                        <div class="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 mt-1 ring-2 ring-brand-primary/10 shadow-sm">
+                            <img src="/avatars/snappy-premium-hero.webp" alt="Buddy" data-avatar-slot class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-bold text-brand-primary mb-1" data-snappy-name>Buddy</p>
+                            <div class="bg-white rounded-2xl rounded-tl-md px-4 py-3 shadow-sm border border-gray-100" id="first-message">
+                                <p class="text-sm text-brand-text leading-relaxed">Hey Matt! 🦞 I'm Buddy, your new AI sidekick! I know you're running a plumbing business and looking for help with customer follow-ups and scheduling. I'm SO ready to help with that.</p>
+                                <p class="text-sm text-brand-text leading-relaxed mt-2">What should we tackle first? Oh, and if you want to connect me to your Telegram, there's a button in the sidebar — takes literally 10 seconds! 😄</p>
+                                <p class="text-[10px] text-brand-muted mt-2">Just now</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat input -->
+                <div class="px-6 py-4 border-t border-gray-100 bg-white">
+                    <div class="max-w-2xl mx-auto">
+                        <div class="flex items-end gap-3">
+                            <div class="flex-1 relative">
+                                <textarea id="chat-input" rows="1" placeholder="Ask Buddy anything — drafts, scheduling, research..." class="w-full px-4 py-3 pr-12 rounded-2xl border-2 border-gray-200 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all text-sm text-brand-text bg-white resize-none max-h-32" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage()}" oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
+                                <button class="absolute right-2 bottom-2 p-1.5 rounded-lg hover:bg-gray-100 text-brand-muted transition-colors" title="Attach file">
+                                    <i data-lucide="paperclip" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+                            <button onclick="sendMessage()" class="p-3 bg-brand-primary hover:bg-brand-primaryHover text-white rounded-2xl transition-all hover:-translate-y-0.5 shadow-sm hover:shadow-md flex-shrink-0">
+                                <i data-lucide="send" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                        <p class="text-[10px] text-brand-muted text-center mt-2 opacity-50">Buddy can make mistakes. Always verify important info.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══════════════════════════════════════ -->
+            <!-- PANEL: DASHBOARD                        -->
+            <!-- ═══════════════════════════════════════ -->
+            <div class="portal-panel" id="panel-dashboard">
+                <div class="px-8 py-6 border-b border-gray-100 bg-white">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 rounded-2xl overflow-hidden ring-2 ring-brand-primary/20 shadow-md">
+                            <img src="/avatars/snappy-premium-hero.webp" alt="Buddy" data-avatar-slot class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-extrabold text-brand-text">Hey <span data-user-name>Matt</span>! Here's your dashboard</h2>
+                            <p class="text-sm text-brand-muted mt-0.5">You and <span data-snappy-name>Buddy</span> have been crushing it this month 🔥</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1 overflow-y-auto px-8 py-6">
+                    <!-- Personal greeting card -->
+                    <div class="bg-gradient-to-r from-sidebar-bg to-[#2d2d4a] rounded-2xl p-5 mb-6 text-white shadow-lg">
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 h-16 rounded-2xl overflow-hidden ring-2 ring-white/20 shadow-lg flex-shrink-0">
+                                <img src="/avatars/snappy-premium-hero.webp" alt="Buddy" data-avatar-slot class="w-full h-full object-cover">
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-extrabold text-lg"><span data-snappy-name>Buddy</span> is working for you 24/7</p>
+                                <p class="text-sm opacity-80 mt-1">Your AI assistant for <span data-goals>customer follow-ups, scheduling</span>, and growing your business</p>
+                            </div>
+                            <button onclick="switchPanel('chat')" class="px-5 py-2.5 bg-brand-primary hover:bg-brand-primaryHover text-white text-sm font-bold rounded-xl transition-all flex-shrink-0 shadow-md">
+                                Chat now →
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Stats grid -->
+                    <div class="grid grid-cols-3 gap-4 mb-8">
+                        <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
+                                    <i data-lucide="message-circle" class="w-5 h-5 text-blue-500"></i>
+                                </div>
+                                <p class="text-xs font-bold text-brand-muted uppercase tracking-wider">Messages</p>
+                            </div>
+                            <p class="text-3xl font-extrabold text-brand-text">142</p>
+                            <p class="text-xs text-brand-muted mt-1">this month · 1,858 remaining</p>
+                        </div>
+                        <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center">
+                                    <i data-lucide="clock" class="w-5 h-5 text-green-500"></i>
+                                </div>
+                                <p class="text-xs font-bold text-brand-muted uppercase tracking-wider">Time Saved</p>
+                            </div>
+                            <p class="text-3xl font-extrabold text-brand-text">~3.2 hrs</p>
+                            <p class="text-xs text-brand-muted mt-1">estimated this month</p>
+                        </div>
+                        <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center">
+                                    <i data-lucide="zap" class="w-5 h-5 text-purple-500"></i>
+                                </div>
+                                <p class="text-xs font-bold text-brand-muted uppercase tracking-wider">Streak</p>
+                            </div>
+                            <p class="text-3xl font-extrabold text-brand-text">7 days 🔥</p>
+                            <p class="text-xs text-brand-muted mt-1">you've chatted every day this week!</p>
+                        </div>
+                    </div>
+
+                    <!-- Usage bar -->
+                    <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm mb-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="font-bold text-brand-text text-sm">Monthly Usage</h3>
+                            <span class="text-xs font-medium text-brand-primary">142 / 2,000 messages</span>
+                        </div>
+                        <div class="h-3 bg-gray-100 rounded-full overflow-hidden">
+                            <div class="usage-bar-fill h-full bg-gradient-to-r from-brand-primary to-pink-400 rounded-full" style="width: 7.1%"></div>
+                        </div>
+                        <p class="text-xs text-brand-muted mt-2">You're on track. At this rate you'll use about 620 messages this month.</p>
+                    </div>
+
+                    <!-- Recent activity -->
+                    <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+                        <h3 class="font-bold text-brand-text text-sm mb-4">Recent Activity</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-3 text-sm">
+                                <div class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
+                                    <span class="text-xs">📧</span>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-brand-text font-medium">Drafted 3 follow-up emails</p>
+                                    <p class="text-xs text-brand-muted">2 hours ago</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm">
+                                <div class="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0">
+                                    <span class="text-xs">📅</span>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-brand-text font-medium">Scheduled 2 appointments</p>
+                                    <p class="text-xs text-brand-muted">Yesterday</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm">
+                                <div class="w-8 h-8 rounded-lg bg-purple-50 flex items-center justify-center flex-shrink-0">
+                                    <span class="text-xs">📊</span>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-brand-text font-medium">Researched competitor pricing</p>
+                                    <p class="text-xs text-brand-muted">2 days ago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══════════════════════════════════════ -->
+            <!-- PANEL: SNAPPY SETTINGS                  -->
+            <!-- ═══════════════════════════════════════ -->
+            <div class="portal-panel" id="panel-settings">
+                <div class="px-8 py-6 border-b border-gray-100 bg-white">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl overflow-hidden ring-2 ring-brand-primary/20 shadow-sm">
+                            <img src="/avatars/snappy-premium-hero.webp" alt="Buddy" data-avatar-slot class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-extrabold text-brand-text"><span data-snappy-name>Buddy</span>'s Settings</h2>
+                            <p class="text-sm text-brand-muted mt-0.5">Make <span data-snappy-name>Buddy</span> uniquely yours — all changes take effect instantly</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-1 overflow-y-auto px-8 py-6 space-y-6">
+                    <!-- Name & Avatar -->
+                    <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+                        <h3 class="font-bold text-brand-text text-sm mb-4">Identity</h3>
+                        <div class="flex items-start gap-6">
+                            <div class="flex-shrink-0">
+                                <div class="w-20 h-20 rounded-2xl overflow-hidden ring-2 ring-brand-primary/20 shadow-md cursor-pointer hover:ring-brand-primary transition-all relative group">
+                                    <img src="/avatars/snappy-premium-hero.webp" alt="Buddy" data-avatar-slot class="w-full h-full object-cover">
+                                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                        <i data-lucide="camera" class="w-5 h-5 text-white"></i>
+                                    </div>
+                                </div>
+                                <p class="text-[10px] text-brand-muted text-center mt-1.5">Click to change</p>
+                            </div>
+                            <div class="flex-1 space-y-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-brand-text mb-1.5">Name</label>
+                                    <input type="text" id="settings-name" value="Buddy" class="w-full max-w-xs px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-brand-primary outline-none transition-all text-sm">
+                                    <p class="text-[10px] text-brand-muted mt-1">Changes take effect instantly</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Personality -->
+                    <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+                        <h3 class="font-bold text-brand-text text-sm mb-4">Personality</h3>
+                        <div class="grid grid-cols-5 gap-3">
+                            <div class="p-3 rounded-xl border-2 border-brand-primary bg-brand-primary/5 text-center cursor-pointer">
+                                <span class="text-2xl">🎉</span>
+                                <p class="text-[10px] font-bold text-brand-primary mt-1">Fun & Friendly</p>
+                            </div>
+                            <div class="p-3 rounded-xl border-2 border-gray-200 hover:border-gray-300 text-center cursor-pointer transition-colors">
+                                <span class="text-2xl">🧠</span>
+                                <p class="text-[10px] font-bold text-brand-muted mt-1">Smart & Curious</p>
+                            </div>
+                            <div class="p-3 rounded-xl border-2 border-gray-200 hover:border-gray-300 text-center cursor-pointer transition-colors">
+                                <span class="text-2xl">💼</span>
+                                <p class="text-[10px] font-bold text-brand-muted mt-1">All Business</p>
+                            </div>
+                            <div class="p-3 rounded-xl border-2 border-gray-200 hover:border-gray-300 text-center cursor-pointer transition-colors">
+                                <span class="text-2xl">🌟</span>
+                                <p class="text-[10px] font-bold text-brand-muted mt-1">Coach</p>
+                            </div>
+                            <div class="p-3 rounded-xl border-2 border-gray-200 hover:border-gray-300 text-center cursor-pointer transition-colors">
+                                <span class="text-2xl">🔥</span>
+                                <p class="text-[10px] font-bold text-brand-muted mt-1">Bold & Direct</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Behavior -->
+                    <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+                        <h3 class="font-bold text-brand-text text-sm mb-4">Behavior</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-semibold text-brand-text">Morning briefing</p>
+                                    <p class="text-xs text-brand-muted">Get a daily summary of your schedule and tasks</p>
+                                </div>
+                                <div class="toggle-track on" onclick="this.classList.toggle('on')">
+                                    <div class="toggle-knob"></div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-semibold text-brand-text">Proactive suggestions</p>
+                                    <p class="text-xs text-brand-muted"><span data-snappy-name>Buddy</span> can reach out with helpful ideas and reminders</p>
+                                </div>
+                                <div class="toggle-track on" onclick="this.classList.toggle('on')">
+                                    <div class="toggle-knob"></div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-semibold text-brand-text">Use emoji</p>
+                                    <p class="text-xs text-brand-muted">Let <span data-snappy-name>Buddy</span> express with emoji in conversations</p>
+                                </div>
+                                <div class="toggle-track on" onclick="this.classList.toggle('on')">
+                                    <div class="toggle-knob"></div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-semibold text-brand-text">Quiet hours</p>
+                                    <p class="text-xs text-brand-muted">No notifications between 10 PM – 7 AM</p>
+                                </div>
+                                <div class="toggle-track" onclick="this.classList.toggle('on')">
+                                    <div class="toggle-knob"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Context / About You -->
+                    <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+                        <h3 class="font-bold text-brand-text text-sm mb-1">What <span data-snappy-name>Buddy</span> Knows About You</h3>
+                        <p class="text-xs text-brand-muted mb-4">This is what powers <span data-snappy-name>Buddy</span>'s personalization. Edit anytime — changes take effect instantly.</p>
+                        <textarea id="settings-about" rows="6" class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-brand-primary outline-none transition-all text-sm text-brand-text resize-y">I run a plumbing company in Austin. I have two kids and a dog named Rex. I'm always looking for ways to save time on customer follow-ups and scheduling. I prefer casual communication and like to keep things efficient.</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══════════════════════════════════════ -->
+            <!-- PANEL: MY ACCOUNT                       -->
+            <!-- ═══════════════════════════════════════ -->
+            <div class="portal-panel" id="panel-account">
+                <div class="px-8 py-6 border-b border-gray-100 bg-white">
+                    <h2 class="text-xl font-extrabold text-brand-text">My Account</h2>
+                    <p class="text-sm text-brand-muted mt-1">Manage your profile and login details</p>
+                </div>
+                <div class="flex-1 overflow-y-auto px-8 py-6 space-y-6">
+                    <!-- Profile -->
+                    <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+                        <h3 class="font-bold text-brand-text text-sm mb-4">Profile</h3>
+                        <div class="flex items-start gap-6">
+                            <div class="w-20 h-20 rounded-full bg-gradient-to-br from-brand-primary to-pink-400 flex items-center justify-center text-white font-bold text-2xl flex-shrink-0">M</div>
+                            <div class="flex-1 space-y-4">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-brand-text mb-1.5">Full Name</label>
+                                        <input type="text" value="Matt Merrill" class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-brand-primary outline-none transition-all text-sm">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-brand-text mb-1.5">Email</label>
+                                        <input type="email" value="matt@getlatest.ai" class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-brand-primary outline-none transition-all text-sm">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-brand-text mb-1.5">Timezone</label>
+                                    <select class="w-full max-w-xs px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-brand-primary outline-none transition-all text-sm">
+                                        <option selected>🇺🇸 America/Denver</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Security -->
+                    <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+                        <h3 class="font-bold text-brand-text text-sm mb-4">Security</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-semibold text-brand-text">Password</p>
+                                    <p class="text-xs text-brand-muted">Last changed 2 weeks ago</p>
+                                </div>
+                                <button class="px-4 py-2 text-xs font-bold text-brand-primary border-2 border-brand-primary rounded-xl hover:bg-brand-primary hover:text-white transition-all">Change Password</button>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-semibold text-brand-text">Two-factor authentication</p>
+                                    <p class="text-xs text-brand-muted">Add an extra layer of security</p>
+                                </div>
+                                <button class="px-4 py-2 text-xs font-bold text-brand-muted border-2 border-gray-200 rounded-xl hover:border-gray-300 transition-all">Enable 2FA</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Danger zone -->
+                    <div class="bg-white rounded-2xl p-6 border border-red-100 shadow-sm">
+                        <h3 class="font-bold text-red-600 text-sm mb-4">Danger Zone</h3>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-semibold text-brand-text">Delete Account</p>
+                                <p class="text-xs text-brand-muted">Permanently delete your account and all data</p>
+                            </div>
+                            <button class="px-4 py-2 text-xs font-bold text-red-500 border-2 border-red-200 rounded-xl hover:bg-red-500 hover:text-white hover:border-red-500 transition-all">Delete Account</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══════════════════════════════════════ -->
+            <!-- PANEL: BILLING                          -->
+            <!-- ═══════════════════════════════════════ -->
+            <div class="portal-panel" id="panel-billing">
+                <div class="px-8 py-6 border-b border-gray-100 bg-white">
+                    <h2 class="text-xl font-extrabold text-brand-text">Billing</h2>
+                    <p class="text-sm text-brand-muted mt-1">Manage your plan, payments, and usage</p>
+                </div>
+                <div class="flex-1 overflow-y-auto px-8 py-6 space-y-6">
+                    <!-- Current Plan -->
+                    <div class="bg-gradient-to-r from-brand-primary to-pink-400 rounded-2xl p-6 text-white shadow-lg">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-bold uppercase tracking-wider opacity-80">Current Plan</p>
+                                <h3 class="text-2xl font-extrabold mt-1">Snappy Pro</h3>
+                                <p class="text-sm opacity-90 mt-1">$49/month · 2,000 messages · Billed monthly</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-3xl font-extrabold">$49</p>
+                                <p class="text-xs opacity-80">/month</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 mt-4">
+                            <button class="px-4 py-2 text-xs font-bold bg-white/20 rounded-xl hover:bg-white/30 transition-all">Upgrade to Ultra</button>
+                            <button class="px-4 py-2 text-xs font-bold bg-white/10 rounded-xl hover:bg-white/20 transition-all">Switch to Annual (Save 17%)</button>
+                        </div>
+                    </div>
+
+                    <!-- Usage this period -->
+                    <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="font-bold text-brand-text text-sm">Usage This Period</h3>
+                            <span class="text-xs text-brand-muted">Resets Mar 1</span>
+                        </div>
+                        <div class="h-4 bg-gray-100 rounded-full overflow-hidden mb-2">
+                            <div class="usage-bar-fill h-full bg-gradient-to-r from-brand-primary to-pink-400 rounded-full" style="width: 7.1%"></div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <p class="text-sm text-brand-text font-medium">142 of 2,000 messages used</p>
+                            <button class="text-xs font-bold text-brand-primary hover:underline">+ Add more messages</button>
+                        </div>
+                        <div class="mt-3 bg-green-50 rounded-lg px-3 py-2">
+                            <p class="text-[11px] text-green-700">💡 Running low? You can top up anytime — your Snappy never stops working.</p>
+                        </div>
+                    </div>
+
+                    <!-- Payment method -->
+                    <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+                        <h3 class="font-bold text-brand-text text-sm mb-4">Payment Method</h3>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
+                                    <span class="text-xs font-bold text-brand-muted">VISA</span>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-brand-text">Visa ending in 4242</p>
+                                    <p class="text-xs text-brand-muted">Expires 12/27</p>
+                                </div>
+                            </div>
+                            <button class="px-4 py-2 text-xs font-bold text-brand-muted border-2 border-gray-200 rounded-xl hover:border-gray-300 transition-all">Update</button>
+                        </div>
+                    </div>
+
+                    <!-- Billing history -->
+                    <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+                        <h3 class="font-bold text-brand-text text-sm mb-4">Billing History</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between text-sm">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-brand-text">Snappy Pro — February 2026</p>
+                                        <p class="text-xs text-brand-muted">Feb 1, 2026</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <p class="font-bold text-brand-text">$49.00</p>
+                                    <button class="text-xs text-brand-primary hover:underline">Receipt</button>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between text-sm">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center">
+                                        <i data-lucide="check-circle-2" class="w-4 h-4 text-green-500"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-brand-text">Snappy Pro — January 2026</p>
+                                        <p class="text-xs text-brand-muted">Jan 1, 2026</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <p class="font-bold text-brand-text">$49.00</p>
+                                    <button class="text-xs text-brand-primary hover:underline">Receipt</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══════════════════════════════════════ -->
+            <!-- PANEL: CHANNELS                         -->
+            <!-- ═══════════════════════════════════════ -->
+            <div class="portal-panel" id="panel-channels">
+                <div class="px-8 py-6 border-b border-gray-100 bg-white">
+                    <h2 class="text-xl font-extrabold text-brand-text">Channels</h2>
+                    <p class="text-sm text-brand-muted mt-1">Connect Buddy to your favorite apps — chat from anywhere</p>
+                </div>
+                <div class="flex-1 overflow-y-auto px-8 py-6">
+                    <!-- Connected channels -->
+                    <h3 class="font-bold text-brand-text text-sm mb-3">Connected</h3>
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="channel-card bg-white rounded-2xl p-5 border border-green-200 shadow-sm">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center">
+                                        <span class="text-xl">💬</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-brand-text text-sm">Web Chat</p>
+                                        <p class="text-xs text-green-600 font-medium">Always included</p>
+                                    </div>
+                                </div>
+                                <div class="w-2 h-2 rounded-full bg-green-400"></div>
+                            </div>
+                            <p class="text-xs text-brand-muted">Chat right here in your portal. Always on, always ready.</p>
+                        </div>
+
+                        <div class="channel-card bg-white rounded-2xl p-5 border border-green-200 shadow-sm">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
+                                        <span class="text-xl">✈️</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-brand-text text-sm">Telegram</p>
+                                        <p class="text-xs text-green-600 font-medium">Connected</p>
+                                    </div>
+                                </div>
+                                <div class="w-2 h-2 rounded-full bg-green-400"></div>
+                            </div>
+                            <p class="text-xs text-brand-muted">Chat with Buddy on the go via <strong>@BuddySnappy_bot</strong></p>
+                            <div class="flex items-center gap-2 mt-2 bg-green-50 rounded-lg px-2.5 py-1.5">
+                                <div class="w-5 h-5 rounded-full overflow-hidden flex-shrink-0">
+                                    <img src="/avatars/snappy-premium-hero.webp" alt="Buddy" data-avatar-slot class="w-full h-full object-cover">
+                                </div>
+                                <p class="text-[10px] text-green-700 font-medium">Last message: 2 hours ago</p>
+                            </div>
+                            <button class="mt-3 text-xs font-bold text-red-400 hover:text-red-600 transition-colors">Disconnect</button>
+                        </div>
+                    </div>
+
+                    <!-- Available channels -->
+                    <h3 class="font-bold text-brand-text text-sm mb-3">Available to Connect</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="channel-card bg-white rounded-2xl p-5 border border-gray-200 shadow-sm hover:border-brand-primary cursor-pointer">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center">
+                                    <span class="text-xl">📱</span>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-brand-text text-sm">WhatsApp</p>
+                                    <p class="text-xs text-brand-muted">Scan QR to connect</p>
+                                </div>
+                            </div>
+                            <p class="text-xs text-brand-muted mb-3">Chat with Buddy through WhatsApp — great for quick questions on the go.</p>
+                            <button class="w-full py-2 text-xs font-bold text-brand-primary border-2 border-brand-primary rounded-xl hover:bg-brand-primary hover:text-white transition-all">Connect WhatsApp</button>
+                        </div>
+
+                        <div class="channel-card bg-white rounded-2xl p-5 border border-gray-200 shadow-sm hover:border-brand-primary cursor-pointer">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center">
+                                    <span class="text-xl">💬</span>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-brand-text text-sm">SMS</p>
+                                    <p class="text-xs text-amber-500 font-medium">Coming soon</p>
+                                </div>
+                            </div>
+                            <p class="text-xs text-brand-muted mb-3">Text Buddy just like a friend. No apps needed — just your phone number.</p>
+                            <button class="w-full py-2 text-xs font-bold text-brand-muted border-2 border-gray-200 rounded-xl cursor-not-allowed opacity-50">Coming Soon</button>
+                        </div>
+
+                        <div class="channel-card bg-white rounded-2xl p-5 border border-gray-200 shadow-sm hover:border-brand-primary cursor-pointer">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center">
+                                    <span class="text-xl">💼</span>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-brand-text text-sm">Slack</p>
+                                    <p class="text-xs text-amber-500 font-medium">Coming soon</p>
+                                </div>
+                            </div>
+                            <p class="text-xs text-brand-muted mb-3">Add Buddy to your Slack workspace for team-friendly AI assistance.</p>
+                            <button class="w-full py-2 text-xs font-bold text-brand-muted border-2 border-gray-200 rounded-xl cursor-not-allowed opacity-50">Coming Soon</button>
+                        </div>
+
+                        <div class="channel-card bg-white rounded-2xl p-5 border border-gray-200 shadow-sm hover:border-brand-primary cursor-pointer">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center">
+                                    <span class="text-xl">🎮</span>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-brand-text text-sm">Discord</p>
+                                    <p class="text-xs text-amber-500 font-medium">Coming soon</p>
+                                </div>
+                            </div>
+                            <p class="text-xs text-brand-muted mb-3">Bring Buddy into your Discord server for always-on AI help.</p>
+                            <button class="w-full py-2 text-xs font-bold text-brand-muted border-2 border-gray-200 rounded-xl cursor-not-allowed opacity-50">Coming Soon</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══════════════════════════════════════ -->
+            <!-- PANEL: HELP & SUPPORT                   -->
+            <!-- ═══════════════════════════════════════ -->
+            <div class="portal-panel" id="panel-help">
+                <div class="px-8 py-6 border-b border-gray-100 bg-white">
+                    <h2 class="text-xl font-extrabold text-brand-text">Help & Support</h2>
+                    <p class="text-sm text-brand-muted mt-1">Get answers, learn tips, or reach out to our team</p>
+                </div>
+                <div class="flex-1 overflow-y-auto px-8 py-6 space-y-6">
+                    <!-- Quick help -->
+                    <div class="bg-gradient-to-r from-brand-primary/5 to-pink-50 rounded-2xl p-6 border border-brand-primary/10">
+                        <div class="flex items-start gap-4">
+                            <div class="w-14 h-14 rounded-xl overflow-hidden ring-2 ring-brand-primary/20 shadow-sm flex-shrink-0">
+                                <img src="/avatars/snappy-premium-hero.webp" alt="Buddy" data-avatar-slot class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-brand-text">Ask <span data-snappy-name>Buddy</span>!</h3>
+                                <p class="text-sm text-brand-muted mt-1">The fastest way to get help is to ask <span data-snappy-name>Buddy</span> directly. Try saying: <em>"How do I connect you to Telegram?"</em> or <em>"What can you help me with?"</em></p>
+                                <button onclick="switchPanel('chat')" class="mt-3 px-4 py-2 text-xs font-bold text-white bg-brand-primary rounded-xl hover:bg-brand-primaryHover transition-all">Open Chat →</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQs -->
+                    <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+                        <h3 class="font-bold text-brand-text text-sm mb-4">Frequently Asked Questions</h3>
+                        <div class="space-y-3">
+                            <details class="group">
+                                <summary class="flex items-center justify-between cursor-pointer py-2 text-sm font-medium text-brand-text hover:text-brand-primary transition-colors">
+                                    How do I change my Snappy's personality?
+                                    <i data-lucide="chevron-down" class="w-4 h-4 text-brand-muted group-open:rotate-180 transition-transform"></i>
+                                </summary>
+                                <p class="text-sm text-brand-muted pb-2 pl-0">Go to <strong>Snappy Settings</strong> in the sidebar and click on any personality. It takes effect instantly — no restart needed!</p>
+                            </details>
+                            <details class="group">
+                                <summary class="flex items-center justify-between cursor-pointer py-2 text-sm font-medium text-brand-text hover:text-brand-primary transition-colors">
+                                    What happens if I run out of messages?
+                                    <i data-lucide="chevron-down" class="w-4 h-4 text-brand-muted group-open:rotate-180 transition-transform"></i>
+                                </summary>
+                                <p class="text-sm text-brand-muted pb-2 pl-0">Your Snappy never stops! You can top up messages anytime from the <strong>Billing</strong> page, or upgrade your plan for more monthly messages.</p>
+                            </details>
+                            <details class="group">
+                                <summary class="flex items-center justify-between cursor-pointer py-2 text-sm font-medium text-brand-text hover:text-brand-primary transition-colors">
+                                    Can I connect multiple channels?
+                                    <i data-lucide="chevron-down" class="w-4 h-4 text-brand-muted group-open:rotate-180 transition-transform"></i>
+                                </summary>
+                                <p class="text-sm text-brand-muted pb-2 pl-0">Yes! Your Snappy can chat on Web, Telegram, WhatsApp, and more — all at the same time. Head to <strong>Channels</strong> to connect new ones.</p>
+                            </details>
+                            <details class="group">
+                                <summary class="flex items-center justify-between cursor-pointer py-2 text-sm font-medium text-brand-text hover:text-brand-primary transition-colors">
+                                    Is my data private?
+                                    <i data-lucide="chevron-down" class="w-4 h-4 text-brand-muted group-open:rotate-180 transition-transform"></i>
+                                </summary>
+                                <p class="text-sm text-brand-muted pb-2 pl-0">Absolutely. Your Snappy runs on a private instance just for you. Your conversations and data are encrypted and never shared with anyone. You can export or delete everything at any time.</p>
+                            </details>
+                            <details class="group">
+                                <summary class="flex items-center justify-between cursor-pointer py-2 text-sm font-medium text-brand-text hover:text-brand-primary transition-colors">
+                                    How do I cancel my subscription?
+                                    <i data-lucide="chevron-down" class="w-4 h-4 text-brand-muted group-open:rotate-180 transition-transform"></i>
+                                </summary>
+                                <p class="text-sm text-brand-muted pb-2 pl-0">Go to <strong>Billing</strong> and click "Manage Subscription." You can cancel anytime — no penalties, no hoops. We'll miss you though! 🦞</p>
+                            </details>
+                        </div>
+                    </div>
+
+                    <!-- Getting Started Tips -->
+                    <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+                        <h3 class="font-bold text-brand-text text-sm mb-4">Getting the Most Out of Buddy</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="p-4 rounded-xl bg-blue-50/50">
+                                <span class="text-xl">💬</span>
+                                <p class="text-xs font-bold text-brand-text mt-2">Be specific</p>
+                                <p class="text-xs text-brand-muted mt-1">Instead of "help with emails" try "Draft a follow-up to Sarah about the proposal"</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-green-50/50">
+                                <span class="text-xl">🧠</span>
+                                <p class="text-xs font-bold text-brand-text mt-2">Share context</p>
+                                <p class="text-xs text-brand-muted mt-1">The more Buddy knows about your work, the better every response gets</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-purple-50/50">
+                                <span class="text-xl">🔄</span>
+                                <p class="text-xs font-bold text-brand-text mt-2">Iterate</p>
+                                <p class="text-xs text-brand-muted mt-1">Not perfect? Say "make it more casual" or "shorter please" — Buddy adapts</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-amber-50/50">
+                                <span class="text-xl">📱</span>
+                                <p class="text-xs font-bold text-brand-text mt-2">Go mobile</p>
+                                <p class="text-xs text-brand-muted mt-1">Connect Telegram or WhatsApp for AI assistance wherever you are</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact -->
+                    <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+                        <h3 class="font-bold text-brand-text text-sm mb-4">Need Human Help?</h3>
+                        <p class="text-sm text-brand-muted mb-4">Our team typically responds within a few hours.</p>
+                        <div class="flex gap-3">
+                            <button class="px-5 py-2.5 text-sm font-bold text-white bg-brand-primary rounded-xl hover:bg-brand-primaryHover transition-all">
+                                <span class="flex items-center gap-2">
+                                    <i data-lucide="mail" class="w-4 h-4"></i>
+                                    Email Support
+                                </span>
+                            </button>
+                            <button class="px-5 py-2.5 text-sm font-bold text-brand-primary border-2 border-brand-primary rounded-xl hover:bg-brand-primary hover:text-white transition-all">
+                                <span class="flex items-center gap-2">
+                                    <i data-lucide="message-square" class="w-4 h-4"></i>
+                                    Community Discord
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // ── Load Onboarding Data ──
+        const onboarding = JSON.parse(localStorage.getItem('snappyclaw_onboarding') || 'null');
+        const snappyName = onboarding?.snappyName || 'Buddy';
+        const userName = onboarding?.nickname || 'Matt';
+        const userRole = onboarding?.role || 'running a plumbing business';
+        const userAbout = onboarding?.about || 'I run a plumbing company in Austin. I have two kids and a dog named Rex.';
+        const personality = onboarding?.personalityLabel || 'Fun & Friendly';
+        const goals = onboarding?.goals || ['Customer follow-ups', 'Calendar & scheduling'];
+        const selectedAvatar = onboarding?.avatar || 'snappy-premium-hero';
+
+        // Determine avatar URL
+        function getAvatarUrl(avatarId) {
+            if (!avatarId) return '/avatars/snappy-premium-hero.webp';
+            // SVG lobster avatars don't have image files
+            if (avatarId.startsWith('lobster-')) return null;
+            return `/avatars/${avatarId}.webp`;
+        }
+
+        const avatarUrl = getAvatarUrl(selectedAvatar);
+        const avatarIsImage = avatarUrl !== null;
+
+        // SVG fallback for lobster avatars
+        const lobsterEmoji = '🦞';
+        function makeAvatarHtml(size, extraClasses) {
+            if (avatarIsImage) {
+                return `<div class="${size} rounded-full overflow-hidden ${extraClasses || ''}"><img src="${avatarUrl}" alt="${snappyName}" class="w-full h-full object-cover"></div>`;
+            }
+            return `<div class="${size} rounded-full bg-brand-primary/10 flex items-center justify-center ${extraClasses || ''}"><span class="text-lg">${lobsterEmoji}</span></div>`;
+        }
+
+        // Apply personalization everywhere
+        function personalize() {
+            // All avatar images
+            document.querySelectorAll('[data-avatar-slot]').forEach(el => {
+                if (avatarIsImage) {
+                    const img = el.querySelector('img');
+                    if (img) img.src = avatarUrl;
+                }
+            });
+
+            // All snappy name slots
+            document.querySelectorAll('[data-snappy-name]').forEach(el => {
+                el.textContent = snappyName;
+            });
+
+            // All user name slots
+            document.querySelectorAll('[data-user-name]').forEach(el => {
+                el.textContent = userName;
+            });
+
+            // Personality label
+            document.querySelectorAll('[data-personality]').forEach(el => {
+                el.textContent = personality;
+            });
+
+            // Goals in dashboard
+            const goalsStr = goals.length > 0 ? goals.slice(0, 3).map(g => g.replace(/^[^\s]+ /, '')).join(', ') : 'your tasks';
+            document.querySelectorAll('[data-goals]').forEach(el => {
+                el.textContent = goalsStr;
+            });
+
+            // Settings name input
+            const nameInput = document.getElementById('settings-name');
+            if (nameInput) nameInput.value = snappyName;
+
+            // User about in settings
+            const aboutEl = document.getElementById('settings-about');
+            if (aboutEl && onboarding?.about) aboutEl.value = onboarding.about;
+
+            // Chat input placeholder
+            const chatInput = document.getElementById('chat-input');
+            if (chatInput) chatInput.placeholder = `Ask ${snappyName} anything — drafts, scheduling, research...`;
+
+            // First chat message personalization
+            const firstMsg = document.getElementById('first-message');
+            if (firstMsg) {
+                firstMsg.innerHTML = `
+                    <p class="text-sm text-brand-text leading-relaxed">Hey ${userName}! 🦞 I'm ${snappyName}, your new AI sidekick! I know you're ${userRole}${goals.length > 0 ? ' and looking for help with ' + goalsStr : ''}. I'm SO ready to help with that.</p>
+                    <p class="text-sm text-brand-text leading-relaxed mt-2">What should we tackle first? Oh, and if you want to connect me to your Telegram, there's a button in the sidebar — takes literally 10 seconds! 😄</p>
+                    <p class="text-[10px] text-brand-muted mt-2">Just now</p>
+                `;
+            }
+        }
+
+        // Run personalization
+        personalize();
+
+        // Force-update ALL avatar images on the page (catches static HTML ones)
+        if (avatarIsImage) {
+            document.querySelectorAll('img[data-avatar-slot]').forEach(img => {
+                img.src = avatarUrl;
+                img.alt = snappyName;
+            });
+        }
+
+        // ── Panel Switching ──
+        function switchPanel(panel) {
+            // Hide all panels
+            document.querySelectorAll('.portal-panel').forEach(p => p.classList.remove('active'));
+            // Show target
+            document.getElementById('panel-' + panel).classList.add('active');
+            // Update nav
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.querySelector(`.nav-item[data-panel="${panel}"]`).classList.add('active');
+            // Re-init icons
+            setTimeout(() => lucide.createIcons(), 50);
+        }
+
+        // ── Chat Functionality ──
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const text = input.value.trim();
+            if (!text) return;
+
+            // Add user message
+            const messages = document.getElementById('chat-messages');
+            const userMsg = document.createElement('div');
+            userMsg.className = 'chat-msg flex gap-3 max-w-2xl ml-auto flex-row-reverse';
+            userMsg.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-brand-primary to-pink-400 flex items-center justify-center flex-shrink-0 mt-1 text-white font-bold text-xs">M</div>
+                <div class="bg-brand-primary text-white rounded-2xl rounded-tr-md px-4 py-3 shadow-sm">
+                    <p class="text-sm leading-relaxed">${escapeHtml(text)}</p>
+                    <p class="text-[10px] opacity-60 mt-2">Just now</p>
+                </div>
+            `;
+            messages.appendChild(userMsg);
+
+            // Clear input
+            input.value = '';
+            input.style.height = 'auto';
+
+            // Scroll to bottom
+            messages.scrollTop = messages.scrollHeight;
+
+            // Show typing indicator
+            const typing = document.createElement('div');
+            typing.className = 'chat-msg flex gap-3 max-w-2xl';
+            typing.id = 'typing-indicator';
+            const ava = avatarIsImage ? `<div class="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 mt-1 ring-2 ring-brand-primary/10 shadow-sm"><img src="${avatarUrl}" alt="${snappyName}" class="w-full h-full object-cover"></div>` : `<div class="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center flex-shrink-0 mt-1">${lobsterEmoji}</div>`;
+            typing.innerHTML = `
+                ${ava}
+                <div>
+                    <p class="text-[10px] font-bold text-brand-primary mb-1">${snappyName}</p>
+                    <div class="bg-white rounded-2xl rounded-tl-md px-4 py-3 shadow-sm border border-gray-100">
+                        <div class="flex gap-1.5 py-1">
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            messages.appendChild(typing);
+            messages.scrollTop = messages.scrollHeight;
+
+            // Simulate response
+            setTimeout(() => {
+                typing.remove();
+                const botMsg = document.createElement('div');
+                botMsg.className = 'chat-msg flex gap-3 max-w-2xl';
+                const responses = [
+                    `Great question, ${userName}! Let me look into that for you. 🦞`,
+                    `I'm on it! Give me just a second to think about the best approach for your business... 🤔`,
+                    `Absolutely! Here's what I'd suggest — let me break it down for you, ${userName}.`,
+                    `Ooh, that's a fun one! Let me help you with that. 😄`,
+                    `Sure thing! Based on what I know about your workflow, here's my take...`,
+                ];
+                const response = responses[Math.floor(Math.random() * responses.length)];
+                botMsg.innerHTML = `
+                    ${ava}
+                    <div>
+                        <p class="text-[10px] font-bold text-brand-primary mb-1">${snappyName}</p>
+                        <div class="bg-white rounded-2xl rounded-tl-md px-4 py-3 shadow-sm border border-gray-100">
+                            <p class="text-sm text-brand-text leading-relaxed">${response}</p>
+                            <p class="text-[10px] text-brand-muted mt-2">Just now</p>
+                        </div>
+                    </div>
+                `;
+                messages.appendChild(botMsg);
+                messages.scrollTop = messages.scrollHeight;
+            }, 1500 + Math.random() * 1000);
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>
